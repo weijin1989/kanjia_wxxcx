@@ -1,0 +1,10 @@
+<!--pages/audio/audio.wxml-->
+<view style="text-align: center;padding:20px 0;">
+    <text>音频的组件</text>
+</view>
+<view class="page__bd">
+    <view class="section section_gap">
+      <audio src="{{current.src}}" poster="{{current.poster}}" name="{{current.name}}" author="{{current.author}}" action="{{audioAction}}" bindplay="audioPlayed" bindtimeupdate="audioTimeUpdated" controls></audio>
+    </view>
+  </view>
+

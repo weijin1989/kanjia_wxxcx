@@ -1,0 +1,52 @@
+<!--pages/from/from.wxml-->
+<view style="text-align: center;padding:20px 0;">
+    <text>from表单的一些控件</text>
+</view>
+<form bindsubmit="formSubmit" bindreset="formReset">
+
+  <view class="section">
+    <view class="section__title">姓名</view>
+    <input name="input" placeholder="请输入您的姓名" />
+  </view>
+  <view class="section">
+    <view class="section__title">电话</view>
+    <input name="input" placeholder="请输入您的电话" />
+  </view>
+  <view class="section section_gap">
+    <view class="section__title">性别</view>
+    <radio-group name="radio-group">
+      <label><radio value="radio1" checked='checked'/>男</label>
+      <label><radio value="radio2"/>女</label>
+    </radio-group>
+  </view>
+  <view class="section section_gap">
+    <view class="section__title">是否参加工作</view>
+    <view class="section__right">
+      <switch name="switch"/>
+    </view>
+  </view>
+  <!-- <view class="section section_gap">
+    <view class="section__title">slider</view>
+    <slider name="slider" show-value ></slider>
+  </view> -->
+  <view class="section section_gap">
+    <view class="section__title">兴趣爱好</view>
+    <view class="section__right">
+      <checkbox-group name="checkbox">
+        <label><checkbox value="checkbox1"/>游泳</label>
+        <label><checkbox value="checkbox2"/>打篮球</label>
+      </checkbox-group>
+    </view>
+  </view>
+  
+  <view class="section section_gap">
+    <view class="section__title">其他</view>
+    <view class="section__right">
+      <textarea bindblur="bindTextAreaBlur" auto-height placeholder="请输入其他相关信息" />
+    </view>
+  </view>
+  <view class="btn-area" style='clear: both;padding-top:20rpx'>
+     <button type="primary" size="default" form-type='submit' bindtap="primary"> 提交表单 </button>
+    <button type="default" formType="reset" size="default" style='margin-top:10rpx'>重置表单</button>
+  </view>
+</form>

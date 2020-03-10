@@ -1,0 +1,31 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view class="usermotto">
+   <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机号码</button>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto" bindtap='toMap'>地图demo</text>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto" bindtap='toSwiper'>图片滚动demo</text>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto" bindtap='toProgress'>进度条demo</text>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto" bindtap='toFrom'>from表单提交demo</text>
+  </view>
+  <view class="usermotto">
+    <text class="user-motto" bindtap='toCamera'>camera相机demo</text>
+  </view>audio/audio
+  <view class="usermotto">
+    <text class="user-motto" bindtap='toAudio'>audio播放音频demo</text>
+  </view>
+</view>

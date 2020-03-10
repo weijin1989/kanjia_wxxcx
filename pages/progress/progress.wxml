@@ -1,0 +1,14 @@
+<!--pages/progress/progress.wxml-->
+<view style="text-align: center;padding:20px 0;">
+    <text>进度条demo</text>
+</view>
+
+<view class="page-section">
+    <view class="page-section-center">
+      <progress percent="20" show-info/>
+      <progress percent="40" stroke-width="12" />
+      <progress percent="60" color="#000" />
+      <progress percent="80" active />
+    </view>
+</view>
+

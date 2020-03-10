@@ -1,0 +1,7 @@
+/* pages/progress/progress.wxss */
+progress{
+  margin-top:10rpx
+}
+.page-section{
+  padding:20rpx
+}
