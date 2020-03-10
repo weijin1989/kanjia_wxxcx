@@ -1,6 +1,49 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
+  <view class="top bg_fff br_12">
+    <view class="search">
+      <input type="text" placeholder-class="s_but_placeholder" bindconfirm="changeCon" auto-focus='true' class="s_but" confirm-type='search' placeholder="搜索店铺名或者菜名"></input>
+      <icon class="searchIcon"  color="#A3A3A3" size="18" type="search"></icon>
+    </view>
+    <!--正在抢购-->
+    <view class="panic_buying">
+      <view class="h1">
+        <image class="wz" src="../../images/text1.png" ></image>
+        <label>更多 <image class="returnImg" src="../../images/icon9.png" ></image></label>
+      </view>
+      <view class="ul cf">
+        <view class="li">
+          <view class="qg_img"><image  src="../../images/bg.png" ></image></view>
+          <label class="name">预售提前抢购.[29.9吃..</label>
+          <view class="introduction">最地道的小龙虾 <text>6.5km</text></view>
+          <view class="price">￥29.90<text>￥88.88</text></view>
+        </view>
+        <view class="li">
+          <view class="qg_img"><image  src="../../images/bg.png" ></image></view>
+          <label class="name">预售提前抢购.[29.9吃..</label>
+          <view class="introduction">最地道的小龙虾 <text>6.5km</text></view>
+          <view class="price">￥29.90<text>￥88.88</text></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--附近美食-->
+  <view class="nearby bg_fff br_12">
+    <view class="nearby_title"><image src="../../images/text2.png"></image></view>
+    <scroll-view class="nearby_nav" scroll-x="true" scroll-left="{{x}}" scroll-with-animation="{{true}}">
+      <view class='lis {{item.brand_id == type_id?"cur":""}}' wx:for="{{nav_list}}"  wx:key="{{item.brand_id}}"  data-type="{{item.brand_id}}" bindtap='switchTap' data-index="{{index}}">
+          <view>{{item.brand_name}}</view>
+      </view>
+      <!-- <view class="lis">爆款推荐</view>
+      <view class="lis">火锅串串</view>
+      <view class="lis">中餐/西餐</view>
+      <view class="lis">烧烤龙虾</view>
+      <view class="lis">小吃</view>
+      <view class="lis">麻辣烫</view> -->
+    </scroll-view>
+  </view>
+  <!--附近美食-->
+  <!-- <view class="userinfo">
     <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
     <block wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
@@ -27,5 +70,5 @@
   </view>audio/audio
   <view class="usermotto">
     <text class="user-motto" bindtap='toAudio'>audio播放音频demo</text>
-  </view>
+  </view> -->
 </view>

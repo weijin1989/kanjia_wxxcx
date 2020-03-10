@@ -1,10 +1,37 @@
 /**app.wxss**/
 .container {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  /* box-sizing: border-box; */
+  /* padding:0 12rpx; */
+  margin: 0 12rpx;
 } 
+page{
+
+  background-color: #F6F3F7;
+}
+.bg_fff{
+  background:#fff;
+  clear: both;
+}
+.br_12{
+  border-radius: 12rpx
+}
+
+page {color: #000;background-color: #f2f2f2;} /*全局设置所有页面属性*/
+image {width: 100%;height: 100%;}
+text {color: #000;} /*text可复制类颜色*/
+rich-text {color: #000;} /* 需要转码文本（行数间需要空格则后台转码div便签间加<br />）*/
+/* 表单类 */
+input {color: #000;}
+textarea {color: #000;width: 100%;}
+.input-placeholder {color: #DEDFE5;} /*表单placeholder默认样式*/
+button {margin:0;paading:0;line-height:staic;} /* 如需清空button样式 */
+button:after{border:none;} /* 处理button默认边框 */
+button[disabled] {background-color: #D0CBC5!important;color: #ECE9E6!important;}/*按钮不可点击时的默认样式，必须强制改;*/
+
+.cf{zoom:1;}
+.cf:after{display:block; overflow:hidden; clear:both; height:0; visibility:hidden; content:".";}
