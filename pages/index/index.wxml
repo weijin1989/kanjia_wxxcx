@@ -12,13 +12,13 @@
         <label>更多 <image class="returnImg" src="../../images/icon9.png" ></image></label>
       </view>
       <view class="ul cf">
-        <view class="li">
+        <view class="li" bindtap="toProductInfo" data-id='1'>
           <view class="qg_img"><image  src="../../images/bg.png" ></image></view>
           <label class="name">预售提前抢购.[29.9吃..</label>
           <view class="introduction">最地道的小龙虾 <text>6.5km</text></view>
           <view class="price">￥29.90<text>￥88.88</text></view>
         </view>
-        <view class="li">
+        <view class="li" bindtap="toProductInfo" data-id='1'>
           <view class="qg_img"><image  src="../../images/bg.png" ></image></view>
           <label class="name">预售提前抢购.[29.9吃..</label>
           <view class="introduction">最地道的小龙虾 <text>6.5km</text></view>
@@ -34,13 +34,43 @@
       <view class='lis {{item.brand_id == type_id?"cur":""}}' wx:for="{{nav_list}}"  wx:key="{{item.brand_id}}"  data-type="{{item.brand_id}}" bindtap='switchTap' data-index="{{index}}">
           <view>{{item.brand_name}}</view>
       </view>
-      <!-- <view class="lis">爆款推荐</view>
-      <view class="lis">火锅串串</view>
-      <view class="lis">中餐/西餐</view>
-      <view class="lis">烧烤龙虾</view>
-      <view class="lis">小吃</view>
-      <view class="lis">麻辣烫</view> -->
     </scroll-view>
+    <view class="list bg_fff">
+
+      <view class="list_li cf" bindtap="toProductInfo" data-id='1'>
+        <view class="left"><image  src="../../images/bg.png" ></image></view>
+        <view class="right">
+          <view class="h2">重庆九五火锅</view>
+          <view class="introduction">最地道的小龙虾 <text>6.5km</text></view>
+          <view class="cf">
+            <view class="stock">已售5件 <text>仅剩22件</text></view>
+          </view>
+          <view class="price">￥29.90<text>￥88.88</text></view>
+          <view class="but">
+            <button class="buts but1">立即购买</button>
+            <button class="buts but2">我要砍价</button>
+          </view>
+        </view>
+      </view>
+
+      <view class="list_li cf" bindtap="toProductInfo" data-id='1'>
+        <view class="left"><image  src="../../images/bg.png" ></image></view>
+        <view class="right">
+          <view class="h2">正常营业兑换.李家小号&八爪鱼&香肠面包</view>
+          <view class="introduction">最地道的小龙虾 <text>6.5km</text></view>
+          <view class="cf">
+            <view class="stock">已售5件 <text>仅剩22件</text></view>
+          </view>
+          <view class="price">￥29.90<text>￥88.88</text></view>
+          <view class="but">
+            <button class="buts but1">立即购买</button>
+            <button class="buts but2">我要砍价</button>
+          </view>
+        </view>
+      </view>
+
+
+    </view>
   </view>
   <!--附近美食-->
   <!-- <view class="userinfo">

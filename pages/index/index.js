@@ -8,8 +8,15 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    nav_list:[],
-    type_id:'',
+    nav_list: [
+      { brand_id: 1, brand_name: '爆款推荐' },
+      { brand_id: 2, brand_name: '火锅串串' },
+      { brand_id: 3, brand_name: '中餐/西餐' },
+      { brand_id: 4, brand_name: '烧烤龙虾' },
+      { brand_id: 5, brand_name: '小吃' },
+      { brand_id: 6, brand_name: '麻辣烫' },
+    ],
+    type_id:1,
     x:'',
   },
   //获取搜索框的值
@@ -20,6 +27,13 @@ Page({
     })
     console.log(val);
     // this.getSizeListFn(this.data.searchParams);
+  },
+  //产品详情
+  toProductInfo:function(e){
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '../product_info/product_info?id=' + id,
+    })
   },
   get_nav:function(){
 
@@ -131,9 +145,12 @@ Page({
       url: '../audio/audio',
     })
   },
+  onShow:function(){
+    // app.editTabBar();    //显示自定义的底部导
+  },
   onLoad: function () {
 
-    this.get_nav();
+    // this.get_nav();
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

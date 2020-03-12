@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/user/user",
+    "pages/panic_buying/panic_buying",
+    "pages/product_info/product_info",
     "pages/swiper/swiper",
     "pages/map/map",
     "pages/progress/progress",
@@ -19,6 +22,31 @@
     "scope.userLocation": {
       "desc": "你的位置信息将用于小程序位置接口的效果展示"
     }
+  },
+  "tabBar": {
+    "color": "#828282",
+    "selectedColor": "#E94645",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/nav1_open.png",
+        "iconPath": "images/nav1.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "images/nav1.png",
+        "iconPath": "images/nav1.png",
+        "pagePath": "pages/panic_buying/panic_buying",
+        "text": "附近"
+      },
+      {
+        "selectedIconPath": "images/nav3_open.png",
+        "iconPath": "images/nav3.png",
+        "pagePath": "pages/user/user",
+        "text": "个人中心"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }

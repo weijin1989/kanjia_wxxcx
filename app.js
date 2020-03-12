@@ -12,6 +12,7 @@ App({
   globalData: {
     userInfo: null,
     wxuserInfo: null,
+    starsData: [1, 2, 3, 4, 5],
     ApiUrl: 'https://weijin.lnhoo.com/api/',
     packageName: 'wxxcx.maska',
     request_header: {
@@ -20,6 +21,7 @@ App({
       'accessToken': wx.getStorageSync('accessToken')
     },
     code: '',
+    tabBar:[],
 
   },
   getToken: function (code, encryptedData,iv) {
@@ -68,6 +70,6 @@ App({
   },
   onLaunch: function () {
     this.wxLogin();
-  }
+  },
 });
 

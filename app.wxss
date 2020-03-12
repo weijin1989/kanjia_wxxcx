@@ -10,7 +10,6 @@
   margin: 0 12rpx;
 } 
 page{
-
   background-color: #F6F3F7;
 }
 .bg_fff{
@@ -35,3 +34,4 @@ button[disabled] {background-color: #D0CBC5!important;color: #ECE9E6!important;}
 
 .cf{zoom:1;}
 .cf:after{display:block; overflow:hidden; clear:both; height:0; visibility:hidden; content:".";}
+

@@ -10,7 +10,7 @@
   position: relative;
   line-height: 33rpx;
   padding-left:80rpx;
-  font-size: 35rpx;
+  font-size: 30rpx;
   padding-top:10rpx
 }
 .s_but_placeholder{
@@ -21,7 +21,7 @@
   color: #fff;
   font-size: 32rpx;
   position: absolute;
-  top: 17rpx;
+  top: 19rpx;
   left: 25rpx;
 }
 .panic_buying{
@@ -61,6 +61,7 @@
 .panic_buying .ul .li .qg_img{
   width: 311rpx;
   height:168rpx;
+  border-radius:6rpx;
 }
 .panic_buying .ul .li .name{
   color:#313232;
@@ -116,4 +117,85 @@
 }
 .nearby_nav .cur{
   border-bottom: 8rpx solid #E72318;
+}
+.list{
+  padding:11rpx 20rpx;
+}
+.list_li{
+  border-bottom:1px solid #E6E6E5;
+  padding-bottom:28rpx;
+  margin-top:29rpx;
+}
+.list_li .left{
+  float:left;
+  width: 253rpx;
+  height: 244rpx;
+}
+.list_li .right{
+  float:right;
+  width: 400rpx;
+}
+.list_li .right .h2{
+  font-size:30rpx;
+  font-weight:500;
+  color:rgba(49,50,50,1);
+  line-height:36rpx;
+  height:65rpx;
+}
+
+.list_li .right .introduction{
+  padding-top:5rpx;
+  font-size:24rpx;
+  position: relative;
+  line-height:56rpx;
+  color:#878787;
+}
+.list_li .right .introduction text{
+  position: absolute;
+  color:#878787;
+  right:0;
+}
+.list_li .right .stock{
+  float:left;
+  width: auto;
+  font-size:24rpx;
+  background:rgba(245,241,241,1);
+  border-radius:21rpx;
+  padding:5rpx 20rpx;
+}
+.list_li .right .stock text{
+  color:#E72318
+}
+
+.list_li .right .price{
+  margin-top:10rpx;
+  color: #E54416;
+  font-size:30rpx;
+  font-weight:500;
+  line-height:56rpx;
+}
+.list_li .right .price text{
+  font-size:25rpx;
+  color:rgba(171,170,170,1);
+  text-decoration:line-through;
+  margin-left:20rpx;
+}
+.list_li .right .but .buts{
+  padding:5rpx 15rpx;
+  width: 159rpx;
+  height:49rpx;
+  font-size: 28rpx;
+  color:#D92D1A;
+  line-height:26px;
+  border-radius: 25rpx;
+  display:initial;
+  margin-right:18rpx;
+}
+.list_li .right .but .but1{
+  border:1px solid #BF3A25;
+}
+.list_li .right .but .but2{
+  border:1px solid #E72318;
+  color:#fff;
+  background:linear-gradient(7deg,rgba(241,143,49,0.98),rgba(213,26,25,0.98),rgba(237,107,41,0.98));
 }

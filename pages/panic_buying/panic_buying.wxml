@@ -1,0 +1,38 @@
+<view class="container">
+  
+  <view class="top bg_fff br_12">
+    <view class="search">
+      <input type="text" placeholder-class="s_but_placeholder" bindconfirm="changeCon" auto-focus='true' class="s_but" confirm-type='search' placeholder="搜索店铺名或者菜名"></input>
+      <icon class="searchIcon"  color="#A3A3A3" size="18" type="search"></icon>
+    </view>
+    <view class="nearby bg_fff br_12">
+      <scroll-view class="nearby_nav" scroll-x="true" scroll-left="{{x}}" scroll-with-animation="{{true}}">
+        <view class='lis {{item.brand_id == type_id?"cur":""}}' wx:for="{{nav_list}}"  wx:key="{{item.brand_id}}"  data-type="{{item.brand_id}}" bindtap='switchTap' data-index="{{index}}">
+            <view>{{item.brand_name}}</view>
+        </view>
+      </scroll-view>
+    </view>
+    <!--列表-->
+    <view class="ul cf">
+      <view class="li" bindtap="toProductInfo" data-id='1'>
+        <view class="qg_img"><image  src="../../images/bg.png" ></image></view>
+        <view class="nr">
+          <view class="introduction">最地道的小龙虾 <text>6.5km</text></view>
+          <view class="star cf">
+            <view class='stars cf' wx:for='{{starsData}}' wx:key="{{index}}" wx:for-item='i'>
+              <image src='../../images/icon11.png' wx:if="{{4/1 >= index+1 }}"></image>
+  <!--             <image src='../../images/icon10.png' wx:elif="{{ 5/10 >= index && 5%10 !=0 }}"></image> -->
+              <image src='../../images/icon10.png' wx:else></image>
+            </view>
+            <text>4分</text>
+            <text class="ri">新省政府</text>
+          </view>
+          <view class="price">￥29.90<text>￥88.88</text></view>
+        </view>
+      </view>
+
+    </view>
+    
+    <!--列表-->
+  </view>
+</view>
