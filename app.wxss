@@ -19,6 +19,9 @@ page{
 .br_12{
   border-radius: 12rpx
 }
+.m_t_22{
+  margin-top:22rpx;
+}
 
 page {color: #000;background-color: #f2f2f2;} /*全局设置所有页面属性*/
 image {width: 100%;height: 100%;}

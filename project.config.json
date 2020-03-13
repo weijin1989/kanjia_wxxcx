@@ -63,6 +63,13 @@
 					"id": -1,
 					"name": "pages/product_info/product_info",
 					"pathName": "pages/product_info/product_info",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/user/user",
+					"pathName": "pages/user/user",
 					"scene": null
 				}
 			]

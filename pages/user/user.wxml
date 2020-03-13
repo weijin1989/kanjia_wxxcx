@@ -1,2 +1,82 @@
-<!--pages/user/user.wxml-->
-<text>pages/user/user.wxml</text>
+<view class="container">
+  <view class="header" style="background:url(../../images/bg.png) no-repeat left top;background-size:750rpx 404rpx;">
+    <view class="top">
+      <image src="../../images/nav3_open.png"></image>
+      <view class="right">
+        <text>张玉玉</text>
+        <label>13345687796</label>
+      </view>
+    </view>
+
+    <view class="bottom cf">
+      <view class="left">
+        <text>0.00</text>
+        <view>积分</view>
+      </view>
+      <view class="right">
+        <text>3</text>
+        <view>优惠券</view>
+      </view>
+    </view>
+
+  </view>
+  <!--我的订单-->
+  <view class="order bg_fff br_12 m_t_22">
+    <view class="h1">我的订单 <view class="span">查看全部订单 <image src="../../images/icon9.png"></image></view></view>
+    <view class="nav">
+      <view class="li">
+        <image src="../../images/icon1.png"></image>
+        <text>待使用</text>
+      </view>
+      <view class="li">
+        <image src="../../images/icon2.png"></image>
+        <text>退款单</text>
+      </view>
+      <view class="li">
+        <image src="../../images/icon3.png"></image>
+        <text>全部订单</text>
+      </view>
+    </view>
+
+    <view class="lately_order">
+      <label>近期订单</label>
+      <view class="ul">
+        <view class="li">
+          <image class="cp_img" src="../../images/bg.png"></image>
+          <text>重庆九五火锅[省政府店]</text>
+          <view class="address">
+            <image  src="../../images/icon15.png"></image>
+            上海市虹口区周家嘴路 省政府 麦德龙商城 602号D4栋
+四楼(z602）        
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+  <!--我的订单end-->
+
+  
+  <!--帮助-->
+  <view class="order bg_fff br_12 m_t_22">
+  
+    <view class="h1">帮助</view>
+    <view class="nav">
+      <view class="li">
+        <image src="../../images/icon4.png"></image>
+        <text>客服</text>
+      </view>
+      <view class="li">
+        <image src="../../images/icon5.png"></image>
+        <text>联系我们</text>
+      </view>
+      <view class="li">
+        <image src="../../images/icon6.png"></image>
+        <text>设置</text>
+      </view>
+    </view>
+
+  </view>
+  <!--帮助end-->
+</view>
+  
