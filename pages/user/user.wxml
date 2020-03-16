@@ -22,17 +22,17 @@
   </view>
   <!--我的订单-->
   <view class="order bg_fff br_12 m_t_22">
-    <view class="h1">我的订单 <view class="span">查看全部订单 <image src="../../images/icon9.png"></image></view></view>
+    <view class="h1">我的订单 <view class="span" data-type='0' bindtap="go_order">查看全部订单 <image src="../../images/icon9.png"></image></view></view>
     <view class="nav">
-      <view class="li">
+      <view class="li" data-type='1' bindtap="go_order">
         <image src="../../images/icon1.png"></image>
         <text>待使用</text>
       </view>
-      <view class="li">
+      <view class="li" data-type='2' bindtap="go_order">
         <image src="../../images/icon2.png"></image>
         <text>退款单</text>
       </view>
-      <view class="li">
+      <view class="li" data-type='0' bindtap="go_order">
         <image src="../../images/icon3.png"></image>
         <text>全部订单</text>
       </view>
@@ -41,7 +41,7 @@
     <view class="lately_order">
       <label>近期订单</label>
       <view class="ul">
-        <view class="li">
+        <view class="li" bindtap="go_order_info" data-order_id="1111111">
           <image class="cp_img" src="../../images/bg.png"></image>
           <text>重庆九五火锅[省政府店]</text>
           <view class="address">
@@ -59,7 +59,7 @@
   
   <!--帮助-->
   <view class="order bg_fff br_12 m_t_22">
-  
+
     <view class="h1">帮助</view>
     <view class="nav">
       <view class="li">

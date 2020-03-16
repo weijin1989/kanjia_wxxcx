@@ -1,39 +1,53 @@
-// pages/user/user.js
+// pages/product_info/product_info.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    order_id: ''
+  },
+  return_page:function(){
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2]; //上一个页面
+    //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+    prevPage.setData({
+      mydata: {
+        id: 1,
+        b: 125
+      }
+    })
+    wx.navigateBack({//返回
+      delta: 1
+    })
   },
 
+  //返回首页
+  returnHome() {
+    wx.reLaunch({
+      // delta: 2
+      url: '../index/index'
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  },
-  //去订单
-  go_order:function(e){
-    let type = e.currentTarget.dataset.type;
-    wx.navigateTo({
-      url: '../order/order?type=' + type,
+    if (options.order_id) {
+      this.setData({
+        order_id: options.order_id
+      });
+    }
+    wx.setNavigationBarTitle({
+      title: '订单详情-' + options.order_id
     })
   },
-  go_order_info(e){
-    let order_id = e.currentTarget.dataset.order_id;
-    wx.navigateTo({
-      url: '../order_info/order_info?order_id=' + order_id,
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
 
-    wx.setNavigationBarTitle({
-      title: '个人中心'
-    })
   },
 
   /**

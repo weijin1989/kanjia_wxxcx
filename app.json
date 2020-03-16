@@ -4,6 +4,8 @@
     "pages/user/user",
     "pages/panic_buying/panic_buying",
     "pages/product_info/product_info",
+    "pages/order/order",
+    "pages/order_info/order_info",
     "pages/swiper/swiper",
     "pages/map/map",
     "pages/progress/progress",

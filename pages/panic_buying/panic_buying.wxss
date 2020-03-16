@@ -12,8 +12,11 @@
   font-size: 30rpx;
   padding-top:10rpx
 }
+.s_but{
+  line-height: 55rpx;
+}
 .s_but_placeholder{
-  line-height: 33rpx;
+  line-height: 55rpx;
   color:#828282
 }
 .searchIcon {
