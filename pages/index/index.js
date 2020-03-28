@@ -8,15 +8,12 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    nav_list: [
-      { brand_id: 1, brand_name: '爆款推荐' },
-      { brand_id: 2, brand_name: '火锅串串' },
-      { brand_id: 3, brand_name: '中餐/西餐' },
-      { brand_id: 4, brand_name: '烧烤龙虾' },
-      { brand_id: 5, brand_name: '小吃' },
-      { brand_id: 6, brand_name: '麻辣烫' },
-    ],
-    type_id:1,
+    nav_list: [],
+    type_id:'',
+    cp_list:[],
+    longitude:'',
+    latitude:'',
+    is_showModal:0,
     x:'',
   },
   //获取搜索框的值
@@ -35,16 +32,61 @@ Page({
       url: '../product_info/product_info?id=' + id,
     })
   },
+  //附近美食
+  get_cate_shop: function () {
+    var that = this;
+    var data = {
+      op: 'GetCateShops',
+      catid: this.data.type_id
+    }
+
+    wx.showLoading({
+      title: '加载中...',
+    })
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      // url: getApp().globalData.ApiUrl + 'get_nav',
+      data: data,
+      method: 'POST',
+      header: getApp().globalData.request_header,
+      success(res) {
+        if (res.data.isSuccess === 'Y') {
+          that.setData({
+            cp_list: res.data.data
+          });
+
+          wx.hideLoading()
+        }
+      }
+    })
+  },
+  //判断是否有手机号没有则获取
+  is_phone(){
+    let moblie = getApp().globalData.userInfo;
+    if (!moblie){
+      wx.hideTabBar();
+      this.setData({
+        is_showModal: 1
+      });
+    }
+  },
+  //获取最近美食栏目
   get_nav:function(){
 
     var that = this;
+
+    var data = {
+      op: 'GetCategory',
+      type: 'shops'
+    }
     wx.request({
-      url: getApp().globalData.ApiUrl + 'get_nav',
-      data: {},
-      method: 'post',
+      url: getApp().globalData.ApiUrl + 'server.php', 
+      // url: getApp().globalData.ApiUrl + 'get_nav',
+      data: data,
+      method: 'POST',
       header: getApp().globalData.request_header,
       success(res) {
-        if (res.data.code === 0) {
+        if (res.data.isSuccess === 'Y') {
           // that.setData({
           //   nav_list: res.data.data
           // });
@@ -52,11 +94,12 @@ Page({
             if(i==0){
               that.setData({
                 nav_list: res.data.data,
-                type_id:res.data.data[i]['brand_id']
+                type_id: res.data.data[i]['catid']
               });
-              
+              that.get_cate_shop();
             }
           }
+          
         }
       }
     })
@@ -66,6 +109,37 @@ Page({
     wx.navigateTo({
       url: '../logs/logs'
     })
+  },
+  onLoad: function () {
+    this.is_phone();
+    // this.get_location();
+    this.get_nav();
+    if (app.globalData.userInfo) {
+      this.setData({
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
+      })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
   },
   switchTap(e) { //更换资讯大类
     let screenWidth = wx.getSystemInfoSync().windowWidth;
@@ -83,25 +157,35 @@ Page({
       x: scrollX,
       type_id: type
     })
+    this.get_cate_shop();
     this.triggerEvent("switchTap", type); //点击了导航,通知父组件重新渲染列表数据
   },
   //获取用户手机号码
   getPhoneNumber: function (e){
 
     var that = this;
-    wx.request({
-      url: this.globalData.ApiUrl + 'login',
-      data: {
-        'code': code,
-        'encryptedData': encryptedData,
-        'iv': iv
-      },
-      method: 'post',
-      header: this.globalData.request_header,
-      success(res) {
-        wx.hideLoading()
-      }
-    })
+    console.log(e.detail);
+    if (e.detail.errMsg == "getPhoneNumber:ok"){
+      wx.request({
+        url: getApp().globalData.ApiUrl + 'login',
+        data: {
+          'code': code,
+          'encryptedData': encryptedData,
+          'iv': iv
+        },
+        method: 'post',
+        header: this.globalData.request_header,
+        success(res) {
+          // wx.hideLoading()
+        }
+      })
+    }else{
+      wx.showToast({
+        title: '拒绝授权',
+        icon: 'none'
+      })
+    }
+    
   },
   //跳转新闻列表页
   toNews:function(){
@@ -147,36 +231,6 @@ Page({
   },
   onShow:function(){
     // app.editTabBar();    //显示自定义的底部导
-  },
-  onLoad: function () {
-
-    // this.get_nav();
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
   },
   getUserInfo: function(e) {
     console.log(e)

@@ -1,8 +1,9 @@
-<!--pages/map/map.wxml-->
-<view style="text-align: center;padding:20px 0;">
-    <text>地图demo(获取用户当前位置)</text>
-</view>
-<map id="map"
- longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}"
- style="width: 100%; height: 300px;" show-location 
- ></map>
+  <map id="map"
+  latitude="{{latitude}}"
+  longitude="{{longitude}}"
+  markers="{{markers}}"
+  covers="{{covers}}" 
+  setting="{{setting}}"
+  subKey=""
+  style="width: 100%; height: 300px;" show-location 
+  ></map>

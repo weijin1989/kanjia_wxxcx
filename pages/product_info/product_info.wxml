@@ -1,17 +1,36 @@
 <view class="container">
   <view class="p_top bg_fff">
-    <view class="cp_img"><image src="../../images/bg.png" style="height:404rpx"></image></view>
+    <view class="cp_img"><image src="{{shop_data.imgsrc}}" style="height:404rpx"></image></view>
   </view>
   <view class="p_top1 bg_fff">
-    <text class="h1">重庆九五火锅[省政府店] 麦德龙商城</text>
-    <view class="price">￥29.90<text>￥88.88</text>
-    <view class="right"><icon size="12" type="success"></icon> 随时退 <icon size="12" type="success"></icon> 过期退</view>
+    <text class="h1">{{shop_data.subject}}</text>
+    <view class="price">
+    ￥{{shop_data.price}}<text>￥{{shop_data.costprice}}</text>
+    <!-- <view class="right"><icon size="12" type="success"></icon> 随时退 <icon size="12" type="success"></icon> 过期退</view> -->
     </view>
     <label>25人正在抢购，只剩2份啦！</label>
   </view>
 
+
+  <!--地址-->
+  <view class="address bg_fff br_12">
+    <view class="h3"><image src="../../images/icon14.png"></image> {{shop_data.mername}}</view>
+    <!-- <view class="star cf">
+      <view class='stars cf' wx:for='{{starsData}}' wx:key="{{index}}" wx:for-item='i'>
+        <image src='../../images/icon11.png' wx:if="{{4/1 >= index+1 }}"></image>
+  <!--             <image src='../../images/icon10.png' wx:elif="{{ 5/10 >= index && 5%10 !=0 }}"></image> -->
+        <!-- <image src='../../images/icon10.png' wx:else></image>
+      </view>
+    </view> -->
+    <view class="xx">{{shop_data.address}}</view>
+    <view class="foot">
+      <image src='../../images/icon15.png' catchtap='go_map'></image>
+      <image src='../../images/icon16.png' class="no_border" catchtap='freeTell'></image>
+    </view>
+  </view>
+  <!--地址end-->
   <!--菜单-->
-  <view class="last_nr bg_fff br_12">
+  <!-- <view class="last_nr bg_fff br_12">
     <view class="menu_h2">
       <image src="../../images/icon13.png"></image> 菜单
     </view>
@@ -25,30 +44,12 @@
         如有问题请联系客服微信：yxwb87。
       </view>
     </view>
-  </view>
+  </view> -->
   <!--菜单end-->
-
-  <!--地址-->
-  <view class="address bg_fff br_12">
-    <view class="h3"><image src="../../images/icon14.png"></image> 重庆九五火锅[省政府店] 麦德龙商城</view>
-    <view class="star cf">
-      <view class='stars cf' wx:for='{{starsData}}' wx:key="{{index}}" wx:for-item='i'>
-        <image src='../../images/icon11.png' wx:if="{{4/1 >= index+1 }}"></image>
-  <!--             <image src='../../images/icon10.png' wx:elif="{{ 5/10 >= index && 5%10 !=0 }}"></image> -->
-        <image src='../../images/icon10.png' wx:else></image>
-      </view>
-    </view>
-    <view class="xx">上海市虹口区周家嘴路 省政府 麦德龙商城 602号D4栋四楼(z602）</view>
-    <view class="foot">
-      <image src='../../images/icon15.png'></image>
-      <image src='../../images/icon16.png' class="no_border"></image>
-    </view>
-  </view>
-  <!--地址end-->
 
   <!--内容-->
   <view class="cp_content bg_fff br_12">
-    内容
+    {{shop_data.message}}
   </view>
   <!--内容end-->
   <footer class="cf">

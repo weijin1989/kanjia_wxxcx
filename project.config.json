@@ -4,11 +4,15 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -19,9 +23,9 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
-	"appid": "wx26737d0554e086be",
-	"projectname": "kanjia",
+	"libVersion": "2.10.3",
+	"appid": "wx4881be38ac184791",
+	"projectname": "萧一潇",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
@@ -60,10 +64,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 1,
 					"name": "pages/product_info/product_info",
 					"pathName": "pages/product_info/product_info",
-					"query": "",
+					"query": "id=7",
 					"scene": null
 				},
 				{
@@ -77,6 +81,21 @@
 					"id": -1,
 					"name": "pages/order/order",
 					"pathName": "pages/order/order",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/map/map",
+					"pathName": "pages/map/map",
+					"query": "lat=28.193887&lng=113.004336",
 					"scene": null
 				}
 			]

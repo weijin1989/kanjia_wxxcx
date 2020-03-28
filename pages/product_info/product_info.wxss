@@ -149,6 +149,8 @@
   margin:30rpx 12rpx;
   padding:17rpx 15rpx;
   margin-bottom:115rpx;
+  word-wrap:break-word;
+  text-overflow:ellipsis;
 }
 footer{
   position: fixed;

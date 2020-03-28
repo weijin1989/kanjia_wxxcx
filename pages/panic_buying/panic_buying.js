@@ -7,14 +7,7 @@ Page({
   data: {
 
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    nav_list: [
-      { brand_id: 1, brand_name: '爆款推荐' },
-      { brand_id: 2, brand_name: '火锅串串' },
-      { brand_id: 3, brand_name: '中餐/西餐' },
-      { brand_id: 4, brand_name: '烧烤龙虾' },
-      { brand_id: 5, brand_name: '小吃' },
-      { brand_id: 6, brand_name: '麻辣烫' },
-    ],
+    nav_list: [],
     type_id: 1,
     x: '',
     starsData: getApp().globalData.starsData,
@@ -27,6 +20,39 @@ Page({
     })
   },
 
+  //附近美食
+  get_cate_shop: function () {
+    var that = this;
+    var data = {
+      op: 'GetCateShops',
+      catid: this.data.type_id
+    }
+
+    wx.showLoading({
+      title: '加载中...',
+    })
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      // url: getApp().globalData.ApiUrl + 'get_nav',
+      data: data,
+      method: 'POST',
+      header: getApp().globalData.request_header,
+      success(res) {
+        if (res.data.isSuccess === 'Y') {
+          let list=[];
+          for (let i = 0; i < res.data.data.length; i++) {
+              list[i] = res.data.data[i];
+              res.data.data[i]['subject'] = res.data.data[i]['subject'].substring(0, 6); //要截取字段的字符串
+          }
+          that.setData({
+            cp_list: res.data.data
+          });
+
+          wx.hideLoading()
+        }
+      }
+    })
+  },
   //获取搜索框的值
   changeCon(e) {
     var val = e.detail.value;
@@ -40,22 +66,30 @@ Page({
   get_nav: function () {
 
     var that = this;
+
+    var data = {
+      op: 'GetCategory',
+      type: 'shops'
+    }
     wx.request({
-      url: getApp().globalData.ApiUrl + 'get_nav',
-      data: {},
-      method: 'post',
+      url: getApp().globalData.ApiUrl + 'server.php',
+      // url: getApp().globalData.ApiUrl + 'get_nav',
+      data: data,
+      method: 'POST',
       header: getApp().globalData.request_header,
       success(res) {
-        if (res.data.code === 0) {
+        if (res.data.isSuccess === 'Y') {
           // that.setData({
           //   nav_list: res.data.data
           // });
+          
           for (let i = 0; i < res.data.data.length; i++) {
             if (i == 0) {
               that.setData({
                 nav_list: res.data.data,
-                type_id: res.data.data[i]['brand_id']
+                type_id: res.data.data[i]['catid']
               });
+              that.get_cate_shop();
 
             }
           }
@@ -80,13 +114,14 @@ Page({
       x: scrollX,
       type_id: type
     })
+    this.get_cate_shop();
     this.triggerEvent("switchTap", type); //点击了导航,通知父组件重新渲染列表数据
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.get_nav();
+    this.get_nav();
 
     wx.setNavigationBarTitle({
       title: '附近'

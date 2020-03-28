@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    starsData: getApp().globalData.starsData
+    starsData: getApp().globalData.starsData,
+    shop_id:'',
+    shop_data:[]
   },
   return_page:function(){
     var pages = getCurrentPages();
@@ -21,7 +23,19 @@ Page({
       delta: 1
     })
   },
+  //去地图
+  go_map(){
 
+    wx.redirectTo({
+      url: '../map/map?lat=' + this.data.shop_data.lat + '&lng=' + this.data.shop_data.lng,
+    })
+  },
+  //拨打电话
+  freeTell(){
+    wx.makePhoneCall({
+      phoneNumber: this.data.shop_data.mobile,
+    })
+  },
   //返回首页
   returnHome() {
     wx.reLaunch({
@@ -36,8 +50,38 @@ Page({
     wx.setNavigationBarTitle({
       title: '产品详情'
     })
+    if (options.id) {
+      this.setData({ shop_id: options.id});
+      this.get_shop_info();
+    }
   },
+  //获取商品详情
+  get_shop_info: function () {
+    var that = this;
+    var data = {
+      op: 'GetShopInfo',
+      catid: this.data.shop_id
+    }
 
+    wx.showLoading({
+      title: '加载中...',
+    })
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      // url: getApp().globalData.ApiUrl + 'get_nav',
+      data: data,
+      method: 'POST',
+      header: getApp().globalData.request_header,
+      success(res) {
+        if (res.data.isSuccess === 'Y') {
+          that.setData({
+            shop_data: res.data.data[0]
+          });
+          wx.hideLoading()
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
