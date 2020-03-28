@@ -97,6 +97,12 @@
 					"pathName": "pages/map/map",
 					"query": "lat=28.193887&lng=113.004336",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/search/search",
+					"pathName": "pages/search/search",
+					"scene": null
 				}
 			]
 		}

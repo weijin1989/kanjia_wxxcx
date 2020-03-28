@@ -12,6 +12,11 @@ Page({
     x: '',
     starsData: getApp().globalData.starsData,
   },
+  search() {
+    wx.navigateTo({
+      url: '../search/search'
+    })
+  },
   //产品详情
   toProductInfo: function (e) {
     let id = e.currentTarget.dataset.id;

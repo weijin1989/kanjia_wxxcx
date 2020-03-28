@@ -1,0 +1,47 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="top bg_fff br_12">
+    <view class="search">
+      <input type="text" placeholder-class="s_but_placeholder" bindconfirm="changeCon" class="s_but" confirm-type='search' placeholder="搜索店铺名或者菜名"></input>
+      <icon class="searchIcon"  color="#A3A3A3" size="18" type="search"></icon>
+    </view>
+  </view>
+  <view class="nearby bg_fff br_12">
+    <view class="list bg_fff">
+      <view class="list_li cf" >
+        <view class="left"  ><image  src="/images/bg.png" ></image></view>
+        <view class="right">
+          <view class="h2">臭豆腐</view>
+          <view class="introduction">火宫殿 <text>6.5km</text></view>
+          <view class="cf">
+            <view class="stock">已售0件 <text>仅剩100件</text></view>
+          </view>
+          <view class="price">￥10<text>￥15</text></view>
+          <view class="but">
+            <button class="buts but1" bindtap="toProductInfo" data-id='{{item.shopid}}'>立即购买</button>
+            <button class="buts but2">我要砍价</button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="list bg_fff">
+      <view class="list_li cf" wx:for="{{cp_list}}"   data-type="{{item.subject}}" data-index="{{index}}">
+        <view class="left"  bindtap="toProductInfo" data-id='{{item.shopid}}'><image  src="{{item.imgsrc}}" ></image></view>
+        <view class="right">
+          <view class="h2">{{item.subject}}</view>
+          <view class="introduction">{{item.mername}} <text>6.5km</text></view>
+          <view class="cf">
+            <view class="stock">已售{{item.residue}}件 <text>仅剩{{item.num}}件</text></view>
+          </view>
+          <view class="price">￥{{item.price}}<text>￥{{item.costprice}}</text></view>
+          <view class="but">
+            <button class="buts but1" bindtap="toProductInfo" data-id='{{item.shopid}}'>立即购买</button>
+            <button class="buts but2">我要砍价</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

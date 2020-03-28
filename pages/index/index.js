@@ -110,8 +110,13 @@ Page({
       url: '../logs/logs'
     })
   },
+  search(){
+    wx.navigateTo({
+      url: '../search/search'
+    })
+  },
   onLoad: function () {
-    this.is_phone();
+    // this.is_phone();
     // this.get_location();
     this.get_nav();
     if (app.globalData.userInfo) {

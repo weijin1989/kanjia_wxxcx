@@ -50,6 +50,10 @@ Page({
     wx.setNavigationBarTitle({
       title: '产品详情'
     })
+    // if (options.id =='undefined') {
+    //   wx.navigateBack({});
+    //   return ;
+    // }
     if (options.id) {
       this.setData({ shop_id: options.id});
       this.get_shop_info();

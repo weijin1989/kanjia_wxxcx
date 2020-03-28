@@ -10,6 +10,7 @@
     "pages/map/map",
     "pages/progress/progress",
     "pages/from/from",
+    "pages/search/search",
     "pages/camera/camera",
     "pages/audio/audio",
     "pages/logs/logs"

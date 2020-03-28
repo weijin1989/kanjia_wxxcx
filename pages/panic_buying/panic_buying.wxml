@@ -2,7 +2,7 @@
   
   <view class="top bg_fff br_12">
     <view class="search">
-      <input type="text" placeholder-class="s_but_placeholder" bindconfirm="changeCon" class="s_but" confirm-type='search' placeholder="搜索店铺名或者菜名"></input>
+      <input type="text" placeholder-class="s_but_placeholder" bindtap="search"  bindconfirm="changeCon" class="s_but" confirm-type='search' placeholder="搜索店铺名或者菜名"></input>
       <icon class="searchIcon"  color="#A3A3A3" size="18" type="search"></icon>
     </view>
     <view class="nearby bg_fff br_12">
