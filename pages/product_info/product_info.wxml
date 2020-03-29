@@ -56,7 +56,7 @@
     <view class="left"><image src="../../images/nav1.png" bindtap="returnHome"></image></view>
     <view class="right">
       <view class="but">砍价</view>
-      <view class="but but1">立即购买</view>
+      <view class="but but1" bindtap="place_order">立即购买</view>
     </view>
   </footer>
 </view>

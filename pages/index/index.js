@@ -46,7 +46,8 @@ Page({
     var that = this;
     var data = {
       op: 'GetCateShops',
-      catid: this.data.type_id
+      catid: this.data.type_id,
+      memberid: wx.getStorageSync('memberid')
     }
 
     wx.showLoading({

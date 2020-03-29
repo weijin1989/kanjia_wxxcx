@@ -109,6 +109,14 @@
 					"id": -1,
 					"name": "pages/user/user",
 					"pathName": "pages/user/user",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/place_order/place_order",
+					"pathName": "pages/place_order/place_order",
+					"query": "id=7",
 					"scene": null
 				}
 			]

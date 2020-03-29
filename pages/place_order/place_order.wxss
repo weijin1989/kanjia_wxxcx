@@ -1,0 +1,30 @@
+@import "../../lib/weui.wxss";
+.h1{
+  font-size:32rpx;
+  font-family:Source Han Sans SC;
+  font-weight:500;
+  color:rgba(0,0,0,1);
+  line-height:56rpx;
+  text-align: center;
+  width: 100%;
+  margin:0 auto;
+}
+.container{
+  background: #fff;
+  margin:0;
+}
+.place_address{
+  margin-top:20rpx;
+  padding-bottom:20rpx;
+  padding:10rpx 0;
+}
+.weui-cells__title {
+  text-align: left
+}
+.weui-input {
+width: 100%;
+text-align: left;
+}
+.p_10{
+  padding:0 10rpx;
+}

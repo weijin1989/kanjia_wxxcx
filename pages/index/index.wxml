@@ -46,7 +46,7 @@
         <view class="left"  bindtap="toProductInfo" data-id='{{item.shopid}}'><image  src="{{item.imgsrc}}" ></image></view>
         <view class="right">
           <view class="h2">{{item.subject}}</view>
-          <view class="introduction">{{item.mername}} <text>6.5km</text></view>
+          <view class="introduction">{{item.mername}} <text>{{item.distance}}</text></view>
           <view class="cf">
             <view class="stock">已售{{item.residue}}件 <text>仅剩{{item.num}}件</text></view>
           </view>

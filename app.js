@@ -29,18 +29,35 @@ App({
   },
   wxLogin() {
     var that = this;
-    if (!wx.getStorageSync('memberid') || wx.getStorageSync('memberid') == '' || wx.getStorageSync('memberid') == null) {
+    // if (!wx.getStorageSync('memberid') || wx.getStorageSync('memberid') == '' || wx.getStorageSync('memberid') == null) {
       // wx.showLoading({
       //   title: '登陆中',
       // })
       // 登录
       wx.login({
         success: res => {
-          this.globalData.code = res.code; //返回code
-          this.wxUserInfos();
+          ; //返回code
+          wx.request({
+            url: this.globalData.ApiUrl + 'server.php',
+            data: {
+              'lng': this.globalData.longitude,
+              'lat': this.globalData.latitude,
+              'op': 'GetMember',
+              'code': res.code
+            },
+            method: 'post',
+            header: this.globalData.request_header,
+            success(res) {
+              if (res.data.isSuccess === 'Y') {
+                wx.setStorageSync('memberid', res.data.data[0].memberid)
+                // wx.setStorageSync('session_key', res.data.sessionKey)
+                wx.setStorageSync('userInfo', res.data.data[0]);
+              }
+            }
+          })
         }
       })
-    }
+    // }
   },
   wxUserInfos() {
     wx.getUserInfo({
@@ -79,6 +96,7 @@ App({
     })
   },
   onLaunch: function () {
+    this.get_location();
     // this.wxLogin();
     // if (!this.globalData.latitude){
       this.get_location();
@@ -188,6 +206,7 @@ App({
         const longitude = res.longitude // 经度
         that.globalData.latitude = latitude;
         that.globalData.longitude = longitude;
+        that.wxLogin()
         console.log('longitude=' + longitude);
         console.log('latitude=' + latitude);
       }, fail: function (res) {

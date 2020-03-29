@@ -24,12 +24,17 @@ Page({
         }
       }
     })
+    // console.log('memberid='+wx.getStorageSync('memberid'));
     if (!wx.getStorageSync('memberid') || wx.getStorageSync('memberid') == '' || wx.getStorageSync('memberid') == null) {
       // wx.navigateTo({
       //   url: '../login/login',
       // })
       this.setData({
         is_showModal: 1
+      });
+    }else{
+      this.setData({
+        user_info: wx.getStorageSync('userInfo')
       });
     }
   },//获取用户手机号码

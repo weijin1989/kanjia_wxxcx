@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="p_top1 bg_fff h1">
+      {{shop_data.subject}}
+  </view>
+  <view class="place_address bg_fff h1">
+    <form bindsubmit="saveOrder">
+      <view class="weui-cells__title">姓名：</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" name="name" value="{{orderData.name}}" placeholder="请输入姓名"/>
+        </view>
+      </view>
+
+      <view class="weui-cells__title">联系方式</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" name="mobile" value="{{orderData.mobile}}" placeholder="请输入联系方式"/>
+        </view>
+      </view>
+
+      <view class="weui-cells__title">详细地址</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" name="address" value="{{orderData.address}}" placeholder="请输入详细地址"/>
+        </view>
+      </view>
+      <view class="m_t_22 p_10">
+      <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}"
+        disabled="{{disabled}}" formType="submit"> 提交订单 </button>
+      </view>
+      <view class="m_t_22 p_10">
+      <button type="default" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}"
+        disabled="{{disabled}}" bindtap="return_product"> 返 回 </button>
+      </view>
+  </form>
+  </view>
+</view>

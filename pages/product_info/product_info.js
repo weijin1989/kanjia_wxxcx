@@ -9,6 +9,12 @@ Page({
     shop_id:'',
     shop_data:[]
   },
+  //下单
+  place_order(){
+    wx.redirectTo({
+      url: '../place_order/place_order?id='+this.data.shop_id,
+    })
+  },
   return_page:function(){
     var pages = getCurrentPages();
     var prevPage = pages[pages.length - 2]; //上一个页面
