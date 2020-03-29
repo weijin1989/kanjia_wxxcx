@@ -34,11 +34,12 @@
   <!--附近美食-->
   <view class="nearby bg_fff br_12">
     <view class="nearby_title"><image src="../../images/text2.png"></image></view>
-    <scroll-view class="nearby_nav" scroll-x="true" scroll-left="{{x}}" scroll-with-animation="{{true}}">
+    <!-- <scroll-view class="nearby_nav" scroll-x="true" scroll-left="{{x}}" scroll-with-animation="{{true}}">
       <view class='lis {{item.catid == type_id?"cur":""}}' wx:for="{{nav_list}}"  wx:key="{{item.catid}}"  data-type="{{item.catid}}" bindtap='switchTap' data-index="{{index}}">
           <view>{{item.name}}</view>
       </view>
-    </scroll-view>
+    </scroll-view> -->
+    <product_type modelValue='1' bind:get_cate_shop_event="get_cate_shop_event" ></product_type>
     <view class="list bg_fff">
 
       <view class="list_li cf" wx:for="{{cp_list}}"  wx:key="{{item.shopid}}"  data-type="{{item.subject}}" data-index="{{index}}">

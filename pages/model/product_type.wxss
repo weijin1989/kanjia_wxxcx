@@ -1,0 +1,20 @@
+.nearby_nav{
+  margin-top:9rpx;
+  width:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  border-bottom:1px solid #E4E4E4
+}
+.nearby_nav .lis{
+  display:inline-block;
+  white-space:normal;
+  text-align:center;
+  margin:0 20rpx 0 25rpx;
+  font-size:28rpx;
+  font-weight:500;
+  color:rgba(107,107,107,1);
+  line-height:56rpx;
+}
+.nearby_nav .cur{
+  border-bottom: 8rpx solid #E72318;
+}

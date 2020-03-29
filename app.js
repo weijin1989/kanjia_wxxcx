@@ -28,31 +28,34 @@ App({
 
   },
   wxLogin() {
-    var that = this
-    if (!wx.getStorageSync('memberid')) {
+    var that = this;
+    if (!wx.getStorageSync('memberid') || wx.getStorageSync('memberid') == '' || wx.getStorageSync('memberid') == null) {
       // wx.showLoading({
       //   title: '登陆中',
       // })
       // 登录
       wx.login({
         success: res => {
-          console.log(res);
           this.globalData.code = res.code; //返回code
           this.wxUserInfos();
         }
       })
     }
   },
-  wxUserInfos(){
+  wxUserInfos() {
     wx.getUserInfo({
       success: res => {
-        // console.log(res)
+        console.log(res)
         this.getToken(this.globalData.code, res.encryptedData,res.iv);
+      },
+      fail :rs=>{
+        console.log(rs)
       }
     })
   },
   getToken: function (code, encryptedData, iv) {
     var that = this;
+    console.log('注册登录');
     wx.request({
       url: this.globalData.ApiUrl + 'server.php',
       data: {
@@ -76,10 +79,10 @@ App({
     })
   },
   onLaunch: function () {
-    this.wxLogin();
-    if (!this.globalData.latitude){
+    // this.wxLogin();
+    // if (!this.globalData.latitude){
       this.get_location();
-    }
+    // }
   },
   //获取地址 权限
   get_location() {

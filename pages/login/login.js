@@ -1,38 +1,44 @@
-// pages/user/user.js
+// pages/login/login.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    user_info: wx.getStorageSync('userInfo'),
-    is_showModal: 0,
     code:'',
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    is_showModal: 0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
+    // 查看是否授权
+    var that=this;
     wx.getSetting({
       success: function (res) {
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          that.bindCode();
+          that.bindGetUserInfo();
         }
       }
     })
-    if (!wx.getStorageSync('memberid') || wx.getStorageSync('memberid') == '' || wx.getStorageSync('memberid') == null) {
-      // wx.navigateTo({
-      //   url: '../login/login',
-      // })
-      this.setData({
-        is_showModal: 1
-      });
-    }
-  },//获取用户手机号码
+  },
+  bindGetUserInfo(){
+    let that = this;
+    wx.login({
+      success: res => {
+        that.setData({
+          code: res.code
+        });
+        // this.globalData.code = res.code; //返回code
+        // this.wxUserInfos();
+      }
+    })
+  },
+
+  //获取用户手机号码
   getPhoneNumber: function (e) {
     var that = this;
     if (e.detail.errMsg == "getPhoneNumber:ok") {
@@ -41,7 +47,7 @@ Page({
         data: {
           'lng': getApp().globalData.longitude,
           'lat': getApp().globalData.latitude,
-          'op': 'GetMember',
+          'op': 'UpdateMemberMobile',
           'code': that.data.code,
           'encryptedData': e.detail.encryptedData,
           'iv': e.detail.iv
@@ -49,27 +55,6 @@ Page({
         method: 'post',
         header: getApp().globalData.request_header,
         success(res) {
-          if (res.data.isSuccess === 'Y') {
-            wx.hideLoading()
-            wx.setStorageSync('memberid', res.data.data[0].memberid)
-            // wx.setStorageSync('session_key', res.data.sessionKey)
-            wx.setStorageSync('userInfo', res.data.data[0]);
-            
-            that.setData({
-              is_showModal: 0,
-              user_info: res.data.data[0]
-            });
-
-            wx.showToast({
-              title: '登陆成功',
-              icon: 'none',
-              duration: 2000
-            });
-          }
-          // wx.showLoading({
-          //   title: '登陆成功',
-          // })
-          // wx.hideLoading()
           // wx.hideLoading()
         }
       })
@@ -78,7 +63,7 @@ Page({
         title: '【小程序】需要获取你的信息，请确认授权',
         icon: 'none'
       })
-      // wx.navigateBack()
+
       // wx.navigateTo({
       //   url: '../index/index',
       // })
@@ -88,27 +73,45 @@ Page({
     }
 
   },
-  bindCode() {
-    let that = this;
-    wx.login({
+  wxUserInfos(){
+    wx.getUserInfo({
       success: res => {
-        that.setData({
-          code: res.code
-        });
+        console.log(res)
+        this.getToken(this.data.code, res.encryptedData, res.iv);
       }
     })
   },
-  //去订单
-  go_order:function(e){
-    let type = e.currentTarget.dataset.type;
-    wx.navigateTo({
-      url: '../order/order?type=' + type,
+  getToken: function (code, encryptedData, iv) {
+    wx.showLoading({
+      title: '登陆中',
     })
-  },
-  go_order_info(e){
-    let order_id = e.currentTarget.dataset.order_id;
-    wx.navigateTo({
-      url: '../order_info/order_info?order_id=' + order_id,
+    var that = this;
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      data: {
+        'op': 'GetMember',
+        'lng': getApp().globalData.longitude,
+        'lat': getApp().globalData.latitude,
+        'code': code,
+        'encryptedData': encryptedData,
+        'iv': iv
+      },
+      method: 'post',
+      header: getApp().globalData.request_header,
+      success(res) {
+        // wx.hideLoading()
+        if (res.data.isSuccess === 'Y') {
+          wx.hideLoading()
+          wx.setStorageSync('memberid', res.data.data[0].memberid)
+          wx.setStorageSync('session_key', res.data.sessionKey)
+          wx.setStorageSync('userInfo', res.data.data[0]);
+          if (res.data.data[0].mobile){
+            wx.navigateBack();
+          }else{
+            
+          }
+        }
+      }
     })
   },
   /**
@@ -116,9 +119,6 @@ Page({
    */
   onReady: function () {
 
-    wx.setNavigationBarTitle({
-      title: '个人中心'
-    })
   },
 
   /**

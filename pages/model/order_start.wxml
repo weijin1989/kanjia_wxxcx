@@ -1,9 +1,0 @@
-<view >
-    <text wx:if="{{modelValue == 0}}" >已关闭</text>
-    <text wx:elif="{{modelValue == 10}}" class="" >待支付</text>
-    <text wx:elif="{{modelValue == 20}}" >支付成功</text>
-    <text wx:elif="{{modelValue == 21}}" class='tk'>待退款</text>
-    <text wx:elif="{{modelValue == 22}}" >待收货</text>
-    <text wx:elif="{{modelValue == 24}}" >已使用</text>
-    <text wx:elif="{{modelValue == 30}}" >已退款</text>
-</view>

@@ -14,6 +14,7 @@ Page({
     longitude:'',
     latitude:'',
     is_showModal:0,
+    code:'',
     x:'',
   },
   //获取搜索框的值
@@ -31,6 +32,14 @@ Page({
     wx.navigateTo({
       url: '../product_info/product_info?id=' + id,
     })
+  },
+  //内组件调用外部方法
+  get_cate_shop_event:function(e){
+    var type_id = e.detail.type_id;
+    this.setData({
+      type_id: type_id
+    });
+    this.get_cate_shop();
   },
   //附近美食
   get_cate_shop: function () {
@@ -62,48 +71,21 @@ Page({
   },
   //判断是否有手机号没有则获取
   is_phone(){
+    let that=this;
     let moblie = getApp().globalData.userInfo;
     if (!moblie){
       wx.hideTabBar();
-      this.setData({
-        is_showModal: 1
-      });
-    }
-  },
-  //获取最近美食栏目
-  get_nav:function(){
-
-    var that = this;
-
-    var data = {
-      op: 'GetCategory',
-      type: 'shops'
-    }
-    wx.request({
-      url: getApp().globalData.ApiUrl + 'server.php', 
-      // url: getApp().globalData.ApiUrl + 'get_nav',
-      data: data,
-      method: 'POST',
-      header: getApp().globalData.request_header,
-      success(res) {
-        if (res.data.isSuccess === 'Y') {
-          // that.setData({
-          //   nav_list: res.data.data
-          // });
-          for (let i = 0; i < res.data.data.length;i++){
-            if(i==0){
-              that.setData({
-                nav_list: res.data.data,
-                type_id: res.data.data[i]['catid']
-              });
-              that.get_cate_shop();
-            }
-          }
-          
+      wx.login({
+        success: res => {
+          that.setData({
+            code: res.code,
+            is_showModal:1
+          });
         }
-      }
-    })
+      })
+    }
   },
+  
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
@@ -118,68 +100,48 @@ Page({
   onLoad: function () {
     // this.is_phone();
     // this.get_location();
-    this.get_nav();
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse) {
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
-  },
-  switchTap(e) { //更换资讯大类
-    let screenWidth = wx.getSystemInfoSync().windowWidth;
-    let itemWidth = screenWidth / 5;
-    let { index, type } = e.currentTarget.dataset;
-    const { nav_list } = this.data;
-    let scrollX = itemWidth * index - itemWidth * 2;
-    let maxScrollX = (nav_list.length + 1) * itemWidth;
-    if (scrollX < 0) {
-      scrollX = 0;
-    } else if (scrollX >= maxScrollX) {
-      scrollX = maxScrollX;
-    }
-    this.setData({
-      x: scrollX,
-      type_id: type
-    })
-    this.get_cate_shop();
-    this.triggerEvent("switchTap", type); //点击了导航,通知父组件重新渲染列表数据
+    // if (app.globalData.userInfo) {
+    //   this.setData({
+    //     userInfo: app.globalData.userInfo,
+    //     hasUserInfo: true
+    //   })
+    // } else if (this.data.canIUse) {
+    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+    //   // 所以此处加入 callback 以防止这种情况
+    //   app.userInfoReadyCallback = res => {
+    //     this.setData({
+    //       userInfo: res.userInfo,
+    //       hasUserInfo: true
+    //     })
+    //   }
+    // } else {
+    //   // 在没有 open-type=getUserInfo 版本的兼容处理
+    //   wx.getUserInfo({
+    //     success: res => {
+    //       app.globalData.userInfo = res.userInfo
+    //       this.setData({
+    //         userInfo: res.userInfo,
+    //         hasUserInfo: true
+    //       })
+    //     }
+    //   })
+    // }
   },
   //获取用户手机号码
   getPhoneNumber: function (e){
-
     var that = this;
     console.log(e.detail);
     if (e.detail.errMsg == "getPhoneNumber:ok"){
       wx.request({
-        url: getApp().globalData.ApiUrl + 'login',
+        url: getApp().globalData.ApiUrl + 'server.php',
         data: {
-          'code': code,
-          'encryptedData': encryptedData,
-          'iv': iv
+          'op':'UpdateMemberMobile',
+          'code': that.data.code,
+          'encryptedData': e.detail.encryptedData,
+          'iv': e.detail.iv
         },
         method: 'post',
-        header: this.globalData.request_header,
+        header: getApp().globalData.request_header,
         success(res) {
           // wx.hideLoading()
         }

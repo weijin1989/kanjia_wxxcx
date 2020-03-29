@@ -1,0 +1,8 @@
+<view class="container">
+  <!-- <view class="modalDlg" wx:if="{{is_showModal}}">
+    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="getPhoneNumber">  </button>
+  </view> -->
+  <!-- <button wx:if="{{canIUse}}" class="login" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用授权登录</button> -->
+  <button wx:if="{{canIUse}}" class="login" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">使用手机号授权登录</button>
+  <view wx:else>请升级微信版本</view>
+</view>

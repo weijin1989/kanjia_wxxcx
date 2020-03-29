@@ -6,6 +6,7 @@
     "pages/product_info/product_info",
     "pages/order/order",
     "pages/order_info/order_info",
+    "pages/login/login",
     "pages/swiper/swiper",
     "pages/map/map",
     "pages/progress/progress",

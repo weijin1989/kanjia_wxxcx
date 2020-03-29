@@ -7,11 +7,7 @@
     </view>
     <view class="nearby bg_fff br_12">
       
-    <scroll-view class="nearby_nav" scroll-x="true" scroll-left="{{x}}" scroll-with-animation="{{true}}">
-      <view class='lis {{item.catid == type_id?"cur":""}}' wx:for="{{nav_list}}"  wx:key="{{item.catid}}"  data-type="{{item.catid}}" bindtap='switchTap' data-index="{{index}}">
-          <view>{{item.name}}</view>
-      </view>
-    </scroll-view>
+    <product_type modelValue='1' bind:get_cate_shop_event="get_cate_shop_event" ></product_type>
     </view>
     <!--列表-->
     <view class="ul cf">

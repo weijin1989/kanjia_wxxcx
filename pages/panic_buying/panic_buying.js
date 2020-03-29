@@ -25,6 +25,14 @@ Page({
     })
   },
 
+  //内组件调用外部方法
+  get_cate_shop_event: function (e) {
+    var type_id = e.detail.type_id;
+    this.setData({
+      type_id: type_id
+    });
+    this.get_cate_shop();
+  },
   //附近美食
   get_cate_shop: function () {
     var that = this;
@@ -68,65 +76,11 @@ Page({
     // this.getSizeListFn(this.data.searchParams);
   },
 
-  get_nav: function () {
-
-    var that = this;
-
-    var data = {
-      op: 'GetCategory',
-      type: 'shops'
-    }
-    wx.request({
-      url: getApp().globalData.ApiUrl + 'server.php',
-      // url: getApp().globalData.ApiUrl + 'get_nav',
-      data: data,
-      method: 'POST',
-      header: getApp().globalData.request_header,
-      success(res) {
-        if (res.data.isSuccess === 'Y') {
-          // that.setData({
-          //   nav_list: res.data.data
-          // });
-          
-          for (let i = 0; i < res.data.data.length; i++) {
-            if (i == 0) {
-              that.setData({
-                nav_list: res.data.data,
-                type_id: res.data.data[i]['catid']
-              });
-              that.get_cate_shop();
-
-            }
-          }
-        }
-      }
-    })
-  },
-
-  switchTap(e) { //更换资讯大类
-    let screenWidth = wx.getSystemInfoSync().windowWidth;
-    let itemWidth = screenWidth / 5;
-    let { index, type } = e.currentTarget.dataset;
-    const { nav_list } = this.data;
-    let scrollX = itemWidth * index - itemWidth * 2;
-    let maxScrollX = (nav_list.length + 1) * itemWidth;
-    if (scrollX < 0) {
-      scrollX = 0;
-    } else if (scrollX >= maxScrollX) {
-      scrollX = maxScrollX;
-    }
-    this.setData({
-      x: scrollX,
-      type_id: type
-    })
-    this.get_cate_shop();
-    this.triggerEvent("switchTap", type); //点击了导航,通知父组件重新渲染列表数据
-  },
+ 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.get_nav();
 
     wx.setNavigationBarTitle({
       title: '附近'
