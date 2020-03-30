@@ -7,13 +7,63 @@ Page({
   data: {
     starsData: getApp().globalData.starsData,
     shop_id:'',
-    shop_data:[]
+    userInfo: wx.getStorageSync('userInfo'),
+    shop_data:[],
+    but_type:0,  //1下单，2砍价
+  },
+  //去下单页面
+  go_place_order(){
+    if(this.data.but_type==1){
+      wx.redirectTo({
+        url: '../place_order/place_order?id=' + this.data.shop_id,
+      })
+    }
+
+    if (this.data.but_type == 2) {//砍价
+
+    }
   },
   //下单
-  place_order(){
-    wx.redirectTo({
-      url: '../place_order/place_order?id='+this.data.shop_id,
-    })
+  place_order(e){
+    this.setData({
+      but_type: e.currentTarget.dataset.type
+    });
+    this.go_place_order();
+  },//获取用户手机号码
+  getPhoneNumber: function (e) {
+    var that = this;
+    this.setData({
+      but_type: e.currentTarget.dataset.type
+    });
+    if (e.detail.errMsg == "getPhoneNumber:ok") {
+      wx.request({
+        url: getApp().globalData.ApiUrl + 'server.php',
+        data: {
+          lng: getApp().globalData.longitude,
+          lat: getApp().globalData.latitude,
+          op: 'GetMember',
+          code: getApp().globalData.code,
+          encryptedData: e.detail.encryptedData,
+          iv: e.detail.iv
+        },
+        method: 'post',
+        header: getApp().globalData.request_header,
+        success(res) {
+          if (res.data.isSuccess === 'Y') {
+            wx.setStorageSync('memberid', res.data.data[0].memberid)
+            wx.setStorageSync('userInfo', res.data.data[0]);
+
+            that.go_place_order();
+          }
+        }
+      })
+    } else {
+      // wx.showToast({
+      //   title: '【小程序】需要获取你的信息，请确认授权',
+      //   icon: 'none'
+      // })
+    }
+
   },
   return_page:function(){
     var pages = getCurrentPages();
@@ -64,6 +114,9 @@ Page({
       this.setData({ shop_id: options.id});
       this.get_shop_info();
     }
+    this.setData({
+      userInfo: wx.getStorageSync('userInfo')
+    })
   },
   //获取商品详情
   get_shop_info: function () {
@@ -103,7 +156,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
   },
 
   /**

@@ -25,12 +25,11 @@
         </view>
       </view>
       <view class="m_t_22 p_10">
-      <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}"
+      <button type="primary" 
         disabled="{{disabled}}" formType="submit"> 提交订单 </button>
       </view>
       <view class="m_t_22 p_10">
-      <button type="default" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}"
-        disabled="{{disabled}}" bindtap="return_product"> 返 回 </button>
+      <button type="default" plain="ture" bindtap="return_product"> 返 回 </button>
       </view>
   </form>
   </view>

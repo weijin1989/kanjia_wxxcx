@@ -27,81 +27,81 @@ App({
     tabBar:[],
 
   },
+  //获取code
+  get_code(){
+    var that=this;
+    wx.login({
+      success: res => {
+        that.globalData.code = res.code;
+      }
+    })
+  },
+  onLaunch: function () {
+    this.get_location();
+    this.get_code();
+  },
   wxLogin() {
     var that = this;
     // if (!wx.getStorageSync('memberid') || wx.getStorageSync('memberid') == '' || wx.getStorageSync('memberid') == null) {
       // wx.showLoading({
       //   title: '登陆中',
       // })
-      // 登录
-      wx.login({
-        success: res => {
-          ; //返回code
-          wx.request({
-            url: this.globalData.ApiUrl + 'server.php',
-            data: {
-              'lng': this.globalData.longitude,
-              'lat': this.globalData.latitude,
-              'op': 'GetMember',
-              'code': res.code
-            },
-            method: 'post',
-            header: this.globalData.request_header,
-            success(res) {
-              if (res.data.isSuccess === 'Y') {
-                wx.setStorageSync('memberid', res.data.data[0].memberid)
-                // wx.setStorageSync('session_key', res.data.sessionKey)
-                wx.setStorageSync('userInfo', res.data.data[0]);
-              }
-            }
-          })
+      wx.request({
+        url: this.globalData.ApiUrl + 'server.php',
+        data: {
+          'lng': this.globalData.longitude,
+          'lat': this.globalData.latitude,
+          'op': 'GetMember',
+          'code': this.globalData.code
+        },
+        method: 'post',
+        header: this.globalData.request_header,
+        success(res) {
+          if (res.data.isSuccess === 'Y') {
+            wx.setStorageSync('memberid', res.data.data[0].memberid)
+            // wx.setStorageSync('session_key', res.data.sessionKey)
+            wx.setStorageSync('userInfo', res.data.data[0]);
+          }
         }
       })
-    // }
   },
-  wxUserInfos() {
-    wx.getUserInfo({
-      success: res => {
-        console.log(res)
-        this.getToken(this.globalData.code, res.encryptedData,res.iv);
-      },
-      fail :rs=>{
-        console.log(rs)
-      }
-    })
-  },
-  getToken: function (code, encryptedData, iv) {
-    var that = this;
-    console.log('注册登录');
-    wx.request({
-      url: this.globalData.ApiUrl + 'server.php',
-      data: {
-        'op':'GetMember',
-        'lng': this.globalData.longitude,
-        'lat': this.globalData.latitude,
-        'code': code,
-        'encryptedData': encryptedData,
-        'iv': iv
-      },
-      method: 'post',
-      header: this.globalData.request_header,
-      success(res) {
-        // wx.hideLoading()
-        if (res.data.isSuccess === 'Y') {
-          wx.setStorageSync('memberid', res.data.data[0].memberid)
-          wx.setStorageSync('session_key', res.data.sessionKey)
-          this.globalData.userInfo = res.data.data[0]
-        }
-      }
-    })
-  },
-  onLaunch: function () {
-    this.get_location();
-    // this.wxLogin();
-    // if (!this.globalData.latitude){
-      this.get_location();
-    // }
-  },
+  //获取用户信息
+  // wxUserInfos() {
+  //   wx.getUserInfo({
+  //     success: res => {
+  //       console.log(res)
+  //       this.getToken(this.globalData.code, res.encryptedData,res.iv);
+  //     },
+  //     fail :rs=>{
+  //       console.log(rs)
+  //     }
+  //   })
+  // },
+  // getToken: function (code, encryptedData, iv) {
+  //   var that = this;
+  //   console.log('注册登录');
+  //   wx.request({
+  //     url: this.globalData.ApiUrl + 'server.php',
+  //     data: {
+  //       'op':'GetMember',
+  //       'lng': this.globalData.longitude,
+  //       'lat': this.globalData.latitude,
+  //       'code': code,
+  //       'encryptedData': encryptedData,
+  //       'iv': iv
+  //     },
+  //     method: 'post',
+  //     header: this.globalData.request_header,
+  //     success(res) {
+  //       // wx.hideLoading()
+  //       if (res.data.isSuccess === 'Y') {
+  //         wx.setStorageSync('memberid', res.data.data[0].memberid)
+  //         wx.setStorageSync('session_key', res.data.sessionKey)
+  //         this.globalData.userInfo = res.data.data[0]
+  //       }
+  //     }
+  //   })
+  // },
   //获取地址 权限
   get_location() {
     var that = this;

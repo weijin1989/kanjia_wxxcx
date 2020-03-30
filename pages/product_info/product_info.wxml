@@ -54,9 +54,13 @@
   <!--内容end-->
   <footer class="cf">
     <view class="left"><image src="../../images/nav1.png" bindtap="returnHome"></image></view>
-    <view class="right">
-      <view class="but">砍价</view>
-      <view class="but but1" bindtap="place_order">立即购买</view>
+    <view class="right" wx:if="{{userInfo}}">
+      <button class="but" bindtap="place_order" data-type="2">砍价 </button>
+      <button class="but but1"   bindtap="place_order" data-type="1">立即购买</button>
+    </view>
+    <view class="right" wx:else>
+      <button class="but" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-type="2">砍价 </button>
+      <button class="but but1" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即购买</button>
     </view>
   </footer>
 </view>

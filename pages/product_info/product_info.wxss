@@ -185,6 +185,7 @@ footer .right .but{
   line-height: 89rpx;
   background:#F96C26;
   color:#fff;
+  border-radius: 0;
 }
 footer .right .but1{
   background: #E72318

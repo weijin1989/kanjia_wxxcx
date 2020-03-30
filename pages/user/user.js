@@ -55,7 +55,7 @@ Page({
         header: getApp().globalData.request_header,
         success(res) {
           if (res.data.isSuccess === 'Y') {
-            wx.hideLoading()
+            // wx.hideLoading()
             wx.setStorageSync('memberid', res.data.data[0].memberid)
             // wx.setStorageSync('session_key', res.data.sessionKey)
             wx.setStorageSync('userInfo', res.data.data[0]);
