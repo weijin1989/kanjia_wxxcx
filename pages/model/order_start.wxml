@@ -1,0 +1,5 @@
+<view >
+    <text wx:if="{{modelValue == 1}}" >待支付</text>
+    <text wx:elif="{{modelValue == 2}}" >待使用</text>
+    <text wx:elif="{{modelValue == 3}}" >已使用</text>
+</view>

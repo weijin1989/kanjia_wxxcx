@@ -113,9 +113,9 @@ Page({
                 icon: 'none',
                 duration: 2000
               });
-              // wx.redirectTo({
-              //   url: '../paysuccess/paysuccess?orderId=' + that.data.orderNo
-              // })
+              wx.redirectTo({
+                url: '../paysuccess/paysuccess?orderNo=' + that.data.orderNo
+              })
             },
             fail(res) {
               console.log(res);

@@ -5,44 +5,63 @@ Page({
    * 页面的初始数据
    */
   data: {
-    order_id: ''
-  },
-  return_page:function(){
-    var pages = getCurrentPages();
-    var prevPage = pages[pages.length - 2]; //上一个页面
-    //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-    prevPage.setData({
-      mydata: {
-        id: 1,
-        b: 125
-      }
-    })
-    wx.navigateBack({//返回
-      delta: 1
-    })
-  },
-
-  //返回首页
-  returnHome() {
-    wx.reLaunch({
-      // delta: 2
-      url: '../index/index'
-    })
+    order_no: '',
+    order_info:[]
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.order_id) {
+    if (options.orderNo) {
       this.setData({
-        order_id: options.order_id
+        order_no: options.orderNo
       });
+      this.get_order_info();
     }
     wx.setNavigationBarTitle({
-      title: '订单详情-' + options.order_id
+      title: '订单详情'
     })
   },
+  get_order_info() {
+    let data = {
+      op: "GetOrderInfo",
+      memberid: wx.getStorageSync('memberid'),
+      appflowno: this.data.order_no
+    };
+    wx.showLoading({
+      title: '加载中...',
+    })
+    let that = this;
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      // url: getApp().globalData.ApiUrl + 'get_nav',
+      data: data,
+      method: 'POST',
+      header: getApp().globalData.request_header,
+      success(res) {
+        if (res.data.isSuccess === 'Y') {
+          that.setData({
+            order_info: res.data.data[0]
+          });
 
+          wx.hideLoading()
+        }
+      }
+    })
+  },
+  //去地图
+  go_map() {
+    // console.log('../map/map?lat=' + this.data.order_info.lat + '&lng=' + this.data.order_info.lng);
+    wx.navigateTo({
+      url: '../map/map?lat=' + this.data.order_info.lat + '&lng=' + this.data.order_info.lng,
+    })
+  },
+  //拨打电话
+  freeTell() {
+    wx.makePhoneCall({
+      phoneNumber: this.data.order_info.mobile,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

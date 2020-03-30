@@ -11,6 +11,7 @@ Page({
     nav_list: [],
     type_id:'',
     cp_list:[],
+    cp_list_length:false,
     longitude:'',
     latitude:'',
     is_showModal:0,
@@ -62,7 +63,8 @@ Page({
       success(res) {
         if (res.data.isSuccess === 'Y') {
           that.setData({
-            cp_list: res.data.data
+            cp_list: res.data.data,
+            cp_list_length: res.data.data.length>0?true:false
           });
 
           wx.hideLoading()

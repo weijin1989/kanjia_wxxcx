@@ -33,6 +33,8 @@ App({
     wx.login({
       success: res => {
         that.globalData.code = res.code;
+      },fail:res=>{
+        console.log(res);
       }
     })
   },

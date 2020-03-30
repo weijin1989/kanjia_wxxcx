@@ -76,3 +76,12 @@
   display: block;
 
 }
+.order_list .list .bottom .but{
+  position: absolute;
+  right:0;
+  bottom:0;
+  border-radius:24rpx;
+  height:49rpx;
+  line-height: 49rpx;
+  font-size:28rpx;
+}

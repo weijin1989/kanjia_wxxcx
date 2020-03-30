@@ -1,0 +1,20 @@
+ .desc{
+        margin-bottom: 100rpx;
+        font-size: 34rpx;
+        text-align: center;
+    }
+    .btn{
+        width: 500rpx;
+        height: 90rpx;
+        margin: auto;
+        line-height: 90rpx;
+        border-radius: 45rpx;
+        background: #2F6BB4;
+        color: #fff;
+        text-align: center;
+    }
+    .icon{
+      margin:0 auto;
+      text-align: center;
+      padding-top:100rpx;
+    }

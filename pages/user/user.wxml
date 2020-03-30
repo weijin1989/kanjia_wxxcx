@@ -29,11 +29,11 @@
     <view class="nav">
       <view class="li" data-type='1' bindtap="go_order">
         <image src="../../images/icon1.png"></image>
-        <text>待使用</text>
+        <text>待支付</text>
       </view>
       <view class="li" data-type='2' bindtap="go_order">
         <image src="../../images/icon2.png"></image>
-        <text>退款单</text>
+        <text>待使用</text>
       </view>
       <view class="li" data-type='0' bindtap="go_order">
         <image src="../../images/icon3.png"></image>
@@ -41,7 +41,7 @@
       </view>
     </view>
 
-    <view class="lately_order">
+    <!-- <view class="lately_order">
       <label>近期订单</label>
       <view class="ul">
         <view class="li" bindtap="go_order_info" data-order_id="1111111">
@@ -54,7 +54,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
 
   </view>
   <!--我的订单end-->
@@ -73,10 +73,10 @@
         <image src="../../images/icon5.png"></image>
         <text>联系我们</text>
       </view>
-      <view class="li">
+      <!-- <view class="li">
         <image src="../../images/icon6.png"></image>
         <text>设置</text>
-      </view>
+      </view> -->
     </view>
 
   </view>

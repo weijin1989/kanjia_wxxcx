@@ -2,8 +2,6 @@
   latitude="{{latitude}}"
   longitude="{{longitude}}"
   markers="{{markers}}"
-  covers="{{covers}}" 
-  setting="{{setting}}"
   subKey=""
   style="width: 100%; height: 300px;" show-location 
   ></map>

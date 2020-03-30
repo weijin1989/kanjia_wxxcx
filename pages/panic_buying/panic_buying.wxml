@@ -14,7 +14,7 @@
       <view class="li" bindtap="toProductInfo" wx:for="{{cp_list}}"  wx:key="{{item.shopid}}"  data-type="{{item.subject}}" data-index="{{index}}" data-id='{{item.shopid}}'>
         <view class="qg_img"><image  src="{{item.imgsrc}}" ></image></view>
         <view class="nr">
-          <view class="introduction">{{item.subject}} <text>{{item.distance}}</text></view>
+          <view class="introduction">{{item.subject}} <text>{{item.distance}}km</text></view>
           <view class="star cf">
             <!-- <view class='stars cf' wx:for='{{starsData}}' wx:key="{{index}}" wx:for-item='i'>
               <image src='../../images/icon11.png' wx:if="{{4/1 >= index+1 }}"></image>

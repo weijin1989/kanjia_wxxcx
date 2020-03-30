@@ -7,6 +7,7 @@
     "pages/place_order/place_order",
     "pages/order/order",
     "pages/order_info/order_info",
+    "pages/paysuccess/paysuccess",
     "pages/login/login",
     "pages/swiper/swiper",
     "pages/map/map",

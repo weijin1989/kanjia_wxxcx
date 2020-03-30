@@ -60,6 +60,11 @@
   align-items: center;
   justify-content:center;
 }
+.menu_h2 text{
+  font-size:48rpx;
+  font-weight:500;
+  color:rgba(231,42,35,1);
+}
 .menu_h2 image{
   margin-right:12rpx;
   width: 32rpx;

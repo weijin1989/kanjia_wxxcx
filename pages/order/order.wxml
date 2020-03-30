@@ -1,13 +1,16 @@
 <view class="container">
   <!--导航-->
   <view class="nav bg_fff">
-    <view class="li " data-type='1'  bindtap="get_order_list">
-      <text class="{{order_type==1?'open':''}}">待使用</text>
+    <view class="li " data-type='1'  bindtap="chang_order_type">
+      <text class="{{order_type==1?'open':''}}">待支付</text>
     </view>
-    <view class="li" data-type='2' bindtap="get_order_list">
-      <text  class="{{order_type==2?'open':''}}">退款单</text>
+    <view class="li" data-type='2' bindtap="chang_order_type">
+      <text  class="{{order_type==2?'open':''}}">待使用</text>
     </view>
-    <view class="li" data-type='0' bindtap="get_order_list">
+    <view class="li" data-type='3' bindtap="chang_order_type">
+      <text  class="{{order_type==3?'open':''}}">已使用</text>
+    </view>
+    <view class="li" data-type='' bindtap="chang_order_type">
       <text class="{{order_type==0?'open':''}}">全部订单</text>
     </view>
   </view>
@@ -15,29 +18,19 @@
 
   <view class="order_list">
 
-    <view class="list bg_fff br_12 m_t_22" bindtap="go_order_info" data-order_id="1111111">
-      <view class="h1">
-        <label><image src="../../images/icon12.png" ></image> 重庆九五火锅[省政府店]</label>
-        <view class="order_start"><order_start modelValue="21"></order_start></view>
+    <view class="list bg_fff br_12 m_t_22" wx:for="{{order_list}}">
+      <view class="h1"  bindtap="go_order_info"  data-order_no="{{item.appflowno}}">
+        <label><image src="../../images/icon12.png" ></image> {{item.subject}}</label>
+        <view class="order_start"><order_start modelValue="{{item.status}}"></order_start></view>
       </view>
       <view class="bottom">
-        <image src="../../images/bg.png" ></image>
-        <text>过期时间：2020-03-31  23:59:11</text>
-        <label>￥30</label>
+        <image src="{{item.imgsrc}}"  bindtap="go_order_info"  data-order_no="{{item.appflowno}}"></image>
+        <text  bindtap="go_order_info"  data-order_no="{{item.appflowno}}">下单时间:{{item.dateline}}</text>
+        <label >￥{{item.sumprice}}</label>
+        <button type="primary" class="but" bindtap="pay" data-order_no="{{item.appflowno}}" wx:if="{{item.status==1}}">立即支付</button>
       </view>
     </view>
 
-    <view class="list bg_fff br_12 m_t_22" bindtap="go_order_info" data-order_id="22222222">
-      <view class="h1">
-        <label><image src="../../images/icon17.png" ></image> 重庆九五火锅[省政府店]</label>
-        <view class="order_start"><order_start modelValue="20"></order_start></view>
-      </view>
-      <view class="bottom">
-        <image src="../../images/bg.png" ></image>
-        <text>过期时间：2020-03-31  23:59:11</text>
-        <label>￥30</label>
-      </view>
-    </view>
 
 
   </view>

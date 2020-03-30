@@ -68,6 +68,7 @@ Page({
     if (options.lng) {
       this.setData({ longitude: options.lng, "markers[0].longitude": options.lng});
     }
+    console.log(options);
     console.log(this.data.markers);
     //获取经纬度
     // wx.getLocation({

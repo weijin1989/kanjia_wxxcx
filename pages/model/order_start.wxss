@@ -1,0 +1,8 @@
+.order_start text{
+      float: right;
+      font-size: 28rpx;
+      margin-right: 30rpx;
+      font-family: PingFangSC-Light;
+      font-weight: 300;
+      color: rgba(255,85,85,1);
+}
