@@ -91,14 +91,21 @@ Page({
       success(res) {
         wx.hideLoading()
         if (res.data.isSuccess === 'Y') {
-          console.log(res.data.data);
+          console.log(
+            {
+            timeStamp: res.data.data.timeStamp,
+            nonceStr: res.data.data.nonceStr,
+            package: res.data.data.package,
+            signType: 'MD5',
+            paySign: res.data.data.paySign}
+            );
           //发起微信支付
           wx.requestPayment({
-            timeStamp: '"'+res.data.data.timeStamp+'"',
-            nonceStr: res.data.data.nonce_str,
-            package: res.data.data.prepay_id,
+            timeStamp: res.data.data.timeStamp,
+            nonceStr: res.data.data.nonceStr,
+            package: res.data.data.package,
             signType: 'MD5',
-            paySign: res.data.data.sign,
+            paySign: res.data.data.paySign,
             success(res) {
               console.log('success=' + res);
               wx.showToast({
