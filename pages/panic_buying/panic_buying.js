@@ -9,6 +9,7 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     nav_list: [],
     type_id: 1,
+    siteurl: '',
     x: '',
     starsData: getApp().globalData.starsData,
   },
@@ -59,7 +60,8 @@ Page({
               res.data.data[i]['subject'] = res.data.data[i]['subject'].substring(0, 6); //要截取字段的字符串
           }
           that.setData({
-            cp_list: res.data.data
+            cp_list: res.data.data,
+            siteurl: res.data.siteurl
           });
 
           wx.hideLoading()

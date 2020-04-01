@@ -12,8 +12,10 @@ App({
   globalData: {
     userInfo: null,
     wxuserInfo: null,
+    contact_tel:"12345679",
     longitude: '',
     latitude: '',
+    pageSize:5,
     starsData: [1, 2, 3, 4, 5],
     ApiUrl: 'https://weijin.lnhoo.com/',
     // ApiUrl: 'http://merchant.lnhoo.com/',

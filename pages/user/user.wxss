@@ -1,5 +1,6 @@
 .header{
-  height:404rpx;
+  /* height:404rpx; */
+  height:254rpx;
   width: 750rpx;
 }
 .header .top{
@@ -162,9 +163,31 @@
     left: 0;
     width: 100%;
     height: 100vh;
+    background: rgba(0,0,0,0.4);
+    z-index: 9999;
+    /* display: none; */
+}
+ .modalDlg1{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
     background: rgba(0,0,0,0.8);
     z-index: 9999;
     /* display: none; */
+}
+.modalContent{
+  color:#000;
+  width: 400rpx;
+  border-radius: 5rpx;
+  background-color: #fff;
+  line-height:40px;
+  padding:0 10rpx;
+  position: fixed;
+  top: 45%;
+  left: 25%;
+  z-index: 9999;
 }
 .getPhoneNumber{
    position: fixed;

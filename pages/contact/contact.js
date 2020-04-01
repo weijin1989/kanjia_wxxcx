@@ -1,32 +1,28 @@
-// pages/paysuccess/paysuccess.js
+// pages/contact/contact.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    orderNo:'',
+    contact_tel: getApp().globalData.contact_tel
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.orderNo) {
-      this.setData({
-        orderNo: options.orderNo
-      });
-    }
-
     wx.setNavigationBarTitle({
-      title: '支付成功'
+      title: '联系我们'
     })
   },
-  go_order_info(){
-    wx.redirectTo({
-      url: '../order_info/order_info?orderNo=' + this.data.orderNo
+  //拨打电话
+  freeTell(e) {
+    wx.makePhoneCall({
+      phoneNumber: e.currentTarget.dataset.tel,
     })
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

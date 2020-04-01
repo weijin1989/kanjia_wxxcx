@@ -13,20 +13,14 @@
     <view class="panic_buying">
       <view class="h1">
         <image class="wz" src="../../images/text1.png" ></image>
-        <label>更多 <image class="returnImg" src="../../images/icon9.png" ></image></label>
+        <label bindtap="more_hot">更多 <image class="returnImg" src="../../images/icon9.png" ></image></label>
       </view>
       <view class="ul cf">
-        <view class="li" bindtap="toProductInfo" data-id='1'>
-          <view class="qg_img"><image  src="../../images/bg.png" ></image></view>
-          <label class="name">预售提前抢购.[29.9吃..</label>
-          <view class="introduction">最地道的小龙虾 <text>6.5km</text></view>
-          <view class="price">￥29.90<text>￥88.88</text></view>
-        </view>
-        <view class="li" bindtap="toProductInfo" data-id='1'>
-          <view class="qg_img"><image  src="../../images/bg.png" ></image></view>
-          <label class="name">预售提前抢购.[29.9吃..</label>
-          <view class="introduction">最地道的小龙虾 <text>6.5km</text></view>
-          <view class="price">￥29.90<text>￥88.88</text></view>
+        <view class="li" wx:for="{{hot_list}}" wx:if="{{index<2}}" bindtap="toProductInfo" data-index="{{index}}" data-id='{{item.shopid}}'>
+          <view class="qg_img"><image  src="{{siteurl}}{{item.imgsrc}}" mode="aspectFill"></image></view>
+          <label class="name">{{item.subject}}</label>
+          <view class="introduction">{{item.mername}} <text>{{item.distance}}km</text></view>
+          <view class="price">￥{{item.price}}<text>￥{{item.costprice}}</text></view>
         </view>
       </view>
     </view>
@@ -43,17 +37,20 @@
     <view class="list bg_fff">
 
       <view class="list_li cf" wx:for="{{cp_list}}"  wx:key="{{item.shopid}}"  data-type="{{item.subject}}" data-index="{{index}}">
-        <view class="left"  bindtap="toProductInfo" data-id='{{item.shopid}}'><image  src="{{item.imgsrc}}" ></image></view>
+        <view class="left"  bindtap="toProductInfo" data-id='{{item.shopid}}'>
+        <image  src="{{siteurl}}{{item.imgsrc}}"  mode="aspectFill" ></image></view>
         <view class="right">
-          <view class="h2">{{item.subject}}</view>
+          <view class="h2" bindtap="toProductInfo" data-id='{{item.shopid}}'>{{item.subject}}</view>
           <view class="introduction">{{item.mername}} <text>{{item.distance}}km</text></view>
           <view class="cf">
             <view class="stock">已售{{item.residue}}件 <text>仅剩{{item.num}}件</text></view>
           </view>
-          <view class="price">￥{{item.price}}<text>￥{{item.costprice}}</text></view>
+          <view class="price">￥{{item.payprice}}<text>￥{{item.costprice}}</text></view>
           <view class="but">
             <button class="buts but1" bindtap="toProductInfo" data-id='{{item.shopid}}'>立即购买</button>
-            <button class="buts but2">我要砍价</button>
+            <button class="buts but2"  wx:if="{{item.isbargain=='N'}}" bindtap="bargain" data-obj="{{item}}" data-index="{{index}}">我要砍价</button>
+            <button class="buts but3" wx:if="{{item.isbargain=='Y'}}" open-type="share" data-obj="{{item}}">继续砍</button>
+            
           </view>
         </view>
       </view>

@@ -12,7 +12,7 @@
     <!--列表-->
     <view class="ul cf">
       <view class="li" bindtap="toProductInfo" wx:for="{{cp_list}}"  wx:key="{{item.shopid}}"  data-type="{{item.subject}}" data-index="{{index}}" data-id='{{item.shopid}}'>
-        <view class="qg_img"><image  src="{{item.imgsrc}}" ></image></view>
+        <view class="qg_img"><image  src="{{siteurl}}{{item.imgsrc}}" mode="aspectFill"></image></view>
         <view class="nr">
           <view class="introduction">{{item.subject}} <text>{{item.distance}}km</text></view>
           <view class="star cf">

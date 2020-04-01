@@ -1,0 +1,6 @@
+<!--index.wxml-->
+<view class="container">
+  <view>微信服务号：ixiaoxiao</view>
+  <view>微博：萧一萧</view>
+  <view>客服电话：<text catchtap='freeTell' data-tel='{{contact_tel}}' >{{contact_tel}}</text></view>
+</view>

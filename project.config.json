@@ -86,13 +86,6 @@
 				},
 				{
 					"id": -1,
-					"name": "pages/index/index",
-					"pathName": "pages/index/index",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
 					"name": "pages/map/map",
 					"pathName": "pages/map/map",
 					"query": "lat=28.193887&lng=113.004336",
@@ -113,10 +106,38 @@
 					"scene": null
 				},
 				{
-					"id": 8,
-					"name": "pages/paysuccess/paysuccess",
-					"pathName": "pages/paysuccess/paysuccess",
-					"query": "orderNo=202003301585572289",
+					"id": -1,
+					"name": "pages/search/search",
+					"pathName": "pages/search/search",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/product_hot/product_hot",
+					"pathName": "pages/product_hot/product_hot",
+					"query": "lat=28.193887&lng=113.004336",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/contact/contact",
+					"pathName": "pages/contact/contact",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "id=7",
 					"scene": null
 				}
 			]

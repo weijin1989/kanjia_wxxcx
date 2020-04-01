@@ -1,11 +1,11 @@
 <view class="container">
   <view class="p_top bg_fff">
-    <view class="cp_img"><image src="{{shop_data.imgsrc}}" style="height:404rpx"></image></view>
+    <view class="cp_img"><image src="{{siteurl}}{{shop_data.imgsrc}}" mode="aspectFill" style="height:404rpx"></image></view>
   </view>
   <view class="p_top1 bg_fff">
     <text class="h1">{{shop_data.subject}}</text>
     <view class="price">
-    ￥{{shop_data.price}}<text>￥{{shop_data.costprice}}</text>
+    ￥{{shop_data.payprice}}<text>￥{{shop_data.costprice}}</text>
     <!-- <view class="right"><icon size="12" type="success"></icon> 随时退 <icon size="12" type="success"></icon> 过期退</view> -->
     </view>
     <label>25人正在抢购，只剩2份啦！</label>
@@ -55,7 +55,8 @@
   <footer class="cf">
     <view class="left"><image src="../../images/nav1.png" bindtap="returnHome"></image></view>
     <view class="right" wx:if="{{userInfo}}">
-      <button class="but" bindtap="place_order" data-type="2">砍价 </button>
+      <button class="but" wx:if="{{shop_data.isbargain=='N'}}" bindtap="place_order" data-type="2">砍价 </button>
+      <button class="but but2" wx:if="{{shop_data.isbargain=='Y'}}" open-type="share">继续砍 </button>
       <button class="but but1"   bindtap="place_order" data-type="1">立即购买</button>
     </view>
     <view class="right" wx:else>

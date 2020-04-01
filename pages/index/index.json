@@ -2,5 +2,5 @@
   "usingComponents": {
     "product_type": "../model/product_type"
   },
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": false
 }

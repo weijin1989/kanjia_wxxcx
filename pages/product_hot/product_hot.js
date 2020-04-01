@@ -1,73 +1,32 @@
-//index.js
-//获取应用实例
-const app = getApp()
-
+// pages/product_hot/product_hot.js
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    userInfo: {},
-    hasUserInfo: false,
-    nav_list: [],
-    type_id: '',
-    cp_list: [],
-    cp_list_length:0,
-    siteurl:'',
+    hot_list: [], 
+    siteurl: '',
+    shop_data:[],
+    shop_data_index:'',
+    hot_list_length: 0,
     page: 1,
     pageSize: getApp().globalData.pageSize,
-    keyword:'',
-    shop_data_index:'',
-    shop_data:[]
-  },
-  //获取搜索框的值
-  changeCon(e) {
-    var val = e.detail.value;
-    this.setData({
-      'keyword': val
-    })
-    this.getShops();
-  },
-  onLoad: function () {
-  },
-  getShops(){
-    let that=this
-    let data={
-      keyword: this.data.keyword,
-      op: 'SearchShops',
-      memberid: wx.getStorageSync('memberid')
-    }
-    wx.showLoading({
-      title: '搜索中...',
-    })
-    wx.request({
-      url: getApp().globalData.ApiUrl + 'server.php',
-      // url: getApp().globalData.ApiUrl + 'get_nav',
-      data: data,
-      method: 'POST',
-      header: getApp().globalData.request_header,
-      success(res) {
-        if (res.data.isSuccess === 'Y') {
-          that.setData({
-            cp_list: res.data.data,
-            siteurl: res.data.siteurl,
-            cp_list_length: res.data.data.length
-          });
-
-          wx.hideLoading()
-          if (res.data.data.length == 0 ){
-            wx.showToast({
-              title: '没有商品',
-              icon: 'none',
-              duration: 2000
-            });
-          }
-        }
-      },fail(res){
-        wx.hideLoading()
-      }
-    })
   },
 
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.get_hot_shop();
+
+    wx.setNavigationBarTitle({
+      title: '更多抢购'
+    })
+  },
   //砍价
   bargain(e) {
+    console.log(e);
     var that = this;
     this.setData({
       shop_data: e.currentTarget.dataset.obj,
@@ -101,7 +60,6 @@ Page({
       }
     })
   },
-
   get_shop_info() {
     var that = this;
     var index = this.data.shop_data_index;
@@ -119,30 +77,97 @@ Page({
       success(res) {
         if (res.data.isSuccess === 'Y') {
           let list = [];
-          let cp_list = that.data.cp_list;
-          for (var i = 0; i < cp_list.length; i++) {
+          let hot_list = that.data.hot_list;
+          for (var i = 0; i < hot_list.length; i++) {
             if (i == index) {
               list.push(res.data.data[0]);
             } else {
-              list.push(cp_list[i]);
+              list.push(hot_list[i]);
             }
           }
           that.setData({
-            cp_list: list
+            hot_list: list
           })
         }
       }
     })
   },
+
   //产品详情
-  toProductInfo(e){
+  toProductInfo(e) {
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: '../product_info/product_info?id=' + id,
     })
   },
+  
+  //获取正在抢购商品
+  get_hot_shop() {
+    var that = this;
+    var data = {
+      op: 'GetHotShops',
+      memberid: wx.getStorageSync('memberid')
+    }
+
+    wx.showLoading({
+      title: '加载中...',
+    })
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      // url: getApp().globalData.ApiUrl + 'get_nav',
+      data: data,
+      method: 'POST',
+      header: getApp().globalData.request_header,
+      success(res) {
+        if (res.data.isSuccess === 'Y') {
+          res.data.data.forEach((item) => {
+            item.subject = item.subject.substring(0, 10); //要截取字段的字符串
+          })
+          that.setData({
+            hot_list: res.data.data,
+            siteurl: res.data.siteurl,
+            hot_list_length: res.data.data.length > 0 ? true : false
+          });
+
+          wx.hideLoading()
+        }
+      }
+    })
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
   onShow: function () {
-    // app.editTabBar();    //显示自定义的底部导
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
   },
 
   /**
@@ -154,15 +179,14 @@ Page({
     wx.showLoading({
       title: '玩命加载中',
     })
-    if (this.data.cp_list_length == this.data.pageSize) {
+    if (this.data.hot_list_length == this.data.pageSize) {
       var page = this.data.page + 1;
       this.setData({
         page: page
       })
     }
     var data = {
-      keyword: this.data.keyword,
-      op: 'SearchShops',
+      op: 'GetHotShops',
       page: this.data.page,
       memberid: wx.getStorageSync('memberid'),
     }
@@ -181,12 +205,12 @@ Page({
               duration: 2000
             })
           }
-          var moment_list = that.data.cp_list;
+          var moment_list = that.data.hot_list;
           for (var i = 0; i < res.data.data.length; i++) {
             moment_list.push(res.data.data[i]);
           }
           that.setData({
-            cp_list: moment_list,
+            hot_list: moment_list,
             siteurl: res.data.siteurl
           });
           // console.log(that.data.siteurl);

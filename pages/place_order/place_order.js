@@ -164,7 +164,8 @@ Page({
     var that = this;
     var data = {
       op: 'GetShopInfo',
-      catid: this.data.shop_id
+      shopid: this.data.shop_id,
+      memberid: wx.getStorageSync('memberid')
     }
 
     wx.showLoading({

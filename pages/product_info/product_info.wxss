@@ -190,3 +190,7 @@ footer .right .but{
 footer .right .but1{
   background: #E72318
 }
+
+footer .right .but2{
+  background: #07c160
+}

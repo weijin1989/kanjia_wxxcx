@@ -9,10 +9,12 @@ Page({
     shop_id:'',
     userInfo: wx.getStorageSync('userInfo'),
     shop_data:[],
+    siteurl:'',
     but_type:0,  //1下单，2砍价
   },
   //去下单页面
   go_place_order(){
+    let that=this;
     if(this.data.but_type==1){
       wx.redirectTo({
         url: '../place_order/place_order?id=' + this.data.shop_id,
@@ -20,7 +22,33 @@ Page({
     }
 
     if (this.data.but_type == 2) {//砍价
-
+      wx.request({
+        url: getApp().globalData.ApiUrl + 'server.php',
+        data: {
+          op: 'Bargain',
+          memberid: wx.getStorageSync('memberid'),
+          shopid: this.data.shop_id,
+        },
+        method: 'post',
+        header: getApp().globalData.request_header,
+        success(res) {
+          if (res.data.isSuccess === 'Y') {
+            let title = '恭喜，砍了【' + res.data.data.bargain + '元】！';
+            wx.showToast({
+              title: title, // 标题
+              icon: 'none',  // 图标类型，默认success
+              duration: 1500  // 提示窗停留时间，默认1500ms
+            })
+            that.get_shop_info(0);
+          } else {
+            wx.showToast({
+              title: '砍价失败,或者您已经砍过价！', // 标题
+              icon: 'none',  // 图标类型，默认success
+              duration: 1500  // 提示窗停留时间，默认1500ms
+            })
+          }
+        }
+      })
     }
   },
   //下单
@@ -112,23 +140,25 @@ Page({
     // }
     if (options.id) {
       this.setData({ shop_id: options.id});
-      this.get_shop_info();
+      this.get_shop_info(1);
     }
     this.setData({
       userInfo: wx.getStorageSync('userInfo')
     })
   },
   //获取商品详情
-  get_shop_info: function () {
+  get_shop_info: function (is_loading) {
     var that = this;
     var data = {
       op: 'GetShopInfo',
-      catid: this.data.shop_id
+      shopid: this.data.shop_id,
+      memberid: wx.getStorageSync('memberid')
     }
-
-    wx.showLoading({
-      title: '加载中...',
-    })
+    if (is_loading==1){
+      wx.showLoading({
+        title: '加载中...',
+      })
+    }
     wx.request({
       url: getApp().globalData.ApiUrl + 'server.php',
       // url: getApp().globalData.ApiUrl + 'get_nav',
@@ -138,9 +168,12 @@ Page({
       success(res) {
         if (res.data.isSuccess === 'Y') {
           that.setData({
-            shop_data: res.data.data[0]
+            shop_data: res.data.data[0],
+            siteurl: res.data.siteurl
           });
-          wx.hideLoading()
+          if (is_loading == 1) {
+            wx.hideLoading()
+          }
         }
       }
     })
@@ -189,7 +222,17 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
+      if (res.from === 'button') {
 
+        return {
+          title: '原价' + this.data.shop_data.price + ',最低砍价至￥1！' + this.data.shop_data.subject,
+          path: '../produdct_info/product_info?id=' + this.data.shop_id
+        }
+      }
+      return {
+        title: '【萧一萧】一个价格你做主的小程序',
+        path: '../index/index'
+      }
   }
 })

@@ -8,6 +8,9 @@ Page({
     user_info: wx.getStorageSync('userInfo'),
     is_showModal: 0,
     code:'',
+    is_showContact: 0,
+    is_showCustomer: 0,
+    contact_tel: getApp().globalData.contact_tel,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
 
@@ -30,7 +33,35 @@ Page({
         user_info: wx.getStorageSync('userInfo')
       });
     }
-  },//获取用户手机号码
+  },
+  go_contact(){
+    wx.navigateTo({
+      url: '../contact/contact',
+      })
+  },
+  go_customer() {
+
+    wx.makePhoneCall({
+      phoneNumber: this.data.contact_tel,
+    })
+    // this.setData({
+    //   is_showCustomer: 1
+    // })
+  },
+  colseDlg(e){
+    let type = e.currentTarget.dataset.type;
+    console.log(type);
+    if(type==1){
+      this.setData({
+        is_showContact: 0
+      })
+    }else if(type==2){
+      this.setData({
+        is_showCustomer: 0
+      })
+    }
+  },
+  //获取用户手机号码
   getPhoneNumber: function (e) {
     var that = this;
     if (e.detail.errMsg == "getPhoneNumber:ok") {

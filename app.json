@@ -4,10 +4,12 @@
     "pages/user/user",
     "pages/panic_buying/panic_buying",
     "pages/product_info/product_info",
+    "pages/product_hot/product_hot",
     "pages/place_order/place_order",
     "pages/order/order",
     "pages/order_info/order_info",
     "pages/paysuccess/paysuccess",
+    "pages/contact/contact",
     "pages/login/login",
     "pages/swiper/swiper",
     "pages/map/map",
@@ -20,8 +22,9 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "砍价",
+    "navigationBarTitleText": "萧一萧",
     "navigationBarTextStyle": "black"
   },
   "permission": {
@@ -42,8 +45,8 @@
         "text": "首页"
       },
       {
-        "selectedIconPath": "images/nav1.png",
-        "iconPath": "images/nav1.png",
+        "selectedIconPath": "images/nav2_open.png",
+        "iconPath": "images/nav2.png",
         "pagePath": "pages/panic_buying/panic_buying",
         "text": "附近"
       },

@@ -1,0 +1,9 @@
+
+.container{
+  background: #fff;
+  padding:20rpx 10rpx;
+  line-height: 70rpx;
+}
+.container text{
+  color:cornflowerblue
+}
