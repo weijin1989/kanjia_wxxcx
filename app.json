@@ -10,15 +10,8 @@
     "pages/order_info/order_info",
     "pages/paysuccess/paysuccess",
     "pages/contact/contact",
-    "pages/login/login",
-    "pages/swiper/swiper",
     "pages/map/map",
-    "pages/progress/progress",
-    "pages/from/from",
-    "pages/search/search",
-    "pages/camera/camera",
-    "pages/audio/audio",
-    "pages/logs/logs"
+    "pages/search/search"
   ],
   "window": {
     "backgroundTextStyle": "light",

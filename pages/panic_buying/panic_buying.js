@@ -8,10 +8,15 @@ Page({
 
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     nav_list: [],
+    cp_list: [],
+    cp_list_length: 0,
     type_id: 1,
     siteurl: '',
     x: '',
+    page: 1,
+    pageSize: getApp().globalData.pageSize,
     starsData: getApp().globalData.starsData,
+    memberid: getApp().globalData.memberid,
   },
   search() {
     wx.navigateTo({
@@ -55,12 +60,13 @@ Page({
       success(res) {
         if (res.data.isSuccess === 'Y') {
           let list=[];
-          for (let i = 0; i < res.data.data.length; i++) {
-              list[i] = res.data.data[i];
-              res.data.data[i]['subject'] = res.data.data[i]['subject'].substring(0, 6); //要截取字段的字符串
-          }
+          // for (let i = 0; i < res.data.data.length; i++) {
+          //     list[i] = res.data.data[i];
+          //     res.data.data[i]['subject'] = res.data.data[i]['subject'].substring(0, 15); //要截取字段的字符串
+          // }
           that.setData({
             cp_list: res.data.data,
+            cp_list_length: res.data.data.length,
             siteurl: res.data.siteurl
           });
 
@@ -78,7 +84,44 @@ Page({
     console.log(val);
     // this.getSizeListFn(this.data.searchParams);
   },
+  //获取用户手机号码
+  getPhoneNumber: function (e) {
+    var that = this;
+    console.log(e.detail);
+    if (e.detail.errMsg == "getPhoneNumber:ok") {
+      wx.request({
+        url: getApp().globalData.ApiUrl + 'server.php',
+        data: {
+          'op': 'GetMember',
+          'lng': getApp().globalData.longitude,
+          'lat': getApp().globalData.latitude,
+          'code': getApp().globalData.code,
+          'encryptedData': e.detail.encryptedData,
+          'iv': e.detail.iv
+        },
+        method: 'post',
+        header: getApp().globalData.request_header,
+        success(res) {
+          wx.setStorageSync('memberid', res.data.data[0].memberid)
+          wx.setStorageSync('userInfo', res.data.data[0]);
+          getApp().globalData.memberid = res.data.data[0].memberid;
+          that.setData({
+            memberid: res.data.data[0].memberid,
+            cp_list_length: res.data.data.length,
+            page:1
+          })
+          that.get_cate_shop();
+          // wx.hideLoading()
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '拒绝授权',
+        icon: 'none'
+      })
+    }
 
+  },
  
   /**
    * 生命周期函数--监听页面加载
@@ -129,13 +172,68 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    var that = this;
+    // loading开始
+    wx.showLoading({
+      title: '玩命加载中',
+    })
+    if (this.data.cp_list_length == this.data.pageSize) {
+      var page = this.data.page + 1;
+      this.setData({
+        page: page
+      })
+    }
+    var data = {
+      op: 'GetCateShops',
+      catid: this.data.type_id,
+      page: this.data.page,
+      memberid: wx.getStorageSync('memberid'),
+    }
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      // url: getApp().globalData.ApiUrl + 'get_nav',
+      data: data,
+      method: 'POST',
+      header: getApp().globalData.request_header,
+      success(res) {
+        wx.hideLoading()
+        if (res.data.isSuccess === 'Y') {
+          if (res.data.data.length == 0) {
+            wx.showToast({
+              title: '已加载全部商品',
+              icon: 'none',
+              duration: 2000
+            })
+          }
+          var moment_list = that.data.cp_list;
+          for (var i = 0; i < res.data.data.length; i++) {
+            moment_list.push(res.data.data[i]);
+          }
+          that.setData({
+            cp_list: moment_list,
+            siteurl: res.data.siteurl
+          });
+          // console.log(that.data.siteurl);
 
+        }
+      }
+    })
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
 
+    if (res.from === 'button') {
+      return {
+        title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
+        path: '/pages/produdct_info/product_info?id=' + res.target.dataset.obj.shop_id
+      }
+    }
+    return {
+      title: '【萧一萧】一个价格你做主的小程序',
+      path: '/pages/index/index'
+    }
   }
 })

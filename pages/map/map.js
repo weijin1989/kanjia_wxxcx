@@ -136,5 +136,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+    if (res.from === 'button') {
+      return {
+        title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
+        path: '/pages/produdct_info/product_info?id=' + res.target.dataset.obj.shop_id
+      }
+    }
+    return {
+      title: '【萧一萧】一个价格你做主的小程序',
+      path: '/pages/index/index'
+    }
   }
 })

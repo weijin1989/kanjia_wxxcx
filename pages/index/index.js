@@ -23,6 +23,7 @@ Page({
     code:'',
     page:1,
     pageSize: getApp().globalData.pageSize,
+    memberid: getApp().globalData.memberid,
     x:'',
   },
   //产品详情
@@ -167,6 +168,7 @@ Page({
       method: 'POST',
       header: getApp().globalData.request_header,
       success(res) {
+        wx.hideLoading()
         if (res.data.isSuccess === 'Y') {
           if (res.data.data.length == 0) {
             wx.showToast({
@@ -185,7 +187,6 @@ Page({
           });
           // console.log(that.data.siteurl);
 
-          wx.hideLoading()
         }
       }
     })
@@ -198,30 +199,35 @@ Page({
     wx.showLoading({
       title: '加载中...',
     })
-    var data = {
-      op: 'GetCateShops',
-      catid: this.data.type_id,
-      memberid: wx.getStorageSync('memberid'),
-    }
-    wx.request({
-      url: getApp().globalData.ApiUrl + 'server.php',
-      // url: getApp().globalData.ApiUrl + 'get_nav',
-      data: data,
-      method: 'POST',
-      header: getApp().globalData.request_header,
-      success(res) {
-        if (res.data.isSuccess === 'Y') {
-          that.setData({
-            cp_list: res.data.data,
-            cp_list_length: res.data.data.length,
-            siteurl: res.data.siteurl
-          });
-          console.log(that.data.siteurl);
-
-          wx.hideLoading()
-        }
+    setTimeout(function () {
+      that.setData({
+        memberid:wx.getStorageSync('memberid')
+      })
+      var data = {
+        op: 'GetCateShops',
+        catid: that.data.type_id,
+        memberid: wx.getStorageSync('memberid'),
       }
-    })
+      wx.request({
+        url: getApp().globalData.ApiUrl + 'server.php',
+        // url: getApp().globalData.ApiUrl + 'get_nav',
+        data: data,
+        method: 'POST',
+        header: getApp().globalData.request_header,
+        success(res) {
+          wx.hideLoading()
+          if (res.data.isSuccess === 'Y') {
+            that.setData({
+              cp_list: res.data.data,
+              cp_list_length: res.data.data.length,
+              siteurl: res.data.siteurl
+            });
+            // console.log(that.data.siteurl);
+
+          }
+        }
+      })
+    }, 1000)
   },
   //判断是否有手机号没有则获取
   is_phone(){
@@ -246,34 +252,6 @@ Page({
   },
   onLoad: function () {
     this.get_hot_shop();
-    // this.is_phone();
-    // this.get_location();
-    // if (app.globalData.userInfo) {
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    // } else if (this.data.canIUse) {
-    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //   // 所以此处加入 callback 以防止这种情况
-    //   app.userInfoReadyCallback = res => {
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true
-    //     })
-    //   }
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true
-    //       })
-    //     }
-    //   })
-    // }
   },
   //获取用户手机号码
   getPhoneNumber: function (e){
@@ -283,14 +261,24 @@ Page({
       wx.request({
         url: getApp().globalData.ApiUrl + 'server.php',
         data: {
-          'op':'UpdateMemberMobile',
-          'code': that.data.code,
+          'op': 'GetMember',
+          'lng': getApp().globalData.longitude,
+          'lat': getApp().globalData.latitude,
+          'code': getApp().globalData.code,
           'encryptedData': e.detail.encryptedData,
           'iv': e.detail.iv
         },
         method: 'post',
         header: getApp().globalData.request_header,
         success(res) {
+          wx.setStorageSync('memberid', res.data.data[0].memberid)
+          wx.setStorageSync('userInfo', res.data.data[0]);
+          getApp().globalData.memberid = res.data.data[0].memberid;
+          that.setData({
+            memberid: res.data.data[0].memberid,
+            page:1
+          })
+          that.get_cate_shop();
           // wx.hideLoading()
         }
       })
@@ -321,12 +309,12 @@ Page({
     if (res.from === 'button') {
       return {
         title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
-        path: '../produdct_info/product_info?id=' + res.target.dataset.obj.shop_id
+        path: '/pages/produdct_info/product_info?id=' + res.target.dataset.obj.shop_id
       }
     }
     return {
       title: '【萧一萧】一个价格你做主的小程序',
-      path: '../index/index'
+      path: '/pages/index/index'
     }
   }
 })

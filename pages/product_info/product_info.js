@@ -9,7 +9,8 @@ Page({
     shop_id:'',
     userInfo: wx.getStorageSync('userInfo'),
     shop_data:[],
-    siteurl:'',
+    siteurl: '',
+    memberid: getApp().globalData.memberid,
     but_type:0,  //1下单，2砍价
   },
   //去下单页面
@@ -57,7 +58,8 @@ Page({
       but_type: e.currentTarget.dataset.type
     });
     this.go_place_order();
-  },//获取用户手机号码
+  },
+  //获取用户手机号码
   getPhoneNumber: function (e) {
     var that = this;
     this.setData({
@@ -80,8 +82,10 @@ Page({
           if (res.data.isSuccess === 'Y') {
             wx.setStorageSync('memberid', res.data.data[0].memberid)
             wx.setStorageSync('userInfo', res.data.data[0]);
-
-            that.go_place_order();
+            that.setData({
+              memberid: res.data.data[0].memberid
+            })
+            that.get_shop_info(3);
           }
         }
       })
@@ -154,7 +158,7 @@ Page({
       shopid: this.data.shop_id,
       memberid: wx.getStorageSync('memberid')
     }
-    if (is_loading==1){
+    if (is_loading == 1 || is_loading == 3){
       wx.showLoading({
         title: '加载中...',
       })
@@ -166,13 +170,20 @@ Page({
       method: 'POST',
       header: getApp().globalData.request_header,
       success(res) {
+        if (is_loading == 1) {
+          wx.hideLoading()
+        }
         if (res.data.isSuccess === 'Y') {
           that.setData({
             shop_data: res.data.data[0],
             siteurl: res.data.siteurl
           });
-          if (is_loading == 1) {
-            wx.hideLoading()
+          if (is_loading == 3) {
+            wx.showToast({
+              title: '登陆成功,请立即购买吧',
+              icon: 'none',
+              duration: 2000
+            });
           }
         }
       }
@@ -223,16 +234,16 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-      if (res.from === 'button') {
 
-        return {
-          title: '原价' + this.data.shop_data.price + ',最低砍价至￥1！' + this.data.shop_data.subject,
-          path: '../produdct_info/product_info?id=' + this.data.shop_id
-        }
-      }
+    if (res.from === 'button') {
       return {
-        title: '【萧一萧】一个价格你做主的小程序',
-        path: '../index/index'
+        title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
+        path: '/pages/produdct_info/product_info?id=' + res.target.dataset.obj.shop_id
       }
+    }
+    return {
+      title: '【萧一萧】一个价格你做主的小程序',
+      path: '/pages/index/index'
+    }
   }
 })

@@ -12,6 +12,7 @@ Page({
     hot_list_length: 0,
     page: 1,
     pageSize: getApp().globalData.pageSize,
+    memberid: getApp().globalData.memberid,
   },
 
   /**
@@ -125,8 +126,8 @@ Page({
           })
           that.setData({
             hot_list: res.data.data,
-            siteurl: res.data.siteurl,
-            hot_list_length: res.data.data.length > 0 ? true : false
+            hot_list_length:res.data.data.length,
+            siteurl: res.data.siteurl
           });
 
           wx.hideLoading()
@@ -169,7 +170,43 @@ Page({
   onPullDownRefresh: function () {
 
   },
+  //获取用户手机号码
+  getPhoneNumber: function (e) {
+    var that = this;
+    console.log(e.detail);
+    if (e.detail.errMsg == "getPhoneNumber:ok") {
+      wx.request({
+        url: getApp().globalData.ApiUrl + 'server.php',
+        data: {
+          'op': 'GetMember',
+          'lng': getApp().globalData.longitude,
+          'lat': getApp().globalData.latitude,
+          'code': getApp().globalData.code,
+          'encryptedData': e.detail.encryptedData,
+          'iv': e.detail.iv
+        },
+        method: 'post',
+        header: getApp().globalData.request_header,
+        success(res) {
+          wx.setStorageSync('memberid', res.data.data[0].memberid)
+          wx.setStorageSync('userInfo', res.data.data[0]);
+          getApp().globalData.memberid = res.data.data[0].memberid;
+          that.setData({
+            memberid: res.data.data[0].memberid,
+            page: 1
+          })
+          that.get_hot_shop();
+          // wx.hideLoading()
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '拒绝授权',
+        icon: 'none'
+      })
+    }
 
+  },
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -198,6 +235,7 @@ Page({
       header: getApp().globalData.request_header,
       success(res) {
         if (res.data.isSuccess === 'Y') {
+          wx.hideLoading()
           if (res.data.data.length == 0) {
             wx.showToast({
               title: '已加载全部商品',
@@ -215,7 +253,7 @@ Page({
           });
           // console.log(that.data.siteurl);
 
-          wx.hideLoading()
+          
         }
       }
     })
@@ -224,15 +262,16 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
+
     if (res.from === 'button') {
       return {
         title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
-        path: '../produdct_info/product_info?id=' + res.target.dataset.obj.shop_id
+        path: '/pages/produdct_info/product_info?id=' + res.target.dataset.obj.shop_id
       }
     }
     return {
       title: '【萧一萧】一个价格你做主的小程序',
-      path: '../index/index'
+      path: '/pages/index/index'
     }
   }
 })

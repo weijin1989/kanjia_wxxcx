@@ -20,10 +20,14 @@
             <view class="stock">已售{{item.residue}}件 <text>仅剩{{item.num}}件</text></view>
           </view>
           <view class="price">￥{{item.payprice}}<text>￥{{item.costprice}}</text></view>
-          <view class="but">
+          <view class="but" wx:if="{{memberid>0}}">
             <button class="buts but1" bindtap="toProductInfo" data-id='{{item.shopid}}'>立即购买</button>
             <button class="buts but2"  wx:if="{{item.isbargain=='N'}}" bindtap="bargain" data-obj="{{item}}" data-index="{{index}}">我要砍价</button>
             <button class="buts but3" wx:if="{{item.isbargain=='Y'}}" open-type="share" data-obj="{{item}}">继续砍</button>
+          </view>
+          <view class="but" wx:else>
+            <button class="buts but1" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-id='{{item.shopid}}'>立即购买</button>
+            <button class="buts but2"  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-obj="{{item}}" data-index="{{index}}">我要砍价</button>
           </view>
         </view>
       </view>

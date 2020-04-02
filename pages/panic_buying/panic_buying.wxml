@@ -10,7 +10,33 @@
     <product_type modelValue='1' bind:get_cate_shop_event="get_cate_shop_event" ></product_type>
     </view>
     <!--列表-->
-    <view class="ul cf">
+    <view class="list bg_fff">
+
+      <view class="list_li cf" wx:for="{{cp_list}}"  wx:key="{{item.shopid}}"  data-type="{{item.subject}}" data-index="{{index}}">
+        <view class="left"  bindtap="toProductInfo" data-id='{{item.shopid}}'>
+        <image  src="{{siteurl}}{{item.imgsrc}}"  mode="aspectFill" ></image></view>
+        <view class="right">
+          <view class="h2" bindtap="toProductInfo" data-id='{{item.shopid}}'>{{item.subject}}</view>
+          <view class="introduction">{{item.mername}} <text>{{item.distance}}km</text></view>
+          <view class="cf">
+            <view class="stock">已售{{item.residue}}件 <text>仅剩{{item.num}}件</text></view>
+          </view>
+          <view class="price">￥{{item.payprice}}<text>￥{{item.costprice}}</text></view>
+          <view class="but" wx:if="{{memberid>0}}">
+            <button class="buts but1" bindtap="toProductInfo" data-id='{{item.shopid}}'>立即购买</button>
+            <button class="buts but2"  wx:if="{{item.isbargain=='N'}}" bindtap="bargain" data-obj="{{item}}" data-index="{{index}}">我要砍价</button>
+            <button class="buts but3" wx:if="{{item.isbargain=='Y'}}" open-type="share" data-obj="{{item}}">继续砍</button>
+          </view>
+          <view class="but" wx:else>
+            <button class="buts but1" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-id='{{item.shopid}}'>立即购买</button>
+            <button class="buts but2"  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-obj="{{item}}" data-index="{{index}}">我要砍价</button>
+          </view>
+        </view>
+      </view>
+
+
+    </view>
+    <!-- <view class="ul cf">
       <view class="li" bindtap="toProductInfo" wx:for="{{cp_list}}"  wx:key="{{item.shopid}}"  data-type="{{item.subject}}" data-index="{{index}}" data-id='{{item.shopid}}'>
         <view class="qg_img"><image  src="{{siteurl}}{{item.imgsrc}}" mode="aspectFill"></image></view>
         <view class="nr">
@@ -21,15 +47,15 @@
   <!--             <image src='../../images/icon10.png' wx:elif="{{ 5/10 >= index && 5%10 !=0 }}"></image> -->
               <!-- <image src='../../images/icon10.png' wx:else></image>
             </view>
-            <text>4分</text>  -->
+            <text>4分</text>  -
             {{item.mername}}
-            <!-- <text class="ri">{{item.mername}}</text> -->
+            <!-- <text class="ri">{{item.mername}}</text> --
           </view>
           <view class="price">￥{{item.price}}<text>￥{{item.costprice}}</text></view>
         </view>
       </view>
 
-    </view>
+    </view> -->
     
     <!--列表-->
   </view>

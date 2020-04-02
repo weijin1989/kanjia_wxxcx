@@ -12,6 +12,7 @@ App({
   globalData: {
     userInfo: null,
     wxuserInfo: null,
+    memberid: 0,
     contact_tel:"12345679",
     longitude: '',
     latitude: '',
@@ -31,7 +32,7 @@ App({
   },
   //获取code
   get_code(){
-    var that=this;
+    var that = this;
     wx.login({
       success: res => {
         that.globalData.code = res.code;
@@ -43,6 +44,13 @@ App({
   onLaunch: function () {
     this.get_location();
     this.get_code();
+    let memberid=0;
+    if (wx.getStorageSync('memberid')){
+      memberid = wx.getStorageSync('memberid');
+    }else{
+      wx.setStorageSync('memberid',0);
+    }
+    this.globalData.memberid = memberid
   },
   wxLogin() {
     var that = this;
@@ -69,43 +77,6 @@ App({
         }
       })
   },
-  //获取用户信息
-  // wxUserInfos() {
-  //   wx.getUserInfo({
-  //     success: res => {
-  //       console.log(res)
-  //       this.getToken(this.globalData.code, res.encryptedData,res.iv);
-  //     },
-  //     fail :rs=>{
-  //       console.log(rs)
-  //     }
-  //   })
-  // },
-  // getToken: function (code, encryptedData, iv) {
-  //   var that = this;
-  //   console.log('注册登录');
-  //   wx.request({
-  //     url: this.globalData.ApiUrl + 'server.php',
-  //     data: {
-  //       'op':'GetMember',
-  //       'lng': this.globalData.longitude,
-  //       'lat': this.globalData.latitude,
-  //       'code': code,
-  //       'encryptedData': encryptedData,
-  //       'iv': iv
-  //     },
-  //     method: 'post',
-  //     header: this.globalData.request_header,
-  //     success(res) {
-  //       // wx.hideLoading()
-  //       if (res.data.isSuccess === 'Y') {
-  //         wx.setStorageSync('memberid', res.data.data[0].memberid)
-  //         wx.setStorageSync('session_key', res.data.sessionKey)
-  //         this.globalData.userInfo = res.data.data[0]
-  //       }
-  //     }
-  //   })
-  // },
   //获取地址 权限
   get_location() {
     var that = this;
@@ -210,9 +181,9 @@ App({
         const longitude = res.longitude // 经度
         that.globalData.latitude = latitude;
         that.globalData.longitude = longitude;
-        that.wxLogin()
-        console.log('longitude=' + longitude);
-        console.log('latitude=' + latitude);
+        // that.wxLogin()
+        // console.log('longitude=' + longitude);
+        // console.log('latitude=' + latitude);
       }, fail: function (res) {
         if (res.errMsg === 'getLocation:fail:auth denied') {
           wx.showToast({
