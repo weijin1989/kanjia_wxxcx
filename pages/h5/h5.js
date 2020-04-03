@@ -1,32 +1,37 @@
-// pages/paysuccess/paysuccess.js
+// pages/h5/h5.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    orderNo:'',
+    url:"",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.orderNo) {
-      this.setData({
-        orderNo: options.orderNo
-      });
+    let type=options.type;
+    let url = getApp().globalData.ApiUrl;
+    if(type==1){
+      url = url + 'privacy.html';
+      wx.setNavigationBarTitle({
+        title: '萧一萧隐私政策'
+      })
+    }else{
+      url = url + 'user.html';
+      wx.setNavigationBarTitle({
+        title: '萧一萧用户协议'
+      })
     }
 
-    wx.setNavigationBarTitle({
-      title: '支付成功'
+    this.setData({
+      url: url
     })
+    
   },
-  go_order_info(){
-    wx.redirectTo({
-      url: '../order_info/order_info?orderNo=' + this.data.orderNo
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -74,15 +79,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-    if (res.from === 'button') {
-      return {
-        title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
-        path: '/pages/product_info/product_info?id=' + res.target.dataset.obj.shopid
-      }
-    }
-    return {
-      title: '【萧一萧】一个价格你做主的小程序',
-      path: '/pages/index/index'
-    }
   }
 })

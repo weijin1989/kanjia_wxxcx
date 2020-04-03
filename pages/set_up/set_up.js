@@ -1,31 +1,25 @@
-// pages/paysuccess/paysuccess.js
+// pages/set_up/set_up.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    orderNo:'',
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.orderNo) {
-      this.setData({
-        orderNo: options.orderNo
-      });
-    }
 
-    wx.setNavigationBarTitle({
-      title: '支付成功'
-    })
   },
-  go_order_info(){
-    wx.redirectTo({
-      url: '../order_info/order_info?orderNo=' + this.data.orderNo
-    })
+
+  go_h5(e){
+    let type = e.currentTarget.dataset.type;
+    wx.navigateTo({
+      url:'../h5/h5?type='+type
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -46,6 +40,14 @@ Page({
    */
   onHide: function () {
 
+  },
+  //退出登录
+  logout(){
+    wx.setStorageSync('memberid', 0);
+    wx.setStorageSync('userInfo', []);
+    wx.reLaunch({
+      url:'../index/index'
+    });
   },
 
   /**
@@ -72,7 +74,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
 
     if (res.from === 'button') {
       return {

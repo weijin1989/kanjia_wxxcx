@@ -139,6 +139,12 @@
 					"pathName": "pages/index/index",
 					"query": "id=7",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/set_up/set_up",
+					"pathName": "pages/set_up/set_up",
+					"scene": null
 				}
 			]
 		}

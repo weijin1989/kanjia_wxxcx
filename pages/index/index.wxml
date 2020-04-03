@@ -16,12 +16,18 @@
         <label bindtap="more_hot">更多 <image class="returnImg" src="../../images/icon9.png" ></image></label>
       </view>
       <view class="ul cf">
-        <view class="li" wx:for="{{hot_list}}" wx:if="{{index<2}}" bindtap="toProductInfo" data-index="{{index}}" data-id='{{item.shopid}}'>
-          <view class="qg_img"><image  src="{{siteurl}}{{item.imgsrc}}" mode="aspectFill"></image></view>
-          <label class="name">{{item.subject}}</label>
-          <view class="introduction">{{item.mername}} <text>{{item.distance}}km</text></view>
-          <view class="price">￥{{item.price}}<text>￥{{item.costprice}}</text></view>
-        </view>
+        <swiper style="height: 390rpx;"  autoplay="true" interval="3000" duration="700" display-multiple-items="2">
+          <block wx:for="{{hot_list}}" wx:key="this" >
+            <swiper-item>
+              <view class="li"  bindtap="toProductInfo" data-index="{{index}}" data-id='{{item.shopid}}'>
+                <view class="qg_img"><image  src="{{siteurl}}{{item.imgsrc}}" mode="aspectFill"></image></view>
+                <label class="name">{{item.subject}}</label>
+                <view class="introduction">{{item.mername}} <text>{{item.distance}}km</text></view>
+                <view class="price">￥{{item.price}}<text>￥{{item.costprice}}</text></view>
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
       </view>
     </view>
   </view>

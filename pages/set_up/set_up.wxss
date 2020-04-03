@@ -1,0 +1,25 @@
+/* pages/set_up/set_up.wxss */
+.p_top{
+  padding:20rpx 30rpx;
+}
+.container{
+  margin:0;
+}
+.li{
+  font-size: 30rpx;
+  color:#6B6B6B;
+  padding:20rpx 0;
+  border-bottom:1px solid #E6E6E5;
+  position: relative;
+}
+.li .right{
+  position: absolute;
+  right:0;
+  top:35rpx;
+  width: 11rpx;
+  height:18rpx;
+}
+
+.no_border{
+  border:0;
+}
