@@ -18,7 +18,7 @@ App({
     latitude: '',
     pageSize:5,
     starsData: [1, 2, 3, 4, 5],
-    ApiUrl: 'https://weijin.lnhoo.com/',
+    ApiUrl: 'https://www.hunanfuture.com/',
     // ApiUrl: 'http://merchant.lnhoo.com/',
     packageName: 'wxxcx.maska',
     request_header: {
