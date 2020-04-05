@@ -1,0 +1,9 @@
+<view>
+    <view class="container">
+        <view class="icon">
+          <icon type="success" size="70"/>
+        </view>
+        <view class="desc">评价成功</view>
+        <button class="btn" bindtap="go_order_list">返回订单列表</button>
+    </view>
+</view>

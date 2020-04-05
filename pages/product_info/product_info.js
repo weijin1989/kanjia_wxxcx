@@ -80,7 +80,7 @@ Page({
         header: getApp().globalData.request_header,
         success(res) {
           if (res.data.isSuccess === 'Y') {
-            wx.setStorageSync('memberid', res.data.data[0].memberid)
+            wx.setStorageSync('memberid', parseInt(res.data.data[0].memberid))
             wx.setStorageSync('userInfo', res.data.data[0]);
             that.setData({
               memberid: res.data.data[0].memberid

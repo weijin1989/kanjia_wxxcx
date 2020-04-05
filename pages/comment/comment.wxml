@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="p_top bg_fff">
+    <view class="cp_img">
+      <image src="{{siteurl}}{{order_info.imgsrc}}" mode="aspectFill" style="height:404rpx"></image>
+    </view>
+  </view>
+  <view class="p_top1 bg_fff">
+    <text class="h1">支付金额</text>
+    <view class="price">￥{{order_info.sumprice}}
+    </view>
+  </view>
+
+  <form bindsubmit="saveCommen">
+    <view class="p_top bg_fff commen">
+      <view class="h1">发表评价：</view>
+      <view class="commen_content">
+        <textarea name="message" bindblur="bindTextAreaBlur" placeholder="请输入您的评论" />
+      </view>
+      <view class="image"  bindtap='uploadImage'>
+        <view  wx:if="{{previewFlg==false}}">上传图片</view>
+        <view class="img-con"  wx:if="{{previewFlg==true}}">
+          <image mode='aspectFit' src="{{imageFile}}" alt=""></image>
+        </view>
+      </view>
+      <view class='assess-star'>
+        <view class='star-wrap'>
+          <view class='star-item' wx:for="{{stars}}" wx:key="" 
+          style='background:url("{{item.flag==0?item.lightImg:item.blackImg}}") no-repeat top;background-size:100%;' data-index="{{index}}" bindtap='starClick'></view>
+          <view class='star-desc' >{{star>0?starDesc:''}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="m_t_22 p_10">
+      <button type="primary" disabled="{{disabled}}" formType="submit"> 发布评价 </button>
+    </view>
+  </form>
+
+</view>

@@ -8,7 +8,8 @@ Page({
     'order_type': 0,//订单类型
     'order_list': [],
     'order_list_length': 0,
-    'orderNo':'',
+    'siteurl':'',
+    'orderNo': ''
   },
 
   /**
@@ -24,6 +25,12 @@ Page({
       title: '订单列表'
     })
     this.get_order_list();
+  },
+  go_comment(e){
+    let orderNo = e.currentTarget.dataset.order_no;
+    wx.navigateTo({
+      url:'../comment/comment?orderNo='+orderNo
+    })
   },
   //支付
   pay(e){
@@ -117,6 +124,7 @@ Page({
         if (res.data.isSuccess === 'Y') {
           that.setData({
             order_list: res.data.data,
+            siteurl: res.data.siteurl,
             order_list_length: res.data.data.length > 0 ? true : false
           });
 

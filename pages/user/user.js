@@ -11,7 +11,7 @@ Page({
     is_showContact: 0,
     is_showCustomer: 0,
     contact_tel: getApp().globalData.contact_tel,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
   /**

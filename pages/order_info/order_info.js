@@ -6,12 +6,41 @@ Page({
    */
   data: {
     order_no: '',
-    order_info:[]
+    order_info: [],
+    siteurl:'',
+    starDesc: '非常满意，无可挑剔',
+    stars: [{
+      lightImg: '../../images/icon11.png',
+      blackImg: '../../images/icon10.png',
+      flag: 1,
+      message: '非常不满意，各方面都很差'
+    }, {
+      lightImg: '../../images/icon11.png',
+      blackImg: '../../images/icon10.png',
+      flag: 1,
+      message: '不满意，比较差'
+    }, {
+      lightImg: '../../images/icon11.png',
+      blackImg: '../../images/icon10.png',
+      flag: 1,
+      message: '一般，还要改善'
+    }, {
+      lightImg: '../../images/icon11.png',
+      blackImg: '../../images/icon10.png',
+      flag: 1,
+      message: '比较满意，仍要改善'
+    }, {
+      lightImg: '../../images/icon11.png',
+      blackImg: '../../images/icon10.png',
+      flag: 1,
+      message: '非常完美，无可挑剔'
+    }]
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
     if (options.orderNo) {
       this.setData({
         order_no: options.orderNo
@@ -41,7 +70,8 @@ Page({
       success(res) {
         if (res.data.isSuccess === 'Y') {
           that.setData({
-            order_info: res.data.data[0]
+            order_info: res.data.data[0],
+            siteurl: res.data.siteurl
           });
 
           wx.hideLoading()

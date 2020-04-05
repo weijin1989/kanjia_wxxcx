@@ -85,3 +85,9 @@
   line-height: 49rpx;
   font-size:28rpx;
 }
+.order_list .list .bottom .but1{
+  border:1px solid rgb(37, 191, 83);
+}
+.container{
+  padding-bottom:20rpx;
+}

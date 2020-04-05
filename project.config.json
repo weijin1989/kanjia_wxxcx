@@ -99,10 +99,10 @@
 					"scene": null
 				},
 				{
-					"id": 7,
-					"name": "pages/order_info/order_info",
-					"pathName": "pages/order_info/order_info",
-					"query": "orderNo=202003301585572289",
+					"id": 6,
+					"name": "pages/comment/comment",
+					"pathName": "pages/comment/comment",
+					"query": "orderNo=202003301585575158",
 					"scene": null
 				},
 				{
@@ -144,6 +144,21 @@
 					"id": -1,
 					"name": "pages/set_up/set_up",
 					"pathName": "pages/set_up/set_up",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/order_info/order_info",
+					"pathName": "pages/order_info/order_info",
+					"query": "orderNo= 202004011585752514",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/commentsuccess/commentsuccess",
+					"pathName": "pages/commentsuccess/commentsuccess",
+					"query": "orderNo=202003301585575158",
 					"scene": null
 				}
 			]

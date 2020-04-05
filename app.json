@@ -13,6 +13,8 @@
     "pages/map/map",
     "pages/search/search",
     "pages/set_up/set_up",
+    "pages/comment/comment",
+    "pages/commentsuccess/commentsuccess",
     "pages/h5/h5"
   ],
   "window": {

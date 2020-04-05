@@ -1,6 +1,9 @@
 <view class="container">
   <!--导航-->
   <view class="nav bg_fff">
+    <view class="li" data-type='' bindtap="chang_order_type">
+      <text class="{{order_type==0?'open':''}}">全部订单</text>
+    </view>
     <view class="li " data-type='1'  bindtap="chang_order_type">
       <text class="{{order_type==1?'open':''}}">待支付</text>
     </view>
@@ -9,9 +12,6 @@
     </view>
     <view class="li" data-type='3' bindtap="chang_order_type">
       <text  class="{{order_type==3?'open':''}}">已使用</text>
-    </view>
-    <view class="li" data-type='' bindtap="chang_order_type">
-      <text class="{{order_type==0?'open':''}}">全部订单</text>
     </view>
   </view>
   <!--导航end-->
@@ -24,10 +24,11 @@
         <view class="order_start"><order_start modelValue="{{item.status}}"></order_start></view>
       </view>
       <view class="bottom">
-        <image src="{{item.imgsrc}}"  bindtap="go_order_info"  data-order_no="{{item.appflowno}}"></image>
+        <image src="{{siteurl}}{{item.imgsrc}}"  mode="aspectFill"   bindtap="go_order_info"  data-order_no="{{item.appflowno}}"></image>
         <text  bindtap="go_order_info"  data-order_no="{{item.appflowno}}">下单时间:{{item.dateline}}</text>
         <label >￥{{item.sumprice}}</label>
         <button type="primary" class="but" bindtap="pay" data-order_no="{{item.appflowno}}" wx:if="{{item.status==1}}">立即支付</button>
+        <button type="default" class="but but1" bindtap="go_comment" data-order_no="{{item.appflowno}}" wx:if="{{item.status==2}}">晒图评价</button>
       </view>
     </view>
 
