@@ -51,6 +51,7 @@ App({
       wx.setStorageSync('memberid',0);
     }
     this.globalData.memberid = memberid
+    // console.log('app_member',this.globalData.memberid);
   },
   wxLogin() {
     var that = this;
@@ -70,7 +71,9 @@ App({
         header: this.globalData.request_header,
         success(res) {
           if (res.data.isSuccess === 'Y') {
-            wx.setStorageSync('memberid', res.data.data[0].memberid)
+            console.log('登录成功');
+            
+            wx.setStorageSync('memberid', res.data.data[0].memberid);
             // wx.setStorageSync('session_key', res.data.sessionKey)
             wx.setStorageSync('userInfo', res.data.data[0]);
           }
@@ -181,7 +184,7 @@ App({
         const longitude = res.longitude // 经度
         that.globalData.latitude = latitude;
         that.globalData.longitude = longitude;
-        // that.wxLogin()
+        that.wxLogin()
         // console.log('longitude=' + longitude);
         // console.log('latitude=' + latitude);
       }, fail: function (res) {

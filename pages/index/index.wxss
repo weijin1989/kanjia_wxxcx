@@ -234,7 +234,7 @@
 .getUserInfo{
    position: fixed;
   top: 45%;
-  left: 31%;
+  left:200rpx;
   z-index: 9999;
 }
 /* .modalDlg {

@@ -1,12 +1,19 @@
 <view class="container">
+  <view class="modalDlg" wx:if="{{is_showModal}}">
+    <button type="primary" wx:if="{{canIUse}}" open-type="getUserInfo" class="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用微信授权登录</button>
+    <view wx:else>请升级微信版本</view>
+  </view>
   <view class="p_top bg_fff">
-    <view class="cp_img"><image src="{{siteurl}}{{shop_data.imgsrc}}" mode="aspectFill" style="height:404rpx"></image></view>
+    <view class="cp_img">
+      <image src="{{siteurl}}{{shop_data.imgsrc}}" mode="aspectFill" style="height:404rpx"></image>
+    </view>
   </view>
   <view class="p_top1 bg_fff">
     <text class="h1">{{shop_data.subject}}</text>
     <view class="price">
-    ￥{{shop_data.payprice}}<text>￥{{shop_data.costprice}}</text>
-    <!-- <view class="right"><icon size="12" type="success"></icon> 随时退 <icon size="12" type="success"></icon> 过期退</view> -->
+      ￥{{shop_data.payprice}}
+      <text>￥{{shop_data.costprice}}</text>
+      <!-- <view class="right"><icon size="12" type="success"></icon> 随时退 <icon size="12" type="success"></icon> 过期退</view> -->
     </view>
     <label>25人正在抢购，只剩2份啦！</label>
   </view>
@@ -14,12 +21,13 @@
 
   <!--地址-->
   <view class="address bg_fff br_12">
-    <view class="h3"><image src="../../images/icon14.png"></image> {{shop_data.mername}}</view>
+    <view class="h3">
+      <image src="../../images/icon14.png"></image> {{shop_data.mername}}</view>
     <!-- <view class="star cf">
       <view class='stars cf' wx:for='{{starsData}}' wx:key="{{index}}" wx:for-item='i'>
         <image src='../../images/icon11.png' wx:if="{{4/1 >= index+1 }}"></image>
   <!--             <image src='../../images/icon10.png' wx:elif="{{ 5/10 >= index && 5%10 !=0 }}"></image> -->
-        <!-- <image src='../../images/icon10.png' wx:else></image>
+    <!-- <image src='../../images/icon10.png' wx:else></image>
       </view>
     </view> -->
     <view class="xx">{{shop_data.address}}</view>
@@ -52,14 +60,44 @@
     {{shop_data.message}}
   </view>
   <!--内容end-->
+  <!--用户评价-->
+  <view class="commont bg_fff br_12">
+    <text class="h2">用户评论</text>
+    <view class="c_list">
+      <view class="li" wx:for="{{comments_list}}">
+        <image src="{{item.headimgurl}}" class="headimage"></image>
+        <view class="right">
+          <view class='h3'>
+            {{item.nickname}}
+            <view class="star cf">
+              <view class='stars cf' wx:for='{{starsData}}' wx:key="{{index}}" wx:for-item='i'>
+                <image src='../../images/icon11.png' wx:if="{{item.star/1 >= index+1 }}"></image>
+              
+                <image src='../../images/icon10.png' wx:elif="{{ item.star/10 >= index && item.star%10 !=0 }}"></image>
+                <image src='../../images/icon10.png' wx:else></image>
+              </view>
+            </view>
+          </view>
+          <view class="datetime">{{item.dateline}}</view>
+          <view class="message">{{item.message}}</view>
+          <view class="images">
+            <image bindtap="imgYu" data-list="{{siteurl+item.image}}" data-url="{{siteurl+item.image}}" src="{{siteurl+item.image}}" mode="aspectFill" ></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!--用户评价end-->
   <footer class="cf">
-    <view class="left"><image src="../../images/nav1.png" bindtap="returnHome"></image></view>
+    <view class="left">
+      <image src="../../images/nav1.png" bindtap="returnHome"></image>
+    </view>
     <view class="right">
       <button class="but" wx:if="{{shop_data.isbargain=='N'}}" bindtap="place_order" data-type="2">砍价 </button>
       <button class="but but2" wx:if="{{shop_data.isbargain=='Y'}}" open-type="share">继续砍 </button>
-      
-      <button class="but but1" wx:if="{{userInfo.mobile===null||userInfo.mobile==''}}" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即购买</button>    
-      <button class="but but1"  wx:else  bindtap="place_order" data-type="1">立即购买</button>
+
+      <button class="but but1" wx:if="{{userInfo.mobile===null||userInfo.mobile==''}}" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即购买</button>
+      <button class="but but1" wx:else bindtap="place_order" data-type="1">立即购买</button>
     </view>
     <!-- <view class="right" wx:else>
       <button class="but" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-type="2">砍价 </button>

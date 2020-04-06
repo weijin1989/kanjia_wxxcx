@@ -2,21 +2,12 @@
   <view class="modalDlg" wx:if="{{is_showModal}}">
     <button type="primary" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="getPhoneNumber">使用手机号授权登录</button>
   </view>
-  <view class="modalDlg1" bindtap="colseDlg" data-type="2" wx:if="{{is_showCustomer}}">
-    <view class="modalContent">客服:1111111</view>
-  </view>
-  <view class="modalDlg1" wx:if="{{is_showContact}}" bindtap="colseDlg" data-type="1">
-    <view class="modalContent">
-      <view>联系电话:1111111</view>
-      <view>联系地址:xxxxx</view>
-    </view>
-  </view>
   <view class="header" style="background:url(../../images/bg.png) no-repeat left top;background-size:750rpx 404rpx;">
     <view class="top">
-      <image src="../../images/nav3_open.png"></image>
+      <image src="{{user_info.headimgurl}}"></image>
       <view class="right">
         <text>{{user_info.nickname}}</text>
-        <label>{{user_info.mobile?user_info.mobile:'登录'}}</label>
+        <label>{{user_info.mobile?user_info.mobile:''}}</label>
       </view>
     </view>
 <!-- 

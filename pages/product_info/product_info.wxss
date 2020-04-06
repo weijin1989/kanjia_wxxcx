@@ -148,9 +148,84 @@
   
   margin:30rpx 12rpx;
   padding:17rpx 15rpx;
-  margin-bottom:115rpx;
   word-wrap:break-word;
   text-overflow:ellipsis;
+}
+.commont .h2{
+  text-align: center;
+  border-bottom:1px solid rgb(170, 170, 170);
+  font-size: 30rpx;
+  line-height: 50rpx;
+  margin:0 auto;
+  width: 140rpx;
+  display: block;
+  margin-bottom:10rpx;
+}
+.commont{
+  margin:30rpx 12rpx;
+  margin-bottom:115rpx;
+  padding:10rpx;
+}
+.c_list .li{
+  margin-top:20rpx;
+  position: relative; 
+  padding-bottom:20rpx;
+  border-bottom:1px solid #d1d1d1;
+  padding-left:100rpx;
+}
+.headimage{
+  width: 80rpx;
+  height:80rpx;
+  border-radius: 50%;
+  position: absolute;
+  left:0;
+  top:0;
+}
+.c_list .right .h3{
+  position: relative;
+}
+
+.c_list .right .h3 .star{
+  color:#313232;
+  line-height:36rpx;
+  height:36rpx;
+  position: relative;
+  float:right;
+}
+.c_list .star .stars{
+  float:left;
+  padding-top:10rpx;
+}
+.datetime{
+  padding:5rpx 0;
+  color:#808080
+}
+.message{
+  text-align: left;
+  line-height: 30rpx;
+}
+.images{
+  width: 150rpx;
+  height:150rpx;
+  margin-top:30rpx;
+}
+.images image{
+  width: 100%;
+  height:100%;
+}
+.stars image{
+  width: 17rpx;
+  height:16rpx;
+  float:left;
+  margin-right:5rpx;
+}
+.c_list .star text{
+  color:#F39848;
+}
+.c_list .star text.ri{
+  position: absolute;
+  color:#5E5E5F;
+  right:0
 }
 footer{
   position: fixed;
@@ -193,4 +268,53 @@ footer .right .but1{
 
 footer .right .but2{
   background: #07c160
+}
+
+ .modalDlg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.8);
+    z-index: 9999;
+    /* display: none; */
+}
+.getUserInfo{
+   position: fixed;
+  top: 45%;
+  left: 31%;
+  z-index: 9999;
+}
+/* .modalDlg {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  z-index: 9999;
+  margin: -370rpx 85rpx;
+  background-color: #fff;
+  border-radius: 36rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} */
+
+
+.modalContent{
+  color:#000;
+  width: 400rpx;
+  border-radius: 5rpx;
+  background-color: #fff;
+  line-height:40px;
+  padding:0 10rpx;
+  position: fixed;
+  top: 45%;
+  left: 25%;
+  z-index: 9999;
+}
+.getPhoneNumber{
+   position: fixed;
+  top: 45%;
+  left: 25%;
+  z-index: 9999;
 }
