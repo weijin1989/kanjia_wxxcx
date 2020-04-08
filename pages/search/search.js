@@ -87,12 +87,24 @@ Page({
       success(res) {
         if (res.data.isSuccess === 'Y') {
           let title = '恭喜，砍了【' + res.data.data.bargain + '元】！';
-          wx.showToast({
-            title: title, // 标题
-            icon: 'none',  // 图标类型，默认success
-            duration: 1500  // 提示窗停留时间，默认1500ms
+
+          wx.showModal({
+            title: '提示',
+            content: title,
+            success(res) {
+              if (res.confirm) {
+                that.get_shop_info();
+              } else if (res.cancel) {
+                that.get_shop_info();
+              }
+            }
           })
-          that.get_shop_info();
+          // wx.showToast({
+          //   title: title, // 标题
+          //   icon: 'none',  // 图标类型，默认success
+          //   duration: 1500  // 提示窗停留时间，默认1500ms
+          // })
+          // that.get_shop_info();
         } else {
           wx.showToast({
             title: '砍价失败,或者您已经砍过价！', // 标题

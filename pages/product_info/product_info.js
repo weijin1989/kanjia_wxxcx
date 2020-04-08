@@ -1,4 +1,5 @@
 // pages/product_info/product_info.js
+var WxParse = require('../../wxParse/wxParse.js');
 Page({
 
   /**
@@ -15,7 +16,7 @@ Page({
     comments_list_length: 0,
     memberid: getApp().globalData.memberid,
     but_type: 0, //1下单，2砍价
-    page: 2,
+    page: 1,
     code:'',
     pageSize: getApp().globalData.pageSize,
   },
@@ -41,12 +42,18 @@ Page({
         success(res) {
           if (res.data.isSuccess === 'Y') {
             let title = '恭喜，砍了【' + res.data.data.bargain + '元】！';
-            wx.showToast({
-              title: title, // 标题
-              icon: 'none', // 图标类型，默认success
-              duration: 1500 // 提示窗停留时间，默认1500ms
+
+            wx.showModal({
+              title: '提示',
+              content: title,
+              success(res) {
+                if (res.confirm) {
+                  that.get_shop_info(0);
+                } else if (res.cancel) {
+                  that.get_shop_info(0);
+                }
+              }
             })
-            that.get_shop_info(0);
           } else {
             wx.showToast({
               title: '砍价失败,或者您已经砍过价！', // 标题
@@ -219,8 +226,10 @@ Page({
           wx.hideLoading()
         }
         if (res.data.isSuccess === 'Y') {
+          let data=res.data.data[0];
+          WxParse.wxParse('message', 'html', data.message, that, 0);
           that.setData({
-            shop_data: res.data.data[0],
+            shop_data: data,
             siteurl: res.data.siteurl
           });
           if (is_loading == 3) {
@@ -286,12 +295,12 @@ Page({
     wx.showLoading({
       title: '玩命加载中',
     })
-    if (this.data.comments_list_length >= this.data.pageSize) {
+    // if (this.data.comments_list_length >= this.data.pageSize) {
       var page = this.data.page + 1;
       this.setData({
         page: page
       })
-    }
+    // }
     var data = {
       op: 'GetComment',
       shopid: this.data.shop_id,

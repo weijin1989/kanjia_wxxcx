@@ -1,3 +1,4 @@
+@import "../../wxParse/wxParse.wxss";
 .container{
   margin:0;
 }

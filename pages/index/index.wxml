@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
 
-  <view class="modalDlg" wx:if="{{is_showModal}}">
+  <view class="modalDlg" wx:if="{{is_showModal}}" catchtouchmove='true'>
     <button type="primary" wx:if="{{canIUse}}" open-type="getUserInfo" class="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用微信授权登录</button>
     <view wx:else>请升级微信版本</view>
   </view>

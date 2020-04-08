@@ -57,7 +57,13 @@
 
   <!--内容-->
   <view class="cp_content bg_fff br_12">
-    {{shop_data.message}}
+    <!-- <rich-text  nodes="{{shop_data.message}}"></rich-text> -->
+   <!-- {{shop_data.message}} -->
+   
+    <import src="../../wxParse/wxParse.wxml" />
+    <view class="wxParse">
+      <template is="wxParse" data="{{wxParseData:message.nodes}}" />
+    </view>
   </view>
   <!--内容end-->
   <!--用户评价-->
@@ -72,7 +78,7 @@
             <view class="star cf">
               <view class='stars cf' wx:for='{{starsData}}' wx:key="{{index}}" wx:for-item='i'>
                 <image src='../../images/icon11.png' wx:if="{{item.star/1 >= index+1 }}"></image>
-              
+
                 <image src='../../images/icon10.png' wx:elif="{{ item.star/10 >= index && item.star%10 !=0 }}"></image>
                 <image src='../../images/icon10.png' wx:else></image>
               </view>
@@ -81,7 +87,7 @@
           <view class="datetime">{{item.dateline}}</view>
           <view class="message">{{item.message}}</view>
           <view class="images">
-            <image bindtap="imgYu" data-list="{{siteurl+item.image}}" data-url="{{siteurl+item.image}}" src="{{siteurl+item.image}}" mode="aspectFill" ></image>
+            <image bindtap="imgYu" data-list="{{siteurl+item.image}}" data-url="{{siteurl+item.image}}" src="{{siteurl+item.image}}" mode="aspectFill"></image>
           </view>
         </view>
       </view>
@@ -96,7 +102,7 @@
       <button class="but" wx:if="{{shop_data.isbargain=='N'}}" bindtap="place_order" data-type="2">砍价 </button>
       <button class="but but2" wx:if="{{shop_data.isbargain=='Y'}}" open-type="share">继续砍 </button>
 
-      <button class="but but1" wx:if="{{userInfo.mobile===null||userInfo.mobile==''}}" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即购买</button>
+      <button class="but but1" wx:if="{{userInfo.mobile===null||userInfo.mobile==''||!userInfo.mobile}}" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即购买</button>
       <button class="but but1" wx:else bindtap="place_order" data-type="1">立即购买</button>
     </view>
     <!-- <view class="right" wx:else>

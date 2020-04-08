@@ -44,12 +44,23 @@ Page({
       success(res) {
         if (res.data.isSuccess === 'Y') {
           let title = '恭喜，砍了【' + res.data.data.bargain + '元】！';
-          wx.showToast({
-            title: title, // 标题
-            icon: 'none',  // 图标类型，默认success
-            duration: 1500  // 提示窗停留时间，默认1500ms
+          wx.showModal({
+            title: '提示',
+            content: title,
+            success(res) {
+              if (res.confirm) {
+                that.get_shop_info();
+              } else if (res.cancel) {
+                that.get_shop_info();
+              }
+            }
           })
-          that.get_shop_info();
+          // wx.showToast({
+          //   title: title, // 标题
+          //   icon: 'none',  // 图标类型，默认success
+          //   duration: 1500  // 提示窗停留时间，默认1500ms
+          // })
+          // that.get_shop_info();
         } else {
           wx.showToast({
             title: '砍价失败,或者您已经砍过价！', // 标题
@@ -104,7 +115,8 @@ Page({
   get_cate_shop_event: function (e) {
     var type_id = e.detail.type_id;
     this.setData({
-      type_id: type_id
+      type_id: type_id,
+      page:1,
     });
     this.get_cate_shop();
   },
@@ -246,12 +258,12 @@ Page({
     wx.showLoading({
       title: '玩命加载中',
     })
-    if (this.data.cp_list_length == this.data.pageSize) {
+    // if (this.data.cp_list_length == this.data.pageSize) {
       var page = this.data.page + 1;
       this.setData({
         page: page
       })
-    }
+    // }
     var data = {
       op: 'GetCateShops',
       catid: this.data.type_id,
