@@ -16,6 +16,7 @@ Page({
     comments_list_length: 0,
     memberid: getApp().globalData.memberid,
     but_type: 0, //1下单，2砍价
+    listcount:0,
     page: 1,
     code:'',
     pageSize: getApp().globalData.pageSize,
@@ -230,6 +231,7 @@ Page({
           WxParse.wxParse('message', 'html', data.message, that, 0);
           that.setData({
             shop_data: data,
+            listcount: res.data.listcount,
             siteurl: res.data.siteurl
           });
           if (is_loading == 3) {

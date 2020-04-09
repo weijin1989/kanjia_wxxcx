@@ -15,7 +15,7 @@
       <text>￥{{shop_data.costprice}}</text>
       <!-- <view class="right"><icon size="12" type="success"></icon> 随时退 <icon size="12" type="success"></icon> 过期退</view> -->
     </view>
-    <label>25人正在抢购，只剩2份啦！</label>
+    <label>{{listcount}}人正在抢购，只剩{{shop_data.num}}份啦！</label>
   </view>
 
 
@@ -86,7 +86,7 @@
           </view>
           <view class="datetime">{{item.dateline}}</view>
           <view class="message">{{item.message}}</view>
-          <view class="images">
+          <view class="images" wx:if="{{item.image}}">
             <image bindtap="imgYu" data-list="{{siteurl+item.image}}" data-url="{{siteurl+item.image}}" src="{{siteurl+item.image}}" mode="aspectFill"></image>
           </view>
         </view>

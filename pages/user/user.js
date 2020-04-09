@@ -40,9 +40,13 @@ Page({
     })
   },
   go_contact(){
+
     wx.navigateTo({
-      url: '../contact/contact',
-      })
+      url: '../h5/h5?type=' + 3
+    });
+    // wx.navigateTo({
+    //   url: '../contact/contact',
+    //   })
   },
   go_customer() {
 

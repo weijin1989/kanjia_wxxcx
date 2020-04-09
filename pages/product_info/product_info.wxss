@@ -203,7 +203,7 @@
 }
 .message{
   text-align: left;
-  line-height: 30rpx;
+  line-height: 55rpx;
 }
 .images{
   width: 150rpx;

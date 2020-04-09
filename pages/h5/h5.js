@@ -17,12 +17,17 @@ Page({
     if(type==1){
       url = url + 'privacy.html';
       wx.setNavigationBarTitle({
-        title: '萧一萧隐私政策'
+        title: '萧一潇隐私政策'
       })
-    }else{
+    }else if(type==2){
       url = url + 'user.html';
       wx.setNavigationBarTitle({
-        title: '萧一萧用户协议'
+        title: '萧一潇用户协议'
+      })
+    } else if (type == 3) {
+      url = url + 'contact.html';
+      wx.setNavigationBarTitle({
+        title: '联系我们'
       })
     }
 
