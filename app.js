@@ -13,7 +13,7 @@ App({
     userInfo: null,
     wxuserInfo: null,
     memberid: 0,
-    contact_tel:"15801129866",
+    contact_tel:"17187383666",
     longitude: '',
     latitude: '',
     pageSize:5,
