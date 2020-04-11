@@ -2,7 +2,7 @@
 <view class="container">
 
   <view class="modalDlg" wx:if="{{is_showModal}}" catchtouchmove='true'>
-    <button type="primary" wx:if="{{canIUse}}" open-type="getUserInfo" class="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用微信授权登录</button>
+    <button type="primary" wx:if="{{canIUse}}" open-type="getUserInfo" class="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用微信登录</button>
     <view wx:else>请升级微信版本</view>
   </view>
 
@@ -31,7 +31,7 @@
                 <view class="introduction">{{item.mername}}
                   <text>{{item.distance}}km</text>
                 </view>
-                <view class="price">￥{{item.price}}
+                <view class="price">￥{{item.payprice}}
                   <text>￥{{item.costprice}}</text>
                 </view>
               </view>
@@ -59,13 +59,15 @@
           <image src="{{siteurl}}{{item.imgsrc}}" mode="aspectFill"></image>
         </view>
         <view class="right">
-          <view class="h2" bindtap="toProductInfo" data-id='{{item.shopid}}'>{{item.subject}}</view>
+          <view class="h2" bindtap="toProductInfo" data-id='{{item.shopid}}'>
+          {{item.subject}}
+          </view>
           <view class="introduction">{{item.mername}}
             <text>{{item.distance}}km</text>
           </view>
           <view class="cf">
-            <view class="stock">已售{{item.residue}}件
-              <text>仅剩{{item.num}}件</text>
+            <view class="stock">浏览{{item.residue}}
+              <text>参与{{item.num}}</text>
             </view>
           </view>
           <view class="price">￥{{item.payprice}}

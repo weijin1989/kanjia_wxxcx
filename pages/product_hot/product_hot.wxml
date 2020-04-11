@@ -10,9 +10,9 @@
         <view class="right">
           <view class="h2">{{item.subject}}</view>
           <view class="introduction">{{item.mername}} <text>{{item.distance}}km</text></view>
-          <view class="cf">
+          <!-- <view class="cf">
             <view class="stock">已售{{item.residue}}件 <text>仅剩{{item.num}}件</text></view>
-          </view>
+          </view> -->
           <view class="price">￥{{item.payprice}}<text>￥{{item.costprice}}</text></view>
           <view class="but" wx:if="{{memberid>0}}">
             <button class="buts but1" bindtap="toProductInfo" data-id='{{item.shopid}}'>立即购买</button>

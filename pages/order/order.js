@@ -201,7 +201,7 @@ Page({
       }
     }
     return {
-      title: '【萧一萧】一个价格你做主的小程序',
+      title: '【萧一潇】一个价格你做主的小程序',
       path: '/pages/index/index'
     }
   }
