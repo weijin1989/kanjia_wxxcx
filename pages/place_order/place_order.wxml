@@ -3,7 +3,7 @@
       {{shop_data.subject}}
   </view>
   <view class="place_address bg_fff h1">
-    <form bindsubmit="saveOrder">
+    <form bindsubmit="saveOrder" report-submit='true'>
       <view class="weui-cells__title">姓名：</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">

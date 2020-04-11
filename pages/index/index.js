@@ -148,6 +148,7 @@ Page({
           let title = '恭喜，砍了【' + res.data.data.bargain + '元】！';
           wx.showModal({
             title: '提示',
+            showCancel:false,
             content: title,
             success(res) {
               if (res.confirm) {

@@ -22,7 +22,7 @@ Page({
     this.get_hot_shop();
 
     wx.setNavigationBarTitle({
-      title: '更多抢购'
+      title: '更多精品'
     })
   },
   //砍价
@@ -48,6 +48,7 @@ Page({
 
           wx.showModal({
             title: '提示',
+            showCancel:false,
             content: title,
             success(res) {
               if (res.confirm) {

@@ -36,8 +36,8 @@
   margin:0 15rpx;
 }
 .panic_buying .h1 .wz{
-  width: 136rpx;
-  height:27rpx;
+  width: 128rpx;
+  height:24rpx;
 }
 .panic_buying .h1 label{
   position:absolute;

@@ -47,6 +47,7 @@ Page({
           wx.showModal({
             title: '提示',
             content: title,
+            showCancel:false,
             success(res) {
               if (res.confirm) {
                 that.get_shop_info();

@@ -130,7 +130,7 @@
   font-size:26rpx;
   font-weight:400;
   color:rgba(122,122,122,1);
-  line-height:32rpx;
+  line-height:37rpx;
 }
 .address .foot{
   padding-top:5rpx;
@@ -152,7 +152,7 @@
   word-wrap:break-word;
   text-overflow:ellipsis;
 }
-.commont .h2{
+.h2{
   text-align: center;
   border-bottom:1px solid rgb(170, 170, 170);
   font-size: 30rpx;

@@ -5,7 +5,13 @@
   </view>
   <view class="p_top bg_fff">
     <view class="cp_img">
-      <image src="{{siteurl}}{{shop_data.imgsrc}}" mode="aspectFill" style="height:404rpx"></image>
+      <swiper style="height: 640rpx;" indicator-dots="true" autoplay="true" interval="3000" duration="700" >
+        <block wx:for="{{shop_data.images}}" wx:key="this">
+            <swiper-item>
+              <image src="{{siteurl}}{{item.imgurl}}" mode="aspectFill" style="height:640rpx"></image>
+            </swiper-item>
+          </block>
+        </swiper>
     </view>
   </view>
   <view class="p_top1 bg_fff">
@@ -57,6 +63,7 @@
 
   <!--内容-->
   <view class="cp_content bg_fff br_12">
+    <text class="h2">菜单</text>
     <!-- <rich-text  nodes="{{shop_data.message}}"></rich-text> -->
    <!-- {{shop_data.message}} -->
    
@@ -66,6 +73,16 @@
     </view>
   </view>
   <!--内容end-->
+  <view class="cp_content bg_fff br_12">
+    <text class="h2">特别提示</text>
+    <!-- <rich-text  nodes="{{shop_data.message}}"></rich-text> -->
+   <!-- {{shop_data.message}} -->
+   
+    <import src="../../wxParse/wxParse.wxml" />
+    <view class="wxParse">
+      <template is="wxParse" data="{{wxParseData:tips.nodes}}" />
+    </view>
+  </view>
   <!--用户评价-->
   <view class="commont bg_fff br_12">
     <text class="h2">用户评论</text>
@@ -103,7 +120,9 @@
       <button class="but but2" wx:if="{{shop_data.isbargain=='Y'}}" open-type="share">继续砍 </button>
 
       <button class="but but1" wx:if="{{userInfo.mobile===null||userInfo.mobile==''||!userInfo.mobile}}" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即购买</button>
-      <button class="but but1" wx:else bindtap="place_order" data-type="1">立即购买</button>
+      <form bindsubmit="saveOrder" wx:else report-submit='true'>
+      <button class="but but1" disabled="{{disabled}}"  formType="submit" >立即购买</button>
+      </form>
     </view>
     <!-- <view class="right" wx:else>
       <button class="but" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-type="2">砍价 </button>

@@ -17,10 +17,13 @@ Page({
 
   //提交订单
   saveOrder: function (e) {
+    // console.log(e);
+    // return false;
     var that = this;
     var name = e.detail.value.name;
     var mobile = e.detail.value.mobile;
     var address = e.detail.value.address;
+    var formId = e.detail.formId;
     if (name==""){
       wx.showToast({
         title: '请输入姓名',
@@ -45,6 +48,7 @@ Page({
       });
       return false;
     }
+    var formId = e.detail.formId;
     var data = {
       op: 'addOrder',
       name: name,
@@ -52,6 +56,7 @@ Page({
       address: address,
       shopid: this.data.shop_id, 
       num: 1,
+      formId:formId,
       memberid: wx.getStorageSync('memberid')
     }
 

@@ -47,6 +47,7 @@ Page({
             wx.showModal({
               title: '提示',
               content: title,
+              showCancel:false,
               success(res) {
                 if (res.confirm) {
                   that.get_shop_info(0);
@@ -72,6 +73,99 @@ Page({
       but_type: e.currentTarget.dataset.type
     });
     this.go_place_order();
+  },
+  //下单并支付
+  saveOrder(e){
+    var formId = e.detail.formId;
+    var data = {
+      op: 'addOrder',
+      shopid: this.data.shop_id, 
+      num: 1,
+      formId:formId,
+      memberid: wx.getStorageSync('memberid')
+    }
+    let that=this;
+    this.setData({
+      disabled:true
+    });
+
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      // url: getApp().globalData.ApiUrl + 'get_nav',
+      data: data,
+      method: 'POST',
+      header: getApp().globalData.request_header,
+      success(res) {
+        if (res.data.isSuccess === 'Y') {
+          that.setData({
+            orderNo: res.data.data.appflowno
+          });
+          that.pay();
+        }
+      }
+    })
+  },
+  //支付
+  pay(){
+
+    var that = this;
+    wx.showLoading({
+      title: '提交中...',
+    })
+    var data = {
+      op: 'CreatOrder',
+      appflowno: this.data.orderNo,
+      memberid: wx.getStorageSync('memberid')
+    }
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      method: 'POST',
+      data: data,
+      header: getApp().globalData.request_header,
+      success(res) {
+        wx.hideLoading()
+        if (res.data.isSuccess === 'Y') {
+          //发起微信支付
+          wx.requestPayment({
+            timeStamp: res.data.data.timeStamp,
+            nonceStr: res.data.data.nonceStr,
+            package: res.data.data.package,
+            signType: 'MD5',
+            paySign: res.data.data.paySign,
+            success(res) {
+              console.log('success=' + res);
+              wx.showToast({
+                title: '支付成功！',
+                icon: 'none',
+                duration: 2000
+              });
+              wx.redirectTo({
+                url: '../paysuccess/paysuccess?orderNo=' + that.data.orderNo
+              })
+            },
+            fail(res) {
+              console.log(res);
+              if (res.errMsg === 'requestPayment:fail cancel') {
+                wx.showToast({
+                  title: '用户取消支付',
+                  icon: 'none',
+                  duration: 2000
+                });
+                that.setData({
+                  disabled:false
+                })
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '支付失败',
+            icon: 'none',
+            duration: 2000
+          });
+        }
+      }
+    })
   },
   //获取用户手机号码
   getPhoneNumber: function(e) {
@@ -138,10 +232,15 @@ Page({
   },
   //去地图
   go_map() {
-
-    wx.redirectTo({
-      url: '../map/map?lat=' + this.data.shop_data.lat + '&lng=' + this.data.shop_data.lng,
+    wx.openLocation({
+      latitude: +this.data.shop_data.lat,
+      longitude: +this.data.shop_data.lng,
+      // name,
+      // address: desc
     })
+    // wx.redirectTo({
+    //   url: '../map/map?lat=' + this.data.shop_data.lat + '&lng=' + this.data.shop_data.lng,
+    // })
   },
   //拨打电话
   freeTell() {
@@ -229,6 +328,7 @@ Page({
         if (res.data.isSuccess === 'Y') {
           let data=res.data.data[0];
           WxParse.wxParse('message', 'html', data.message, that, 0);
+          WxParse.wxParse('tips', 'html', data.tips, that, 0);
           that.setData({
             shop_data: data,
             listcount: res.data.listcount,

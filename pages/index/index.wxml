@@ -66,8 +66,8 @@
             <text>{{item.distance}}km</text>
           </view>
           <view class="cf">
-            <view class="stock">浏览{{item.residue}}
-              <text>参与{{item.num}}</text>
+            <view class="stock">浏览 {{item.viewnum}}
+              <text>参与 {{item.bargaincount}}</text>
             </view>
           </view>
           <view class="price">￥{{item.payprice}}
