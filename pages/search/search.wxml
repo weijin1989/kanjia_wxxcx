@@ -25,7 +25,7 @@
           <view class="but" wx:if="{{memberid>0}}">
             <button class="buts but1" bindtap="toProductInfo" data-id='{{item.shopid}}'>立即购买</button>
             <button class="buts but2"  wx:if="{{item.isbargain=='N'}}" bindtap="bargain" data-obj="{{item}}" data-index="{{index}}">我要砍价</button>
-            <button class="buts but3" wx:if="{{item.isbargain=='Y'}}" open-type="share" data-obj="{{item}}">继续砍</button>
+            <button class="buts but3" wx:if="{{item.isbargain=='Y'}}" bindtap="go_share" data-obj="{{item}}">继续砍</button>
           </view>
           <view class="but" wx:else>
             <button class="buts but1" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-id='{{item.shopid}}'>立即购买</button>
@@ -35,6 +35,22 @@
       </view>
     </view>
 
+  </view>
+
+  
+  
+  <view class="wx-popup" hidden="{{flag}}">
+    <view class='popup-container'>
+      <view class="wx-popup-title">提示</view>
+      <view class="wx-popup-con">
+        <view>您今天已经砍过价了</view>
+        您还可以分享给您的好友助您砍价哦！但也请您一定要盯准机会截胡哟！
+        </view>
+      <view class="wx-popup-btn">
+        <button class="btn-no" bindtap='_error' >取消</button>
+        <button class="btn-ok" open-type="share" data-obj="{{this_shop_info}}">确认</button>
+      </view>
+    </view>
   </view>
 
 </view>

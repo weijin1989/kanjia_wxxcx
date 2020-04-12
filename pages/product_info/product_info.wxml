@@ -117,7 +117,7 @@
     </view>
     <view class="right">
       <button class="but" wx:if="{{shop_data.isbargain=='N'}}" bindtap="place_order" data-type="2">砍价 </button>
-      <button class="but but2" wx:if="{{shop_data.isbargain=='Y'}}" open-type="share">继续砍 </button>
+      <button class="but but2" wx:if="{{shop_data.isbargain=='Y'}}" bindtap="go_share" data-obj="{{shop_data}}">继续砍 </button>
 
       <button class="but but1" wx:if="{{userInfo.mobile===null||userInfo.mobile==''||!userInfo.mobile}}" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即购买</button>
       <form bindsubmit="saveOrder" wx:else report-submit='true'>
@@ -129,4 +129,19 @@
       <button class="but but1" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即购买</button>
     </view> -->
   </footer>
+
+  <view class="wx-popup" hidden="{{flag}}">
+    <view class='popup-container'>
+      <view class="wx-popup-title">提示</view>
+      <view class="wx-popup-con">
+        <view>您今天已经砍过价了</view>
+        您还可以分享给您的好友助您砍价哦！但也请您一定要盯准机会截胡哟！
+        </view>
+      <view class="wx-popup-btn">
+        <button class="btn-no" bindtap='_error' >取消</button>
+        <button class="btn-ok" open-type="share" data-obj="{{this_shop_info}}">确认</button>
+      </view>
+    </view>
+  </view>
+
 </view>

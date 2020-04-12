@@ -25,6 +25,8 @@ Page({
     pageSize: getApp().globalData.pageSize,
     memberid: getApp().globalData.memberid,
     x: '',
+    this_shop_info:[],
+    flag:true,
   },
   onLoad: function() {
     let that = this;
@@ -89,7 +91,8 @@ Page({
         success(res) {
           if (res.data.isSuccess === 'Y') {
             // wx.hideLoading()
-            wx.setStorageSync('memberid', res.data.data[0].memberid)
+            
+            wx.setStorageSync('memberid', parseInt(res.data.data[0].memberid))
             // wx.setStorageSync('session_key', res.data.sessionKey)
             wx.setStorageSync('userInfo', res.data.data[0]);
 
@@ -151,11 +154,8 @@ Page({
             showCancel:false,
             content: title,
             success(res) {
-              if (res.confirm) {
                 that.get_shop_info();
-              } else if (res.cancel) {
-                that.get_shop_info();
-              }
+                that.get_hot_shop();
             }
           })
           // wx.showToast({
@@ -398,19 +398,39 @@ Page({
     })
   },
 
+  _error(){
+    this.setData({
+      flag:!this.data.flag
+    })
+      
+    wx.showTabBar()
+  },
+  go_share(e){    
+    wx.hideTabBar()
+    this.setData({
+      flag:!this.data.flag,
+      this_shop_info:e.target.dataset.obj
+    })
+  },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function(res) {
     if (res.from === 'button') {
+      this.setData({
+        flag:!this.data.flag,
+      })
+      
+      wx.showTabBar()
       return {
         title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
         path: '/pages/product_info/product_info?id=' + res.target.dataset.obj.shopid
       }
-    }
-    return {
-      title: '【萧一潇】一个价格你做主的小程序',
-      path: '/pages/index/index'
+    }else{
+      return {
+        title: '【萧一潇】一个价格你做主的小程序',
+        path: '/pages/index/index'
+      }
     }
   }
 })

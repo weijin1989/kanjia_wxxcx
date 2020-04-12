@@ -38,3 +38,58 @@ button[disabled] {background-color: #D0CBC5!important;color: #ECE9E6!important;}
 .cf{zoom:1;}
 .cf:after{display:block; overflow:hidden; clear:both; height:0; visibility:hidden; content:".";}
 
+/*弹窗*/
+.wx-popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5);
+}
+.popup-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+ 
+  width: 80%;
+  max-width: 600rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 10rpx;
+  box-sizing: bordre-box;
+  transform: translate(-50%, -50%); 
+  overflow: hidden;
+  background: #fff;
+}
+.wx-popup-title {
+  width: 100%;
+  padding: 20rpx 0;
+  text-align: center;
+  font-size: 40rpx;
+}
+.wx-popup-con {
+  margin: 40rpx 10rpx 70rpx 10rpx;
+  text-align: center;
+  padding:0 20rpx;
+  color:#828282
+}
+.wx-popup-btn {
+  display: flex;
+  justify-content: space-around;
+  border-top: 40rpx;
+  border-top:0.1rpx solid #dadada;
+}
+.wx-popup-btn button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  bottom:0;
+  height: 88rpx;
+  background:none;
+  border-left:1px solid #dadada;
+  border-radius: 0%;
+}
+.wx-popup-btn button.btn-no{
+  border:0;
+}

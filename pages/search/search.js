@@ -17,6 +17,7 @@ Page({
     shop_data_index:'',
     shop_data:[],
     memberid: getApp().globalData.memberid,
+    flag:true,
   },
   //获取搜索框的值
   changeCon(e) {
@@ -91,6 +92,7 @@ Page({
           wx.showModal({
             title: '提示',
             content: title,
+            showCancel:false,
             success(res) {
               if (res.confirm) {
                 that.get_shop_info();
@@ -246,20 +248,40 @@ Page({
     }
 
   },
+
+  _error(){
+    this.setData({
+      flag:!this.data.flag
+    })
+      
+    wx.showTabBar()
+  },
+  go_share(e){    
+    wx.hideTabBar()
+    this.setData({
+      flag:!this.data.flag,
+      this_shop_info:e.target.dataset.obj
+    })
+  },
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (res) {
-
+  onShareAppMessage: function(res) {
     if (res.from === 'button') {
+      this.setData({
+        flag:!this.data.flag,
+      })
+      
+      wx.showTabBar()
       return {
         title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
         path: '/pages/product_info/product_info?id=' + res.target.dataset.obj.shopid
       }
-    }
-    return {
-      title: '【萧一潇】一个价格你做主的小程序',
-      path: '/pages/index/index'
+    }else{
+      return {
+        title: '【萧一潇】一个价格你做主的小程序',
+        path: '/pages/index/index'
+      }
     }
   }
 })

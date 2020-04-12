@@ -222,7 +222,7 @@
   opacity: 0.7;
 }
  .modalDlg{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -231,11 +231,24 @@
     z-index: 9999;
     /* display: none; */
 }
+.logo{
+  width: 100%;
+  position: fixed;
+  top:20%;
+  margin: 0 auto;
+  text-align: center;
+}
+.logo image{
+  width: 300rpx;
+  height:300rpx;
+  border-radius: 50%;
+}
 .getUserInfo{
    position: fixed;
-  top: 45%;
-  left:200rpx;
+  bottom:0;
+  left:0;
   z-index: 9999;
+  width: 100%;
 }
 /* .modalDlg {
   position: fixed;
@@ -269,3 +282,10 @@
   left: 25%;
   z-index: 9999;
 }
+
+
+
+
+
+
+
