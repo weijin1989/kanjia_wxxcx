@@ -5,10 +5,11 @@
   </view>
   <view class="p_top bg_fff">
     <view class="cp_img">
-      <swiper style="height: 640rpx;" indicator-dots="true" autoplay="true" interval="3000" duration="700" >
+      <swiper style="height: 500rpx;" indicator-dots="true" autoplay="true" interval="3000" duration="700" >
         <block wx:for="{{shop_data.images}}" wx:key="this">
             <swiper-item>
-              <image src="{{siteurl}}{{item.imgurl}}" mode="aspectFill" style="height:640rpx"></image>
+              <!-- <image src="{{siteurl}}{{item.imgurl}}" mode="aspectFill" style="height:640rpx"></image> -->
+              <image src="{{siteurl}}{{item.imgurl}}" mode="aspectFit" style="height:500rpx"></image>
             </swiper-item>
           </block>
         </swiper>
@@ -115,7 +116,10 @@
     <view class="left">
       <image src="../../images/nav1.png" bindtap="returnHome"></image>
     </view>
-    <view class="right">
+    <view class="right" wx:if="{{shop_data.num==0}}">
+      <button class="but but4">已抢光 </button>
+    </view>
+    <view class="right" wx:else>
       <button class="but" wx:if="{{shop_data.isbargain=='N'}}" bindtap="place_order" data-type="2">砍价 </button>
       <button class="but but2" wx:if="{{shop_data.isbargain=='Y'}}" bindtap="go_share" data-obj="{{shop_data}}">继续砍 </button>
 

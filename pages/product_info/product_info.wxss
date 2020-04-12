@@ -2,8 +2,6 @@
 .container{
   margin:0;
 }
-.p_top{
-}
 .p_top .cp_img image{
   width: 750rpx;
   height:auto;
@@ -269,6 +267,10 @@ footer .right .but1{
 
 footer .right .but2{
   background: #07c160
+}
+footer .right .but4{
+  background: #808080;
+  width: 590rpx;
 }
 
  .modalDlg{

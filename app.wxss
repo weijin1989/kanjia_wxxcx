@@ -31,7 +31,7 @@ rich-text {color: #000;} /* 需要转码文本（行数间需要空格则后台�
 input {color: #000;}
 textarea {color: #000;width: 100%;}
 .input-placeholder {color: #DEDFE5;} /*表单placeholder默认样式*/
-button {margin:0;paading:0;line-height:staic;} /* 如需清空button样式 */
+button {margin:0;line-height:staic;} /* 如需清空button样式 */
 button:after{border:none;} /* 处理button默认边框 */
 button[disabled] {background-color: #D0CBC5!important;color: #ECE9E6!important;}/*按钮不可点击时的默认样式，必须强制改;*/
 
@@ -83,13 +83,14 @@ button[disabled] {background-color: #D0CBC5!important;color: #ECE9E6!important;}
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50%;
+  width: 100%;
   bottom:0;
   height: 88rpx;
   background:none;
-  border-left:1px solid #dadada;
+  /* border-left:1px solid #dadada; */
   border-radius: 0%;
 }
 .wx-popup-btn button.btn-no{
+  display: none;
   border:0;
 }

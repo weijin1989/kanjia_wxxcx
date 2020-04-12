@@ -82,7 +82,7 @@ Page({
       op: 'addOrder',
       shopid: this.data.shop_id, 
       num: 1,
-      formId:formId,
+      // formId:formId,
       memberid: wx.getStorageSync('memberid')
     }
     let that=this;

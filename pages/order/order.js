@@ -8,6 +8,7 @@ Page({
     'order_type': 0,//订单类型
     'order_list': [],
     'order_list_length': 0,
+    page:1,
     'siteurl':'',
     'orderNo': ''
   },
@@ -137,15 +138,24 @@ Page({
   chang_order_type(e){
     let type = e.currentTarget.dataset.type;
     this.setData({
-      order_type: type
+      order_type: type,
+      page:1
     });
     this.get_order_list();
   },
   go_order_info(e) {
     let order_no = e.currentTarget.dataset.order_no;
-    wx.navigateTo({
-      url: '../order_info/order_info?orderNo=' + order_no,
-    })
+    let status=e.currentTarget.dataset.status;
+    let shop_id= e.currentTarget.dataset.shop_id;
+    if(status==1){
+      wx.navigateTo({
+        url: '../product_info/product_info?id=' + shop_id,
+      })
+    }else{
+      wx.navigateTo({
+        url: '../order_info/order_info?orderNo=' + order_no,
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -186,7 +196,53 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    return false;
+    var that = this;
+    // loading开始
+    wx.showLoading({
+      title: '玩命加载中',
+    })
+    // if (this.data.cp_list_length == this.data.pageSize) {
+      var page = this.data.page + 1;
+      this.setData({
+        page: page
+      })
+    // }
+    
+    let data = {
+      op: "GetOrder",
+      memberid: wx.getStorageSync('memberid'),
+      page: this.data.page,
+      status:this.data.order_type
+    };
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      data: data,
+      method: 'POST',
+      header: getApp().globalData.request_header,
+      success(res) {
+        wx.hideLoading()
+        if (res.data.isSuccess === 'Y') {
+          if (res.data.data.length == 0) {
+            wx.showToast({
+              title: '已加载全部商品',
+              icon: 'none',
+              duration: 2000
+            })
+          }
+          var moment_list = that.data.order_list;
+          for (var i = 0; i < res.data.data.length; i++) {
+            moment_list.push(res.data.data[i]);
+          }
+          that.setData({
+            order_list: moment_list,
+            // siteurl: res.data.siteurl
+          });
+          // console.log(that.data.siteurl);
 
+        }
+      }
+    })
   },
 
   /**

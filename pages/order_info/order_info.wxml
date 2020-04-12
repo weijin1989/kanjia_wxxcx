@@ -1,6 +1,6 @@
 <view class="container">
   <view class="p_top bg_fff">
-    <view class="cp_img"><image src="{{siteurl}}{{order_info.imgsrc}}"  mode="aspectFill" style="height:404rpx"></image></view>
+    <view class="cp_img"><image src="{{siteurl}}{{order_info.imgsrc}}"  mode="aspectFit" style="height:500rpx"></image></view>
   </view>
   <view class="p_top1 bg_fff">
     <text class="h1">{{order_info.subject}}</text>
@@ -11,7 +11,7 @@
   </view>
 
   <!--菜单-->
-  <view class="last_nr bg_fff br_12">
+  <view class="last_nr bg_fff br_12" wx:if="{{order_info.status==2||order_info.status==3}}">
     <view class="menu_h2">
       兑换码：<text>{{order_info.note}}</text>
     </view>

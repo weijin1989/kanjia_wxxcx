@@ -2,5 +2,5 @@
   "usingComponents": {
     "order_start": "../model/order_start"
   },
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": false
 }

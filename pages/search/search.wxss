@@ -212,3 +212,7 @@
   padding-right:30rpx;
   border:1px solid #07c160;
 }
+.list_li .right .but .but4{
+  border:1px solid rgb(122, 122, 122);
+  color:#000;
+}

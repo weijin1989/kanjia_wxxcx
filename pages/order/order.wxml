@@ -19,16 +19,16 @@
   <view class="order_list">
 
     <view class="list bg_fff br_12 m_t_22" wx:for="{{order_list}}">
-      <view class="h1"  bindtap="go_order_info"  data-order_no="{{item.appflowno}}">
+      <view class="h1"  bindtap="go_order_info" data-shop_id="{{item.shopid}}" data-status="{{item.status}}" data-order_no="{{item.appflowno}}">
         <label><image src="../../images/icon12.png" ></image> {{item.subject}}</label>
         <view class="order_start"><order_start modelValue="{{item.status}}"></order_start></view>
       </view>
       <view class="bottom">
-        <image src="{{siteurl}}{{item.imgsrc}}"  mode="aspectFill"   bindtap="go_order_info"  data-order_no="{{item.appflowno}}"></image>
-        <text  bindtap="go_order_info"  data-order_no="{{item.appflowno}}">下单时间:{{item.dateline}}</text>
+        <image src="{{siteurl}}{{item.imgsrc}}"  mode="aspectFill"   bindtap="go_order_info" data-shop_id="{{item.shopid}}" data-status="{{item.status}}" data-order_no="{{item.appflowno}}"></image>
+        <text  bindtap="go_order_info"  data-shop_id="{{item.shopid}}" data-status="{{item.status}}" data-order_no="{{item.appflowno}}">下单时间:{{item.dateline}}</text>
         <label >￥{{item.sumprice}}</label>
         <button type="primary" class="but" bindtap="pay" data-order_no="{{item.appflowno}}" wx:if="{{item.status==1}}">立即支付</button>
-        <button type="default" class="but but1" bindtap="go_comment" data-order_no="{{item.appflowno}}" wx:if="{{item.status==2}}">晒图评价</button>
+        <button type="default" class="but but1" bindtap="go_comment" data-order_no="{{item.appflowno}}" wx:if="{{item.status==3}}">晒图评价</button>
       </view>
     </view>
 
