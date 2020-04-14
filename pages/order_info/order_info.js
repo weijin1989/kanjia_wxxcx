@@ -82,9 +82,16 @@ Page({
   //去地图
   go_map() {
     // console.log('../map/map?lat=' + this.data.order_info.lat + '&lng=' + this.data.order_info.lng);
-    wx.navigateTo({
-      url: '../map/map?lat=' + this.data.order_info.lat + '&lng=' + this.data.order_info.lng,
+    
+    wx.openLocation({
+      latitude: +this.data.order_info.lat,
+      longitude: +this.data.order_info.lng,
+      // name,
+      // address: desc
     })
+    // wx.navigateTo({
+    //   url: '../map/map?lat=' + this.data.order_info.lat + '&lng=' + this.data.order_info.lng,
+    // })
   },
   //拨打电话
   freeTell() {

@@ -28,7 +28,7 @@
             <swiper-item>
               <view class="li" bindtap="toProductInfo" data-index="{{index}}" data-id='{{item.shopid}}'>
                 <view class="qg_img">
-                  <image src="{{siteurl}}{{item.imgsrc}}" mode="aspectFill"></image>
+                  <image src="{{siteurl}}{{item.imgsrc}}" mode="aspectFit"></image>
                 </view>
                 <label class="name">{{item.subject}}</label>
                 <view class="introduction">{{item.mername}}
@@ -59,7 +59,7 @@
 
       <view class="list_li cf" wx:for="{{cp_list}}" wx:key="{{item.shopid}}" data-type="{{item.subject}}" data-index="{{index}}">
         <view class="left" bindtap="toProductInfo" data-id='{{item.shopid}}'>
-          <image src="{{siteurl}}{{item.imgsrc}}" mode="aspectFill"></image>
+          <image src="{{siteurl}}{{item.imgsrc}}" mode="aspectFit"></image>
         </view>
         <view class="right">
           <view class="h2" bindtap="toProductInfo" data-id='{{item.shopid}}'>
@@ -78,6 +78,7 @@
           </view>
 
           <view class="but" wx:if="{{item.num==0}}">
+            <button class="buts but5" >立即购买</button>
             <button class="buts but4" >已抢光</button>
           </view>
 

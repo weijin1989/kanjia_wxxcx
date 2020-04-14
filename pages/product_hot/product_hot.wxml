@@ -5,7 +5,7 @@
     <view class="list bg_fff" wx:if="{{hot_list_length>0}}">
       <view class="list_li cf" wx:for="{{hot_list}}">
         <view class="left"  bindtap="toProductInfo" data-id='{{item.shopid}}' >
-        <image  src="{{siteurl}}{{item.imgsrc}}" mode="aspectFill" ></image>
+        <image  src="{{siteurl}}{{item.imgsrc}}" mode="aspectFit" ></image>
         </view>
         <view class="right">
           <view class="h2">{{item.subject}}</view>
@@ -20,6 +20,7 @@
 
           
           <view class="but" wx:if="{{item.num==0}}">
+            <button class="buts but5" >立即购买</button>
             <button class="buts but4" >已抢光</button>
           </view>
 

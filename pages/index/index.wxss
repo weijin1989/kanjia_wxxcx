@@ -212,9 +212,18 @@
   border:1px solid #07c160;
 }
 
+.list_li .right .but .but5{
+  border:0;
+  background: #fff;
+  color:#fff;
+
+}
+
 .list_li .right .but .but4{
-  border:1px solid rgb(122, 122, 122);
-  color:#000;
+  border:0px solid rgb(122, 122, 122);
+  background: #808080;
+  color:#fff;
+  padding: 5rpx 32rpx;
 }
 .mask {
   width: 100%;
@@ -244,8 +253,8 @@
   text-align: center;
 }
 .logo image{
-  width: 300rpx;
-  height:300rpx;
+  width: 200rpx;
+  height:200rpx;
   border-radius: 50%;
 }
 .getUserInfo{

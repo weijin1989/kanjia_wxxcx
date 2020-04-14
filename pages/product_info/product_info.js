@@ -102,6 +102,12 @@ Page({
             orderNo: res.data.data.appflowno
           });
           that.pay();
+        }else{
+          wx.showToast({
+            title: '购买失败请咨询客服',
+            icon: 'none',
+            duration: 3000
+          });
         }
       }
     })
@@ -146,7 +152,7 @@ Page({
                 },
                 complete(rs){
                   // console.log(2222222222222);
-                  wx.redirectTo({
+                  wx.reLaunch({
                     url: '../paysuccess/paysuccess?orderNo=' + that.data.orderNo
                   })
                 }
