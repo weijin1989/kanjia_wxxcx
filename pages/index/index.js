@@ -18,6 +18,7 @@ Page({
     longitude: '',
     latitude: '',
     is_showModal: 0,
+    is_showModal_tel:0,
     shop_data: [],
     shop_data_index: '',
     code: '',
@@ -50,6 +51,12 @@ Page({
           fail: res => {
             console.log(res);
           }
+        })
+      }
+      if(wx.getStorageSync('userInfo').mobile == "") {
+        wx.hideTabBar()
+        that.setData({
+          is_showModal_tel: true
         })
       }
     }, 1500);
@@ -107,6 +114,17 @@ Page({
               duration: 2000
             });
             that.get_all_api();
+            if(res.data.data[0].mobile==''){
+              
+              wx.hideTabBar()
+              that.setData({
+                is_showModal_tel: true
+              });
+            }else{
+              wx.reLaunch({
+                url: '../index/index'
+              });
+            }
           }
           // wx.showLoading({
           //   title: '登陆成功',
@@ -294,7 +312,6 @@ Page({
   get_cate_shop: function() {
     var that = this;
 
-
     wx.showLoading({
       title: '加载中...',
     })
@@ -333,7 +350,7 @@ Page({
     let that = this;
     let moblie = getApp().globalData.userInfo;
     if (!moblie) {
-      wx.hideTabBar();
+      // wx.hideTabBar();
       wx.login({
         success: res => {
           that.setData({
@@ -354,28 +371,43 @@ Page({
     var that = this;
     console.log(e.detail);
     if (e.detail.errMsg == "getPhoneNumber:ok") {
-      wx.request({
-        url: getApp().globalData.ApiUrl + 'server.php',
-        data: {
-          'op': 'GetMember',
-          'lng': getApp().globalData.longitude,
-          'lat': getApp().globalData.latitude,
-          'code': getApp().globalData.code,
-          'encryptedData': e.detail.encryptedData,
-          'iv': e.detail.iv
-        },
-        method: 'post',
-        header: getApp().globalData.request_header,
-        success(res) {
-          wx.setStorageSync('memberid', res.data.data[0].memberid)
-          wx.setStorageSync('userInfo', res.data.data[0]);
-          getApp().globalData.memberid = res.data.data[0].memberid;
-          that.setData({
-            memberid: res.data.data[0].memberid,
-            page: 1
+      wx.login({
+        success: res => {              
+          wx.request({
+            url: getApp().globalData.ApiUrl + 'server.php',
+            data: {
+              'op': 'GetMember',
+              'lng': getApp().globalData.longitude,
+              'lat': getApp().globalData.latitude,
+              'code': res.code,
+              'encryptedData': e.detail.encryptedData,
+              'iv': e.detail.iv
+            },
+            method: 'post',
+            header: getApp().globalData.request_header,
+            success(res) {
+              
+              if (res.data.isSuccess === 'Y') {
+                wx.setStorageSync('memberid', parseInt(res.data.data[0].memberid))
+                // wx.setStorageSync('session_key', res.data.sessionKey)
+                wx.setStorageSync('userInfo', res.data.data[0]);
+
+                that.setData({
+                  is_showModal_tel: 0,
+                  user_info: res.data.data[0]
+                });
+                wx.showTabBar()
+                wx.reLaunch({
+                    url: '../index/index'
+                });
+                  
+              }
+              
+            }
           })
-          that.get_cate_shop();
-          // wx.hideLoading()
+        },
+        fail: res => {
+          console.log(res);
         }
       })
     } else {
@@ -403,10 +435,10 @@ Page({
       flag:!this.data.flag
     })
       
-    wx.showTabBar()
+    // wx.showTabBar()
   },
   go_share(e){    
-    wx.hideTabBar()
+    // wx.hideTabBar()
     this.setData({
       flag:!this.data.flag,
       this_shop_info:e.target.dataset.obj
@@ -421,7 +453,7 @@ Page({
         flag:!this.data.flag,
       })
       
-      wx.showTabBar()
+      // wx.showTabBar()
       return {
         title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
         path: '/pages/product_info/product_info?id=' + res.target.dataset.obj.shopid

@@ -12,6 +12,8 @@ Page({
     cp_list_length: 0,
     type_id: 1,
     siteurl: '',
+    is_showModal: 0,
+    is_showModal_tel:0,
     x: '',
     page: 1,
     pageSize: getApp().globalData.pageSize,
@@ -172,29 +174,38 @@ Page({
     var that = this;
     console.log(e.detail);
     if (e.detail.errMsg == "getPhoneNumber:ok") {
-      wx.request({
-        url: getApp().globalData.ApiUrl + 'server.php',
-        data: {
-          'op': 'GetMember',
-          'lng': getApp().globalData.longitude,
-          'lat': getApp().globalData.latitude,
-          'code': getApp().globalData.code,
-          'encryptedData': e.detail.encryptedData,
-          'iv': e.detail.iv
-        },
-        method: 'post',
-        header: getApp().globalData.request_header,
-        success(res) {
-          wx.setStorageSync('memberid', res.data.data[0].memberid)
-          wx.setStorageSync('userInfo', res.data.data[0]);
-          getApp().globalData.memberid = res.data.data[0].memberid;
-          that.setData({
-            memberid: res.data.data[0].memberid,
-            cp_list_length: res.data.data.length,
-            page:1
+      wx.login({
+        success: res => {              
+          wx.request({
+            url: getApp().globalData.ApiUrl + 'server.php',
+            data: {
+              'op': 'GetMember',
+              'lng': getApp().globalData.longitude,
+              'lat': getApp().globalData.latitude,
+              'code': res.code,
+              'encryptedData': e.detail.encryptedData,
+              'iv': e.detail.iv
+            },
+            method: 'post',
+            header: getApp().globalData.request_header,
+            success(res) {
+              
+              if (res.data.isSuccess === 'Y') {
+                wx.setStorageSync('memberid', parseInt(res.data.data[0].memberid))
+                // wx.setStorageSync('session_key', res.data.sessionKey)
+                wx.setStorageSync('userInfo', res.data.data[0]);
+
+                that.setData({
+                  is_showModal_tel: 0,
+                  user_info: res.data.data[0]
+                });
+              }
+              
+            }
           })
-          that.get_cate_shop();
-          // wx.hideLoading()
+        },
+        fail: res => {
+          console.log(res);
         }
       })
     } else {
@@ -205,15 +216,108 @@ Page({
     }
 
   },
- 
+  //获取用户信息注册
+  bindGetUserInfo(e) {
+    let that = this;
+    if (e.detail.errMsg == 'getUserInfo:ok') {
+      wx.request({
+        url: getApp().globalData.ApiUrl + 'server.php',
+        data: {
+          'lng': getApp().globalData.longitude,
+          'lat': getApp().globalData.latitude,
+          'op': 'Register',
+          'code': that.data.code,
+          'encryptedData': e.detail.encryptedData,
+          'iv': e.detail.iv
+        },
+        method: 'post',
+        header: getApp().globalData.request_header,
+        success(res) {
+          if (res.data.isSuccess === 'Y') {
+            // wx.hideLoading()
+            
+            wx.setStorageSync('memberid', parseInt(res.data.data[0].memberid))
+            // wx.setStorageSync('session_key', res.data.sessionKey)
+            wx.setStorageSync('userInfo', res.data.data[0]);
+
+            that.setData({
+              is_showModal: 0,
+              user_info: res.data.data[0]
+            });
+
+            wx.showToast({
+              title: '登陆成功',
+              icon: 'none',
+              duration: 2000
+            });
+            that.get_cate_shop();
+            if(res.data.data[0].mobile==''){
+              
+              // wx.hideTabBar()
+              that.setData({
+                is_showModal_tel: true
+              });
+            }
+          }
+          // wx.showLoading({
+          //   title: '登陆成功',
+          // })
+          // wx.hideLoading()
+          // wx.hideLoading()
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '【小程序】需要获取你的信息，请确认授权',
+        icon: 'none'
+      })
+      // wx.navigateBack()
+      // wx.navigateTo({
+      //   url: '../index/index',
+      // })
+      // wx.navigateTo({
+      //   url:'../index/index'
+      // });
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
 
+    let that=this;
     wx.setNavigationBarTitle({
       title: '附近'
     })
+    
+    setTimeout(function() {
+      that.setData({
+        memberid: wx.getStorageSync('memberid')
+      })
+      if (wx.getStorageSync('memberid') == 0) {
+        // wx.hideTabBar()
+        that.setData({
+          is_showModal: true
+        })
+
+        wx.login({
+          success: res => {
+            that.setData({
+              code: res.code
+            });
+          },
+          fail: res => {
+            console.log(res);
+          }
+        })
+      }
+      if(wx.getStorageSync('userInfo').mobile == "") {
+        // wx.hideTabBar()
+        that.setData({
+          is_showModal_tel: true
+        })
+      }
+    }, 1500);
   },
 
   /**

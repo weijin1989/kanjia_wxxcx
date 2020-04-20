@@ -33,6 +33,52 @@ Page({
       url:'../comment/comment?orderNo='+orderNo
     })
   },
+  //删除订单
+  del_order(e){
+    let orderNo = e.currentTarget.dataset.order_no;
+    let index=e.currentTarget.dataset.index;
+    let that=this;
+    wx.showModal({
+      title: '提示',
+      content: '确认删除该订单吗，删除不可恢复！',
+      success (res) {
+        if (res.confirm) {
+          wx.request({
+            url: getApp().globalData.ApiUrl + 'server.php',
+            data: {
+              op: 'DeleteOrder',
+              memberid: wx.getStorageSync('memberid'),
+              appflowno: orderNo,
+            },
+            method: 'post',
+            header: getApp().globalData.request_header,
+            success(res) {
+              if (res.data.isSuccess === 'Y') {
+                let order_list=that.data.order_list;
+                order_list.splice(index, 1)
+                that.setData({
+                  order_list: order_list
+                })
+                wx.showToast({
+                  title: '删除成功', // 标题
+                  icon: 'none', // 图标类型，默认success
+                  duration: 1500 // 提示窗停留时间，默认1500ms
+                })
+              } else {
+                wx.showToast({
+                  title: '删除失败', // 标题
+                  icon: 'none', // 图标类型，默认success
+                  duration: 1500 // 提示窗停留时间，默认1500ms
+                })
+              }
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
   //支付
   pay(e){
     let appflowno = e.currentTarget.dataset.order_no;
@@ -196,7 +242,6 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    return false;
     var that = this;
     // loading开始
     wx.showLoading({

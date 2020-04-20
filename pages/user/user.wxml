@@ -1,7 +1,24 @@
 <view class="container">
-  <view class="modalDlg" wx:if="{{is_showModal}}">
-    <button type="primary" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="getPhoneNumber">使用手机号授权登录</button>
+
+
+  <view class="modalDlg" wx:if="{{is_showModal}}" catchtouchmove='true'>
+    <view class="logo">
+      <image src="../../images/logo.jpg" ></image>
+    </view>
+    <button type="primary" wx:if="{{canIUse}}" open-type="getUserInfo" class="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用微信登录</button>
+    <view wx:else>请升级微信版本</view>
   </view>
+
+  <view class="modalDlg" wx:if="{{is_showModal_tel}}" catchtouchmove='true'>
+    <view class="logo">
+      <image src="../../images/logo.jpg" ></image>
+    </view>
+    <button type="primary" wx:if="{{canIUse}}" open-type="getPhoneNumber" class="getUserInfo" bindgetphonenumber="getPhoneNumber">请提供手机号授权</button>
+    <view wx:else>请升级微信版本</view>
+  </view>
+  <!-- <view class="modalDlg" wx:if="{{is_showModal}}">
+    <button type="primary" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="getPhoneNumber">使用手机号授权登录</button>
+  </view> -->
   <view class="header" style="background:url(../../images/bg.png) no-repeat left top;background-size:750rpx 404rpx;">
     <view class="top">
       <image src="{{user_info.headimgurl}}"></image>

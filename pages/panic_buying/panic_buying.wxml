@@ -1,4 +1,20 @@
 <view class="container">
+
+  <view class="modalDlg" wx:if="{{is_showModal}}" catchtouchmove='true'>
+    <view class="logo">
+      <image src="../../images/logo.jpg" ></image>
+    </view>
+    <button type="primary" wx:if="{{canIUse}}" open-type="getUserInfo" class="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用微信登录</button>
+    <view wx:else>请升级微信版本</view>
+  </view>
+
+  <view class="modalDlg" wx:if="{{is_showModal_tel}}" catchtouchmove='true'>
+    <view class="logo">
+      <image src="../../images/logo.jpg" ></image>
+    </view>
+    <button type="primary" wx:if="{{canIUse}}" open-type="getPhoneNumber" class="getUserInfo" bindgetphonenumber="getPhoneNumber">请提供手机号授权</button>
+    <view wx:else>请升级微信版本</view>
+  </view>
   
   <view class="top bg_fff br_12">
     <view class="search">

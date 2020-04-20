@@ -42,4 +42,8 @@
     内容
   </view> -->
   <!--内容end-->
+  
+  <footer >
+    <button class="but" bindtap="go_home" >返回首页</button>
+  </footer>
 </view>

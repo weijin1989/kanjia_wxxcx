@@ -7,6 +7,7 @@ Page({
   data: {
     user_info: wx.getStorageSync('userInfo'),
     is_showModal: 0,
+    is_showModal_tel:0,
     code:'',
     is_showContact: 0,
     is_showCustomer: 0,
@@ -20,18 +21,110 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.bindCode();
+    
+    setTimeout(function() {
+      that.setData({
+        memberid: wx.getStorageSync('memberid')
+      })
+      if (wx.getStorageSync('memberid') == 0) {
+        // wx.hideTabBar()
+        that.setData({
+          is_showModal: true
+        })
+
+        wx.login({
+          success: res => {
+            that.setData({
+              code: res.code
+            });
+          },
+          fail: res => {
+            console.log(res);
+          }
+        })
+      }
+      if(wx.getStorageSync('userInfo').mobile == "") {
+        // wx.hideTabBar()
+        that.setData({
+          is_showModal_tel: true
+        })
+      }
+    }, 1500);
     // console.log('memberid='+wx.getStorageSync('memberid'));
-    if (!wx.getStorageSync('memberid') || wx.getStorageSync('memberid') == '' || wx.getStorageSync('memberid') == null) {
+    // if (!wx.getStorageSync('memberid') || wx.getStorageSync('memberid') == '' || wx.getStorageSync('memberid') == null) {
+    //   // wx.navigateTo({
+    //   //   url: '../login/login',
+    //   // })
+    //   this.setData({
+    //     is_showModal: 1
+    //   });
+    // }else{
+    //   this.setData({
+    //     user_info: wx.getStorageSync('userInfo')
+    //   });
+    // }
+  },
+  //获取用户信息注册
+  bindGetUserInfo(e) {
+    let that = this;
+    if (e.detail.errMsg == 'getUserInfo:ok') {
+      wx.request({
+        url: getApp().globalData.ApiUrl + 'server.php',
+        data: {
+          'lng': getApp().globalData.longitude,
+          'lat': getApp().globalData.latitude,
+          'op': 'Register',
+          'code': that.data.code,
+          'encryptedData': e.detail.encryptedData,
+          'iv': e.detail.iv
+        },
+        method: 'post',
+        header: getApp().globalData.request_header,
+        success(res) {
+          if (res.data.isSuccess === 'Y') {
+            // wx.hideLoading()
+            
+            wx.setStorageSync('memberid', parseInt(res.data.data[0].memberid))
+            // wx.setStorageSync('session_key', res.data.sessionKey)
+            wx.setStorageSync('userInfo', res.data.data[0]);
+
+            that.setData({
+              is_showModal: 0,
+              user_info: res.data.data[0]
+            });
+
+            wx.showToast({
+              title: '登陆成功',
+              icon: 'none',
+              duration: 2000
+            });
+            if(res.data.data[0].mobile==''){
+              
+              // wx.hideTabBar()
+              that.setData({
+                is_showModal_tel: true
+              });
+            }
+          }
+          // wx.showLoading({
+          //   title: '登陆成功',
+          // })
+          // wx.hideLoading()
+          // wx.hideLoading()
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '【小程序】需要获取你的信息，请确认授权',
+        icon: 'none'
+      })
+      // wx.navigateBack()
       // wx.navigateTo({
-      //   url: '../login/login',
+      //   url: '../index/index',
       // })
-      this.setData({
-        is_showModal: 1
-      });
-    }else{
-      this.setData({
-        user_info: wx.getStorageSync('userInfo')
-      });
+      // wx.navigateTo({
+      //   url:'../index/index'
+      // });
     }
   },
   go_setup() {
@@ -73,56 +166,47 @@ Page({
   //获取用户手机号码
   getPhoneNumber: function (e) {
     var that = this;
+    console.log(e.detail);
     if (e.detail.errMsg == "getPhoneNumber:ok") {
-      wx.request({
-        url: getApp().globalData.ApiUrl + 'server.php',
-        data: {
-          'lng': getApp().globalData.longitude,
-          'lat': getApp().globalData.latitude,
-          'op': 'GetMember',
-          'code': that.data.code,
-          'encryptedData': e.detail.encryptedData,
-          'iv': e.detail.iv
-        },
-        method: 'post',
-        header: getApp().globalData.request_header,
-        success(res) {
-          if (res.data.isSuccess === 'Y') {
-            // wx.hideLoading()
-            wx.setStorageSync('memberid', res.data.data[0].memberid)
-            // wx.setStorageSync('session_key', res.data.sessionKey)
-            wx.setStorageSync('userInfo', res.data.data[0]);
-            
-            that.setData({
-              is_showModal: 0,
-              user_info: res.data.data[0]
-            });
+      wx.login({
+        success: res => {              
+          wx.request({
+            url: getApp().globalData.ApiUrl + 'server.php',
+            data: {
+              'op': 'GetMember',
+              'lng': getApp().globalData.longitude,
+              'lat': getApp().globalData.latitude,
+              'code': res.code,
+              'encryptedData': e.detail.encryptedData,
+              'iv': e.detail.iv
+            },
+            method: 'post',
+            header: getApp().globalData.request_header,
+            success(res) {
+              
+              if (res.data.isSuccess === 'Y') {
+                wx.setStorageSync('memberid', parseInt(res.data.data[0].memberid))
+                // wx.setStorageSync('session_key', res.data.sessionKey)
+                wx.setStorageSync('userInfo', res.data.data[0]);
 
-            wx.showToast({
-              title: '登陆成功',
-              icon: 'none',
-              duration: 2000
-            });
-          }
-          // wx.showLoading({
-          //   title: '登陆成功',
-          // })
-          // wx.hideLoading()
-          // wx.hideLoading()
+                that.setData({
+                  is_showModal_tel: 0,
+                  user_info: res.data.data[0]
+                });
+              }
+              
+            }
+          })
+        },
+        fail: res => {
+          console.log(res);
         }
       })
     } else {
       wx.showToast({
-        title: '【小程序】需要获取你的信息，请确认授权',
+        title: '拒绝授权',
         icon: 'none'
       })
-      // wx.navigateBack()
-      // wx.navigateTo({
-      //   url: '../index/index',
-      // })
-      // wx.navigateTo({
-      //   url:'../index/index'
-      // });
     }
 
   },

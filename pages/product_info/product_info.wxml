@@ -1,15 +1,28 @@
 <view class="container">
-  <view class="modalDlg" wx:if="{{is_showModal}}">
-    <button type="primary" wx:if="{{canIUse}}" open-type="getUserInfo" class="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用微信授权登录</button>
+
+  <view class="modalDlg" wx:if="{{is_showModal}}" catchtouchmove='true'>
+    <view class="logo">
+      <image src="../../images/logo.jpg" ></image>
+    </view>
+    <button type="primary" wx:if="{{canIUse}}" open-type="getUserInfo" class="getUserInfo" bindgetuserinfo="bindGetUserInfo">使用微信登录</button>
     <view wx:else>请升级微信版本</view>
   </view>
+
+  <view class="modalDlg" wx:if="{{is_showModal_tel}}" catchtouchmove='true'>
+    <view class="logo">
+      <image src="../../images/logo.jpg" ></image>
+    </view>
+    <button type="primary" wx:if="{{canIUse}}" open-type="getPhoneNumber" class="getUserInfo" bindgetphonenumber="getPhoneNumber">请提供手机号授权</button>
+    <view wx:else>请升级微信版本</view>
+  </view>
+
   <view class="p_top bg_fff">
     <view class="cp_img">
-      <swiper style="height: 500rpx;" indicator-dots="true" autoplay="true" interval="3000" duration="700" >
+      <swiper style="height: 750rpx;" indicator-dots="true" autoplay="true" interval="3000" duration="700" >
         <block wx:for="{{shop_data.images}}" wx:key="this">
             <swiper-item>
               <!-- <image src="{{siteurl}}{{item.imgurl}}" mode="aspectFill" style="height:640rpx"></image> -->
-              <image src="{{siteurl}}{{item.imgurl}}" mode="aspectFit" style="height:500rpx"></image>
+              <image src="{{siteurl}}{{item.imgurl}}" mode="aspectFit" style="height:750rpx"></image>
             </swiper-item>
           </block>
         </swiper>

@@ -93,6 +93,11 @@ Page({
     //   url: '../map/map?lat=' + this.data.order_info.lat + '&lng=' + this.data.order_info.lng,
     // })
   },
+  go_home(){
+    wx.reLaunch({
+      url: '../index/index'
+    })
+  },
   //拨打电话
   freeTell() {
     wx.makePhoneCall({

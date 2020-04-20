@@ -58,7 +58,7 @@
   font-weight:400;
   line-height:56rpx;
 }
-.order_list .list .bottom image{
+.order_list .list .bottom .cp_img{
   position: absolute;
   left:0;
   top:19rpx;
@@ -87,6 +87,17 @@
 }
 .order_list .list .bottom .but1{
   border:1px solid rgb(37, 191, 83);
+}
+.order_list .list .bottom .del{
+  padding:0rpx 15rpx;
+  border:1px solid #878787;
+  border-radius: 10rpx;
+  position: absolute;
+  right:0;
+  line-height: 40rpx;
+  background: #dddfdf;
+  color:rgb(133, 133, 133);
+  top:27rpx;
 }
 .container{
   padding-bottom:20rpx;

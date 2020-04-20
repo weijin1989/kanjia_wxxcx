@@ -163,34 +163,15 @@ footer{
   height:89rpx;
   width: 750rpx;
 }
-footer .left{
-  float:left;
-  width: 160rpx;
-  display: flex;
-  align-items: center;
-  justify-content:center;
-  padding-top:20rpx;
-}
-footer .left image{
-  width: 50rpx;
-  height:50rpx;
-}
-footer .right{
-  float:right;
-  width: 590rpx;
-}
-footer .right .but{
+footer .but{
   display: block;
-  float:left;
   text-align: center;
-  width: 295rpx;
+  width: 100%;
   height:89rpx;
   line-height: 89rpx;
   background:#F96C26;
   color:#fff;
-}
-footer .right .but1{
-  background: #E72318
+  border-radius: 0;
 }
 
 

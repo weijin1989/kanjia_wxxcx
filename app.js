@@ -93,27 +93,21 @@ App({
             success: function (res) {
               if (res.cancel) {
                 wx.showToast({
-                  title: '拒绝授权',
+                  title: '您取消地理位置的显示，将导致部分功能不可使用，请授权！',
                   icon: 'none'
                 })
                 setTimeout(() => {
-                  wx.navigateBack()
+                  that.get_location();
                 }, 1500)
               } else if (res.confirm) {
                 wx.openSetting({
                   success: function (dataAu) {
-                    // console.log('dataAu:success', dataAu)
+                    console.log('dataAu:success', dataAu)
                     if (dataAu.authSetting["scope.userLocation"] == true) {
                       //再次授权，调用wx.getLocation的API
                       that.getloca(dataAu)
                     } else {
-                      wx.showToast({
-                        title: '授权失败',
-                        icon: 'none'
-                      })
-                      setTimeout(() => {
-                        wx.navigateBack()
-                      }, 1500)
+                      that.get_location();
                     }
                   }
                 })
@@ -135,44 +129,6 @@ App({
         }
       }
     })
-
-    // that.getloca();
-    // wx.getSetting({
-    //   success(res) {
-    //     //这里判断是否有地位权限
-    //     if (!res.authSetting['scope.userLocation']) {
-    //       wx.showModal({
-    //         title: '提示',
-    //         content: '请求获取位置权限',
-    //         success: function (res) {
-    //           if (res.confirm == false) {
-    //             return false;
-    //           }
-    //           wx.openSetting({
-    //             success(res) {
-    //               //如果再次拒绝则返回页面并提示
-    //               if (!res.authSetting['scope.userLocation']) {
-    //                 wx.showToast({
-    //                   title: '此功能需获取位置信息，请重新设置',
-    //                   duration: 3000,
-    //                   icon: 'none'
-    //                 })
-    //               } else {
-    //                 //允许授权
-    //                 that.getloca()
-    //               }
-    //             }
-    //           })
-    //         }
-    //       })
-    //     } else {
-    //       //如果有定位权限
-    //       that.getloca()
-    //     }
-
-    //   }
-
-    // })
   },
   getloca() {
     let that=this;
@@ -188,9 +144,11 @@ App({
         // console.log('longitude=' + longitude);
         // console.log('latitude=' + latitude);
       }, fail: function (res) {
+        that.get_location();
+        return;
         if (res.errMsg === 'getLocation:fail:auth denied') {
           wx.showToast({
-            title: '拒绝授权',
+            title: '您取消地理位置的显示，将导致部分功能不可使用，请授权！',
             icon: 'none'
           })
           setTimeout(() => {
@@ -198,12 +156,12 @@ App({
           }, 1500)
           return
         }
-        if (!userLocation || !userLocation.authSetting['scope.userLocation']) {
+        if (authSetting['scope.userLocation'] != undefined && authSetting['scope.userLocation'] != true) {
           that.getloca()
         } else if (userLocation.authSetting['scope.userLocation']) {
           wx.showModal({
             title: '',
-            content: '请在系统设置中打开定位服务',
+            content: '您取消地理位置的显示，将导致部分功能不可使用，请授权！',
             showCancel: false,
             success: result => {
               if (result.confirm) {
@@ -213,12 +171,14 @@ App({
           })
         } else {
           wx.showToast({
-            title: '授权失败',
+            title: '您取消地理位置的显示，将导致部分功能不可使用，请授权！',
             icon: 'none'
           })
+          
           setTimeout(() => {
-            wx.navigateBack()
+            that.getloca();
           }, 1500)
+          
         }
       }
     })

@@ -195,3 +195,65 @@
   left: 25%;
   z-index: 9999;
 }
+
+.modalDlg{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  z-index: 9999;
+  /* display: none; */
+}
+.logo{
+width: 100%;
+position: fixed;
+top:20%;
+margin: 0 auto;
+text-align: center;
+}
+.logo image{
+width: 200rpx;
+height:200rpx;
+border-radius: 50%;
+}
+.getUserInfo{
+ position: fixed;
+bottom:10%;
+left:0;
+z-index: 9999;
+width: 100%;
+}
+/* .modalDlg {
+position: fixed;
+top: 50%;
+left: 0;
+z-index: 9999;
+margin: -370rpx 85rpx;
+background-color: #fff;
+border-radius: 36rpx;
+display: flex;
+flex-direction: column;
+align-items: center;
+} */
+
+
+.modalContent{
+color:#000;
+width: 400rpx;
+border-radius: 5rpx;
+background-color: #fff;
+line-height:40px;
+padding:0 10rpx;
+position: fixed;
+top: 45%;
+left: 25%;
+z-index: 9999;
+}
+.getPhoneNumber{
+ position: fixed;
+top: 45%;
+left: 25%;
+z-index: 9999;
+}

@@ -16,17 +16,16 @@
       <view class="commen_content">
         <textarea name="message" bindblur="bindTextAreaBlur" placeholder="请输入您的评论" />
       </view>
+      <view class='assess-star'>
+        <view class='star-wrap'>
+          <image class='star-item ' data-index="{{index}}" wx:for="{{stars}}" src="{{item.flag==0?item.lightImg:item.blackImg}}" bindtap='starClick'></image>
+          <view class='star-desc' >{{star>0?starDesc:''}}</view>
+        </view>
+      </view>
       <view class="image"  bindtap='uploadImage'>
         <view  wx:if="{{previewFlg==false}}">上传图片</view>
         <view class="img-con"  wx:if="{{previewFlg==true}}">
           <image mode='aspectFit' src="{{imageFile}}" alt=""></image>
-        </view>
-      </view>
-      <view class='assess-star'>
-        <view class='star-wrap'>
-          <view class='star-item' wx:for="{{stars}}" wx:key="" 
-          style='background:url("{{item.flag==0?item.lightImg:item.blackImg}}") no-repeat top;background-size:100%;' data-index="{{index}}" bindtap='starClick'></view>
-          <view class='star-desc' >{{star>0?starDesc:''}}</view>
         </view>
       </view>
     </view>

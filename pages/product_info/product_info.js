@@ -17,6 +17,9 @@ Page({
     memberid: getApp().globalData.memberid,
     but_type: 0, //1下单，2砍价
     listcount:0,
+    is_showModal: 0,
+    is_showModal_tel:0,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     page: 1,
     code:'',
     flag:true,
@@ -68,6 +71,7 @@ Page({
       })
     }
   },
+  
   //下单
   place_order(e) {
     this.setData({
@@ -272,6 +276,71 @@ Page({
       url: '../index/index'
     })
   },
+  //获取用户信息注册
+  bindGetUserInfo(e) {
+    let that = this;
+    if (e.detail.errMsg == 'getUserInfo:ok') {
+      wx.request({
+        url: getApp().globalData.ApiUrl + 'server.php',
+        data: {
+          'lng': getApp().globalData.longitude,
+          'lat': getApp().globalData.latitude,
+          'op': 'Register',
+          'code': that.data.code,
+          'encryptedData': e.detail.encryptedData,
+          'iv': e.detail.iv
+        },
+        method: 'post',
+        header: getApp().globalData.request_header,
+        success(res) {
+          if (res.data.isSuccess === 'Y') {
+            // wx.hideLoading()
+            
+            wx.setStorageSync('memberid', parseInt(res.data.data[0].memberid))
+            // wx.setStorageSync('session_key', res.data.sessionKey)
+            wx.setStorageSync('userInfo', res.data.data[0]);
+
+            that.setData({
+              is_showModal: 0,
+              user_info: res.data.data[0]
+            });
+
+            wx.showToast({
+              title: '登陆成功',
+              icon: 'none',
+              duration: 2000
+            });
+            
+            that.get_shop_info(2);
+            that.comment_list();
+            
+            if(res.data.data[0].mobile==''){
+              that.setData({
+                is_showModal_tel: true
+              });
+            }
+          }
+          // wx.showLoading({
+          //   title: '登陆成功',
+          // })
+          // wx.hideLoading()
+          // wx.hideLoading()
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '【小程序】需要获取你的信息，请确认授权',
+        icon: 'none'
+      })
+      // wx.navigateBack()
+      // wx.navigateTo({
+      //   url: '../index/index',
+      // })
+      // wx.navigateTo({
+      //   url:'../index/index'
+      // });
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -279,6 +348,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '产品详情'
     })
+    let that= this;
     // if (options.id =='undefined') {
     //   wx.navigateBack({});
     //   return ;
@@ -293,6 +363,28 @@ Page({
     this.setData({
       userInfo: wx.getStorageSync('userInfo')
     })
+    setTimeout(function() {
+      that.setData({
+        memberid: wx.getStorageSync('memberid')
+      })
+      if (wx.getStorageSync('memberid') == 0) {
+        // wx.hideTabBar()
+        that.setData({
+          is_showModal: true
+        })
+
+        wx.login({
+          success: res => {
+            that.setData({
+              code: res.code
+            });
+          },
+          fail: res => {
+            console.log(res);
+          }
+        })
+      }
+    }, 1500);
   },
   //获取商品评价
   comment_list: function() {
@@ -485,8 +577,8 @@ Page({
       }
     }else{
       return {
-        title: '【萧一潇】一个价格你做主的小程序',
-        path: '/pages/index/index'
+        title: '原价' + this.data.shop_data.price + ',最低砍价至￥1！' + this.data.shop_data.subject,
+        path: '/pages/product_info/product_info?id='+this.data.shop_data.shop_id
       }
     }
   }

@@ -10,10 +10,11 @@
  
 .star-item {
   display: inline-block;
-  height: 60rpx;
-  width: 60rpx;
+  height: 50rpx;
+  width: 50rpx;
   margin-right: 10rpx;
 }
+
  
 .star-desc {
   font-size: 30rpx;
