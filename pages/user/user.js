@@ -21,7 +21,10 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.bindCode();
-    
+
+    that.setData({
+      userInfo: wx.getStorageSync('userInfo')
+    })
     setTimeout(function() {
       that.setData({
         memberid: wx.getStorageSync('memberid')
