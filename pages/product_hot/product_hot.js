@@ -25,6 +25,9 @@ Page({
     wx.setNavigationBarTitle({
       title: '更多精品'
     })
+    this.setData({
+      memberid: wx.getStorageSync('memberid')
+    })
   },
   //砍价
   bargain(e) {
@@ -148,6 +151,63 @@ Page({
         }
       }
     })
+  },
+  //获取用户信息注册
+  bindGetUserInfo(e) {
+    let that = this;
+    if (e.detail.errMsg == 'getUserInfo:ok') {
+      
+      wx.login({
+        success: res => {
+          
+          wx.request({
+            url: getApp().globalData.ApiUrl + 'server.php',
+            data: {
+              'lng': getApp().globalData.longitude,
+              'lat': getApp().globalData.latitude,
+              'op': 'Register',
+              'code': res.code,
+              'encryptedData': e.detail.encryptedData,
+              'iv': e.detail.iv
+            },
+            method: 'post',
+            header: getApp().globalData.request_header,
+            success(res) {
+              if (res.data.isSuccess === 'Y') {
+                // wx.hideLoading()
+                
+                wx.setStorageSync('memberid', parseInt(res.data.data[0].memberid))
+                // wx.setStorageSync('session_key', res.data.sessionKey)
+                wx.setStorageSync('userInfo', res.data.data[0]);
+
+                that.setData({
+                  is_showModal: 0,
+                  user_info: res.data.data[0]
+                });
+
+                wx.showToast({
+                  title: '登陆成功,请继续购买吧',
+                  icon: 'none',
+                  duration: 2000
+                });
+                
+                wx.reLaunch({
+                  url: '../product_hot/product_hot'
+                });
+              }
+            }
+          })
+        },
+        fail: res => {
+          console.log(res);
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '【小程序】需要获取你的信息，请确认授权',
+        icon: 'none'
+      })
+    }
   },
 
   /**

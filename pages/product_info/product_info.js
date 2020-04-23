@@ -306,19 +306,24 @@ Page({
             });
 
             wx.showToast({
-              title: '登陆成功',
+              title: '登陆成功，去购买吧',
               icon: 'none',
               duration: 2000
             });
             
-            that.get_shop_info(2);
-            that.comment_list();
-            
-            if(res.data.data[0].mobile==''){
-              that.setData({
-                is_showModal_tel: true
+            // setTimeout(function() {
+              wx.redirectTo({
+                url: '../product_info/product_info?id=' + that.data.shop_id
               });
-            }
+            // },1000)
+            // that.get_shop_info(2);
+            // that.comment_list();
+            
+            // if(res.data.data[0].mobile==''){
+            //   that.setData({
+            //     is_showModal_tel: true
+            //   });
+            // }
           }
           // wx.showLoading({
           //   title: '登陆成功',
@@ -363,28 +368,41 @@ Page({
     this.setData({
       userInfo: wx.getStorageSync('userInfo')
     })
-    setTimeout(function() {
-      that.setData({
-        memberid: wx.getStorageSync('memberid')
-      })
-      if (wx.getStorageSync('memberid') == 0) {
-        // wx.hideTabBar()
+    wx.login({
+      success: res => {
         that.setData({
-          is_showModal: true
-        })
-
-        wx.login({
-          success: res => {
-            that.setData({
-              code: res.code
-            });
-          },
-          fail: res => {
-            console.log(res);
-          }
-        })
+          code: res.code
+        });
+      },
+      fail: res => {
+        console.log(res);
       }
-    }, 1500);
+    })
+    that.setData({
+      memberid: wx.getStorageSync('memberid')
+    })
+    // setTimeout(function() {
+    //   that.setData({
+    //     memberid: wx.getStorageSync('memberid')
+    //   })
+    //   if (wx.getStorageSync('memberid') == 0) {
+    //     // wx.hideTabBar()
+    //     that.setData({
+    //       is_showModal: true
+    //     })
+
+    //     wx.login({
+    //       success: res => {
+    //         that.setData({
+    //           code: res.code
+    //         });
+    //       },
+    //       fail: res => {
+    //         console.log(res);
+    //       }
+    //     })
+    //   }
+    // }, 1500);
   },
   //获取商品评价
   comment_list: function() {

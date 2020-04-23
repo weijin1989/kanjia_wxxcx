@@ -28,7 +28,99 @@ Page({
     })
     this.getShops();
   },
-  onLoad: function () {
+  onLoad: function (options) {
+    if(options.val){
+      this.setData({
+        'keyword': options.val,
+        'page':1
+      })
+      this.getShops();
+    }
+    let that=this;
+    wx.login({
+      success: res => {
+        that.setData({
+          code: res.code
+        });
+      },
+      fail: res => {
+        console.log(res);
+      }
+    })
+    that.setData({
+      memberid: wx.getStorageSync('memberid')
+    })
+  },
+  
+  //获取用户信息注册
+  bindGetUserInfo(e) {
+    let that = this;
+    if (e.detail.errMsg == 'getUserInfo:ok') {
+      wx.request({
+        url: getApp().globalData.ApiUrl + 'server.php',
+        data: {
+          'lng': getApp().globalData.longitude,
+          'lat': getApp().globalData.latitude,
+          'op': 'Register',
+          'code': that.data.code,
+          'encryptedData': e.detail.encryptedData,
+          'iv': e.detail.iv
+        },
+        method: 'post',
+        header: getApp().globalData.request_header,
+        success(res) {
+          if (res.data.isSuccess === 'Y') {
+            // wx.hideLoading()
+            
+            wx.setStorageSync('memberid', parseInt(res.data.data[0].memberid))
+            // wx.setStorageSync('session_key', res.data.sessionKey)
+            wx.setStorageSync('userInfo', res.data.data[0]);
+
+            that.setData({
+              is_showModal: 0,
+              user_info: res.data.data[0]
+            });
+
+            wx.showToast({
+              title: '登陆成功，去购买吧',
+              icon: 'none',
+              duration: 2000
+            });
+            
+            // setTimeout(function() {
+              wx.redirectTo({
+                url: '../search/search?val='+that.data.keyword
+              });
+            // },1000)
+            // that.get_shop_info(2);
+            // that.comment_list();
+            
+            // if(res.data.data[0].mobile==''){
+            //   that.setData({
+            //     is_showModal_tel: true
+            //   });
+            // }
+          }
+          // wx.showLoading({
+          //   title: '登陆成功',
+          // })
+          // wx.hideLoading()
+          // wx.hideLoading()
+        }
+      })
+    } else {
+      wx.showToast({
+        title: '【小程序】需要获取你的信息，请确认授权',
+        icon: 'none'
+      })
+      // wx.navigateBack()
+      // wx.navigateTo({
+      //   url: '../index/index',
+      // })
+      // wx.navigateTo({
+      //   url:'../index/index'
+      // });
+    }
   },
   getShops(){
     let that=this

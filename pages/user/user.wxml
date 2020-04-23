@@ -21,10 +21,14 @@
   </view> -->
   <view class="header" style="background:url(../../images/bg.png) no-repeat left top;background-size:750rpx 404rpx;">
     <view class="top">
-      <image src="{{user_info.headimgurl}}"></image>
-      <view class="right">
+      <image src="{{user_info.headimgurl?user_info.headimgurl:'../../images/nav3.png'}}"></image>
+      <view class="right" wx:if='{{memberid>0}}'>
         <text>{{user_info.nickname}}</text>
         <label>{{user_info.mobile?user_info.mobile:''}}</label>
+      </view>
+      <view class="right" wx:else>
+        <button wx:if="{{canIUse}}" open-type="getUserInfo" class="login" bindgetuserinfo="bindGetUserInfo">登陆/注册</button>
+        <view wx:else>请升级微信版本</view>
       </view>
     </view>
 <!-- 
@@ -42,8 +46,11 @@
   </view>
   <!--我的订单-->
   <view class="order bg_fff br_12 m_t_22">
-    <view class="h1">我的订单 <view class="span" data-type='0' bindtap="go_order">查看全部订单 <image src="../../images/icon9.png"></image></view></view>
-    <view class="nav">
+    <view class="h1">我的订单 
+      <view class="span" data-type='0' wx:if='{{memberid>0}}' bindtap="go_order">查看全部订单 <image src="../../images/icon9.png"></image></view>
+      <view class="span" data-type='0' wx:else bindtap="go_login">查看全部订单 <image src="../../images/icon9.png"></image></view>
+    </view>
+    <view class="nav" wx:if='{{memberid>0}}'>
       <view class="li" data-type='1' bindtap="go_order">
         <image src="../../images/icon1.png"></image>
         <text>待支付</text>
@@ -53,6 +60,20 @@
         <text>待使用</text>
       </view>
       <view class="li" data-type='0' bindtap="go_order">
+        <image src="../../images/icon3.png"></image>
+        <text>全部订单</text>
+      </view>
+    </view>
+    <view class="nav" wx:else>
+      <view class="li" data-type='1' bindtap="go_login">
+        <image src="../../images/icon1.png"></image>
+        <text>待支付</text>
+      </view>
+      <view class="li" data-type='2' bindtap="go_login">
+        <image src="../../images/icon2.png"></image>
+        <text>待使用</text>
+      </view>
+      <view class="li" data-type='0' bindtap="go_login">
         <image src="../../images/icon3.png"></image>
         <text>全部订单</text>
       </view>

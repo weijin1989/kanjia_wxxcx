@@ -60,6 +60,14 @@
   padding-bottom:10rpx;
   position: relative
 }
+.login{
+  border-radius: 50rpx;
+  height:50rpx;
+  line-height: 50rpx;
+  font-size:28rpx;
+  border:1px solid rgb(255, 77, 77);
+  width: 200rpx;
+}
 .h1 .span{
   position: absolute;
   right:0;

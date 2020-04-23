@@ -246,18 +246,22 @@ Page({
             });
 
             wx.showToast({
-              title: '登陆成功',
+              title: '登陆成功,请继续购买吧',
               icon: 'none',
               duration: 2000
             });
-            that.get_cate_shop();
-            if(res.data.data[0].mobile==''){
+            
+            wx.reLaunch({
+              url: '../panic_buying/panic_buying'
+            });
+            // that.get_cate_shop();
+            // if(res.data.data[0].mobile==''){
               
-              // wx.hideTabBar()
-              that.setData({
-                is_showModal_tel: true
-              });
-            }
+            //   // wx.hideTabBar()
+            //   that.setData({
+            //     is_showModal_tel: true
+            //   });
+            // }
           }
           // wx.showLoading({
           //   title: '登陆成功',
@@ -289,35 +293,56 @@ Page({
     wx.setNavigationBarTitle({
       title: '附近'
     })
+
+    wx.login({
+      success: res => {
+        that.setData({
+          code: res.code
+        });
+      },
+      fail: res => {
+        console.log(res);
+      }
+    })
     
-    setTimeout(function() {
+    // setTimeout(function() {
       that.setData({
         memberid: wx.getStorageSync('memberid')
       })
-      if (wx.getStorageSync('memberid') == 0) {
-        // wx.hideTabBar()
-        that.setData({
-          is_showModal: true
-        })
+      wx.login({
+        success: res => {
+          that.setData({
+            code: res.code
+          });
+        },
+        fail: res => {
+          console.log(res);
+        }
+      })
+    //   if (wx.getStorageSync('memberid') == 0) {
+    //     // wx.hideTabBar()
+    //     that.setData({
+    //       is_showModal: true
+    //     })
 
-        wx.login({
-          success: res => {
-            that.setData({
-              code: res.code
-            });
-          },
-          fail: res => {
-            console.log(res);
-          }
-        })
-      }
-      if(wx.getStorageSync('userInfo').mobile == "") {
-        // wx.hideTabBar()
-        that.setData({
-          is_showModal_tel: true
-        })
-      }
-    }, 1500);
+    //     wx.login({
+    //       success: res => {
+    //         that.setData({
+    //           code: res.code
+    //         });
+    //       },
+    //       fail: res => {
+    //         console.log(res);
+    //       }
+    //     })
+    //   }
+    //   if(wx.getStorageSync('userInfo').mobile == "") {
+    //     // wx.hideTabBar()
+    //     that.setData({
+    //       is_showModal_tel: true
+    //     })
+    //   }
+    // }, 1500);
   },
 
   /**
