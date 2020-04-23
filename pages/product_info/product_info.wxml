@@ -132,8 +132,17 @@
     <view class="right" wx:if="{{shop_data.num==0}}">
       <button class="but but4">已抢光 </button>
     </view>
+    <view class="right" wx:elif='{{memberid==0}}'>
+      <button class="but" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">萧一潇砍价 </button>
+      <button class="but but1" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" >立即购买</button>
+    </view>
+    <view class="right" wx:elif="{{userInfo.mobile===null||userInfo.mobile==''||!userInfo.mobile}}">
+
+      <button class="but" open-type="getPhoneNumber"  bindgetphonenumber="getPhoneNumber">萧一潇砍价</button>
+      <button class="but but1" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">立即购买</button>
+    </view>
     <view class="right" wx:else>
-      <button class="but" wx:if="{{shop_data.isbargain=='N'}}" bindtap="place_order" data-type="2">砍价 </button>
+      <button class="but" wx:if="{{shop_data.isbargain=='N'}}" bindtap="place_order" data-type="2">萧一潇砍价 </button>
       <button class="but but2" wx:if="{{shop_data.isbargain=='Y'}}" bindtap="go_share" data-obj="{{shop_data}}">继续砍 </button>
 
       <button class="but but1" wx:if="{{userInfo.mobile===null||userInfo.mobile==''||!userInfo.mobile}}" open-type="getPhoneNumber" data-type="1" bindgetphonenumber="getPhoneNumber">立即购买</button>

@@ -23,49 +23,29 @@ Page({
     that.bindCode();
 
     that.setData({
-      userInfo: wx.getStorageSync('userInfo')
+      user_info: wx.getStorageSync('userInfo')
     })
-    setTimeout(function() {
-      that.setData({
-        memberid: wx.getStorageSync('memberid')
-      })
-      if (wx.getStorageSync('memberid') == 0) {
-        // wx.hideTabBar()
+    that.setData({
+      memberid: wx.getStorageSync('memberid')
+    })
+    wx.login({
+      success: res => {
         that.setData({
-          is_showModal: true
-        })
-
-        wx.login({
-          success: res => {
-            that.setData({
-              code: res.code
-            });
-          },
-          fail: res => {
-            console.log(res);
-          }
-        })
+          code: res.code
+        });
+      },
+      fail: res => {
+        console.log(res);
       }
-      if(wx.getStorageSync('userInfo').mobile == "") {
-        // wx.hideTabBar()
-        that.setData({
-          is_showModal_tel: true
-        })
-      }
-    }, 1500);
-    // console.log('memberid='+wx.getStorageSync('memberid'));
-    // if (!wx.getStorageSync('memberid') || wx.getStorageSync('memberid') == '' || wx.getStorageSync('memberid') == null) {
-    //   // wx.navigateTo({
-    //   //   url: '../login/login',
-    //   // })
-    //   this.setData({
-    //     is_showModal: 1
-    //   });
-    // }else{
-    //   this.setData({
-    //     user_info: wx.getStorageSync('userInfo')
-    //   });
-    // }
+    })
+    
+  },
+  go_login(){ 
+    wx.showToast({
+      title: '请点击注册登陆',
+      icon: 'none',
+      duration: 2000
+    });
   },
   //获取用户信息注册
   bindGetUserInfo(e) {
@@ -93,6 +73,7 @@ Page({
 
             that.setData({
               is_showModal: 0,
+              memberid:res.data.data[0].memberid,
               user_info: res.data.data[0]
             });
 

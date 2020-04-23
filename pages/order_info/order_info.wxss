@@ -1,8 +1,6 @@
 .container{
   margin:0;
 }
-.p_top{
-}
 .p_top .cp_img image{
   width: 750rpx;
   height:auto;
@@ -46,10 +44,34 @@
   line-height:32rpx;
 }
 .last_nr{
+  position: relative;
   margin:30rpx 12rpx;
   margin-bottom:0;
   padding-bottom:20rpx;
 }
+
+
+
+.overdue{
+  border-radius: 50%;
+  width: 150rpx;
+  height:150rpx;
+  line-height:150rpx;
+  text-align: center;
+  color:#808080;
+  border:1px solid #808080;
+  position: absolute;
+  right:30%;
+  top:-25rpx;
+  /* animation:turn 1s linear infinite;    */
+}
+/* @keyframes turn{
+  0%{-webkit-transform:rotate(0deg);}
+  25%{-webkit-transform:rotate(90deg);}
+  50%{-webkit-transform:rotate(180deg);}
+  75%{-webkit-transform:rotate(270deg);}
+  100%{-webkit-transform:rotate(360deg);}
+} */
 .menu_h2{
   padding-top:30rpx;
   font-size:32rpx;
@@ -173,5 +195,3 @@ footer .but{
   color:#fff;
   border-radius: 0;
 }
-
-
