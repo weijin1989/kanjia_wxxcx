@@ -460,9 +460,15 @@ Page({
       })
       
       // wx.showTabBar()
+      // console.log({
+      //   title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
+      //   path: '/pages/product_info/product_info?id=' + res.target.dataset.obj.shopid,
+      //   imageUrl:this.siteurl+res.target.dataset.obj.imgsrc
+      // })
       return {
         title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
-        path: '/pages/product_info/product_info?id=' + res.target.dataset.obj.shopid
+        path: '/pages/product_info/product_info?id=' + res.target.dataset.obj.shopid,
+        imageUrl:this.data.siteurl+res.target.dataset.obj.imgsrc
       }
     }else{
       return {

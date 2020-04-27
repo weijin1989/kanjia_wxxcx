@@ -346,10 +346,10 @@ Page({
       flag:!this.data.flag
     })
       
-    wx.showTabBar()
+    // wx.showTabBar()
   },
   go_share(e){    
-    wx.hideTabBar()
+    // wx.hideTabBar()
     this.setData({
       flag:!this.data.flag,
       this_shop_info:e.target.dataset.obj
@@ -364,10 +364,11 @@ Page({
         flag:!this.data.flag,
       })
       
-      wx.showTabBar()
+      // wx.showTabBar()
       return {
         title: '原价' + res.target.dataset.obj.price + ',最低砍价至￥1！' + res.target.dataset.obj.subject,
-        path: '/pages/product_info/product_info?id=' + res.target.dataset.obj.shopid
+        path: '/pages/product_info/product_info?id=' + res.target.dataset.obj.shopid,
+        imageUrl:this.data.siteurl+res.target.dataset.obj.imgsrc
       }
     }else{
       return {
