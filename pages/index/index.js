@@ -255,6 +255,7 @@ Page({
         if (res.data.isSuccess === 'Y') {
           res.data.data.forEach((item) => {
             item.subject = item.subject.substring(0, 10); //要截取字段的字符串
+            item.mername = item.mername.substring(0, 6); //要截取字段的字符串
           })
           that.setData({
             hot_list: res.data.data,
