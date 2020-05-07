@@ -126,8 +126,9 @@
   </view>
   <!--用户评价end-->
   <footer class="cf">
-    <view class="left">
-      <image src="../../images/nav1.png" bindtap="returnHome"></image>
+    <view class="left" bindtap="returnHome">
+      <image src="../../images/nav1.png" ></image>
+      <text>首页</text>
     </view>
     <view class="right" wx:if="{{shop_data.num==0}}">
       <button class="but but4">已抢光 </button>

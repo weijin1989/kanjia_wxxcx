@@ -237,14 +237,23 @@ footer{
 footer .left{
   float:left;
   width: 160rpx;
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content:center;
-  padding-top:20rpx;
+  justify-content:center; */
+  padding-top:10rpx;
+  text-align: center;
+}
+footer .left text{
+  /* border:1px solid red; */
+  display: block;
+  font-size: 23rpx;
+  line-height: 25rpx;
+  text-align: center;
 }
 footer .left image{
-  width: 50rpx;
-  height:50rpx;
+  width: 40rpx;
+  height:40rpx;
+  margin:0 auto;
 }
 footer .right{
   float:right;
