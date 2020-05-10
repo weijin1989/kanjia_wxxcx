@@ -20,7 +20,7 @@
     <button type="primary" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="getPhoneNumber">使用手机号授权登录</button>
   </view> -->
   <view class="header" style="background:url(../../images/bg.png) no-repeat left top;background-size:750rpx 404rpx;">
-    <view class="top">
+    <view class="top cf">
       <image src="{{user_info.headimgurl?user_info.headimgurl:'../../images/nav3.png'}}"></image>
       <view class="right" wx:if='{{memberid>0}}'>
         <text>{{user_info.nickname}}</text>
@@ -30,14 +30,23 @@
         <button wx:if="{{canIUse}}" open-type="getUserInfo" class="login" bindgetuserinfo="bindGetUserInfo">登陆/注册</button>
         <view wx:else>请升级微信版本</view>
       </view>
+      <view class="right1" >
+        <text>{{coupon}}</text>
+        <view>优惠券</view>
+      </view>
     </view>
-<!-- 
-    <view class="bottom cf">
-      <view class="left">
+
+    <!-- <view class="bottom cf">
+        <text>3</text>
+        <view>优惠券</view>
+    </view> -->
+
+    <!-- <view class="bottom cf"> -->
+      <!-- <view class="left">
         <text>0.00</text>
         <view>积分</view>
-      </view>
-      <view class="right">
+      </view> -->
+      <!-- <view class="right">
         <text>3</text>
         <view>优惠券</view>
       </view>

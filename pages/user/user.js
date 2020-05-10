@@ -9,6 +9,7 @@ Page({
     is_showModal: 0,
     is_showModal_tel:0,
     code:'',
+    coupon:0,
     is_showContact: 0,
     is_showCustomer: 0,
     contact_tel: getApp().globalData.contact_tel,
@@ -21,7 +22,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.bindCode();
-
+    that.Getcoupon();
     that.setData({
       user_info: wx.getStorageSync('userInfo')
     })
@@ -39,6 +40,34 @@ Page({
       }
     })
     
+  },
+
+  //获取商品评价
+  Getcoupon: function() {
+    var that = this;
+    var data = {
+      op: 'Getcoupon',
+      memberid: wx.getStorageSync('memberid')
+    }
+    wx.request({
+      url: getApp().globalData.ApiUrl + 'server.php',
+      // url: getApp().globalData.ApiUrl + 'get_nav',
+      data: data,
+      method: 'POST',
+      header: getApp().globalData.request_header,
+      success(res) {
+        if (res.data.isSuccess === 'Y') {
+          let data=0;
+          if(res.data.data!=null){
+            data=res.data.data;
+          }
+          that.setData({
+            coupon: data
+          });
+
+        }
+      }
+    })
   },
   go_login(){ 
     wx.showToast({

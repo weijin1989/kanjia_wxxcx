@@ -6,7 +6,8 @@
 .header .top{
   display: flex;
   align-items: center;
-  padding:48rpx 26rpx 30rpx 26rpx;
+  padding:48rpx 26rpx 10rpx 26rpx;
+  /* padding:48rpx 26rpx 30rpx 26rpx; */
 }
 .header .top image{
   width: 111rpx;
@@ -17,6 +18,8 @@
 
 .header .top .right{
   flex-grow: 10;
+  width: 400rpx;
+  float:left
 }
 .header .top .right text{
   display: block;
@@ -32,9 +35,37 @@
   color: #9A9A9A;
   padding:5rpx 15rpx;
 }
+.header .top .right1{
+  float:right;
+  text-align: center;
+}
+.header .top .right1{
+  font-size:30rpx;
+  font-weight:normal;
+  color:rgba(4,0,0,1);
+  margin: 0 auto;
+}
+.header .top .right1 view{
+  color:#CDCDCD
+}
 .header .bottom{
   padding-top:44rpx;
 }
+/* .header .bottom{
+  padding-top:14rpx;
+}
+.header .bottom text{
+  text-align: center;
+  display: block;
+  font-size:30rpx;
+  font-weight:normal;
+  color:rgba(4,0,0,1);
+  margin: 0 auto;
+}
+.header .bottom view{
+  text-align: center;
+  font-size:25rpx;
+} */
 .header .bottom .left,.header .bottom .right{
   float:left;
   width: 375rpx;
