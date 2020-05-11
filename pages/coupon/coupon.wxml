@@ -1,0 +1,13 @@
+<view class="container">
+  <view class="p_top bg_fff m_t_22">
+    <view class="li" wx:for="{{coupon}}"  data-index="{{index}}">
+    {{item.subject}}
+    <text>￥{{item.money}}</text>
+    <view class="time">过期时间:{{item.endtime}}</view>
+    <view class="right" wx:if="{{item.status==1}}">未使用</view>
+    <view class="right" wx:elif="{{item.status== 2}}">已使用</view>
+    <view class="right" wx:elif="{{item.status== 3}}">已过期</view>
+    </view>
+    <!-- <view class="li" >萧一潇用户协议</view> -->
+  </view>
+</view>

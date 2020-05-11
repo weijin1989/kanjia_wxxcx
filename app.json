@@ -15,7 +15,9 @@
     "pages/set_up/set_up",
     "pages/comment/comment",
     "pages/commentsuccess/commentsuccess",
-    "pages/h5/h5"
+    "pages/h5/h5",
+    "pages/coupon/coupon"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -42,11 +42,18 @@ Page({
     
   },
 
-  //获取商品评价
+  //去优惠券列表
+  go_coupon:function(){
+    wx.navigateTo({
+      url: '../coupon/coupon',
+    })
+  },
+
+  //获取优惠券
   Getcoupon: function() {
     var that = this;
     var data = {
-      op: 'Getcoupon',
+      op: 'GetcouponStatus',
       memberid: wx.getStorageSync('memberid')
     }
     wx.request({
@@ -58,8 +65,8 @@ Page({
       success(res) {
         if (res.data.isSuccess === 'Y') {
           let data=0;
-          if(res.data.data!=null){
-            data=res.data.data;
+          if(res.data.data[0]!=null){
+            data=res.data.data[0];
           }
           that.setData({
             coupon: data
