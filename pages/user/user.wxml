@@ -30,7 +30,7 @@
         <button wx:if="{{canIUse}}" open-type="getUserInfo" class="login" bindgetuserinfo="bindGetUserInfo">登陆/注册</button>
         <view wx:else>请升级微信版本</view>
       </view>
-      <view class="right1" >
+      <view class="right1" bindtap="go_coupon" >
         <text>{{coupon}}</text>
         <view>优惠券</view>
       </view>
