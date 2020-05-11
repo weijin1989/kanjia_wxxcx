@@ -46,7 +46,8 @@
   margin: 0 auto;
 }
 .header .top .right1 view{
-  color:#CDCDCD
+  color:#CDCDCD;
+  font-size: 26rpx;
 }
 .header .bottom{
   padding-top:44rpx;
