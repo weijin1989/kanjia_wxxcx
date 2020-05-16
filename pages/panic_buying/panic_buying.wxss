@@ -131,7 +131,7 @@
 }
 .list_li .right{
   float:right;
-  width: 400rpx;
+  width: 380rpx;
 }
 .list_li .right .h2{
   font-size:30rpx;

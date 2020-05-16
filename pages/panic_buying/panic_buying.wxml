@@ -30,7 +30,8 @@
 
       <view class="list_li cf" wx:for="{{cp_list}}"  wx:key="{{item.shopid}}"  data-type="{{item.subject}}" data-index="{{index}}">
         <view class="left"  bindtap="toProductInfo" data-id='{{item.shopid}}'>
-        <image  src="{{siteurl}}{{item.imgsrc}}"  mode="aspectFit" ></image></view>
+        <image  src="{{siteurl}}{{item.imgsrc}}"  mode="aspectFit" ></image>
+        </view>
         <view class="right">
           <view class="h2" bindtap="toProductInfo" data-id='{{item.shopid}}'>{{item.subject}}</view>
           <view class="introduction">{{item.mername}} <text>{{item.distance}}km</text></view>
