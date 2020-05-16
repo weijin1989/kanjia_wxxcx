@@ -23,7 +23,7 @@
     </view>
     <view class="nearby bg_fff br_12">
       
-    <product_type modelValue='1' bind:get_cate_shop_event="get_cate_shop_event" ></product_type>
+    <product_type modelValue='2' bind:get_cate_shop_event="get_cate_shop_event" ></product_type>
     </view>
     <!--列表-->
     <view class="list bg_fff">

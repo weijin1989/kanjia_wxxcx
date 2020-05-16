@@ -46,12 +46,16 @@ Component({
     },
     //获取栏目
     get_nav: function () {
-
+      
       var that = this;
-
+      let all=0;
+      if(this.data.modelValue==2){
+        all=1;
+      }
       var data = {
         op: 'GetCategory',
-        type: 'shops'
+        type: 'shops',
+        all:all,
       }
       wx.request({
         url: getApp().globalData.ApiUrl + 'server.php',
