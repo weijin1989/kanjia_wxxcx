@@ -140,9 +140,9 @@ App({
         const longitude = res.longitude // 经度
         that.globalData.latitude = latitude;
         that.globalData.longitude = longitude;
-        // that.wxLogin()
-        // console.log('longitude=' + longitude);
-        // console.log('latitude=' + latitude);
+        that.wxLogin()
+        console.log('longitude=' + longitude);
+        console.log('latitude=' + latitude);
       }, fail: function (res) {
         that.get_location();
         return;

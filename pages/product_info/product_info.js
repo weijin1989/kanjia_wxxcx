@@ -175,12 +175,29 @@ Page({
                 that.setData({
                   disabled:false
                 })
+                
+                var data = {
+                  op: 'PayError',
+                  appflowno: that.data.orderNo,
+                  memberid: wx.getStorageSync('memberid'),
+                }
+                wx.request({
+                  url: getApp().globalData.ApiUrl + 'server.php',
+                  // url: getApp().globalData.ApiUrl + 'get_nav',
+                  data: data,
+                  method: 'POST',
+                  header: getApp().globalData.request_header,
+                  success(res) {
+                    if (res.data.isSuccess === 'Y') {
+                    }
+                  }
+                })
               }
             }
           })
         } else {
           wx.showToast({
-            title: '支付失败',
+            title: res.data.message,
             icon: 'none',
             duration: 2000
           });
